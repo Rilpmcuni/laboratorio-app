@@ -178,6 +178,7 @@ export default function Header() {
                     color="secondary"
                     LinkComponent={Link}
                     href="/Crear"
+                    sx={{ display: { xs: "none", md: "flex" } }}
                 >
                     Crear cuenta
                 </Button>
