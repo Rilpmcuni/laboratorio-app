@@ -237,7 +237,7 @@ function Row(props: {
             </TableRow>
             <div style={{width:"40vw", height:"100vh"}}>
 
-            <Test/>
+            <Test pasa={undefined}/>
             </div>
         </React.Fragment>
     );
