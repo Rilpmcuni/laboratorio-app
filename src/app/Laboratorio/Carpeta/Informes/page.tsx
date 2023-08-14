@@ -100,26 +100,6 @@ export default function Laboratorio() {
     const handleGenerate = () => {
         setGenerate(true);
     };
-
-    const handleRemoveImage = () => {
-        setSelectedImage(null);
-        setLogoEmpresa(null);
-    };
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImage(event.target.files[0]);
-                setLogoEmpresa(reader.result as string);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        } else {
-            setSelectedImage(null);
-            setLogoEmpresa(null);
-        }
-    };
-
     return (
         <main>
             {!generate && (
