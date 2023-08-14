@@ -122,7 +122,7 @@ export default function HormigonFicha() {
         const informeData = localStorage.getItem("informeData");
         let nombreContrato = "";
         if (informeData) {
-            const parsedData: DataInforme = JSON.parse(informeData);
+            const parsedData: any = JSON.parse(informeData);
             nombreContrato = parsedData.nombreContrato;
         }
         setNombreContrato(nombreContrato);
@@ -164,7 +164,7 @@ export default function HormigonFicha() {
           tipoAditivo,
           cantidadAditivo,
           edadEnsaye,
-          muestra: hormigonData.length + 1, // Asignar el número de muestra
+          // Remove muestra property since it does not exist in DataHormigon type
         };
       
         setHormigonData((prevData) => [...prevData, newHormigonData]);
