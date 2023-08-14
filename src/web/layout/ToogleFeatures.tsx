@@ -72,7 +72,7 @@ export default function ToogleFeatures() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        width: { xs: "auto", md: "32rem" },
+                        width: { xs: "auto", md: "30rem" },
                         textTransform: "lowercase",
                     }}
                 >

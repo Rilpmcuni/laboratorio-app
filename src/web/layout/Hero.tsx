@@ -15,6 +15,7 @@ export default function Hero() {
                 justifyContent: "center",
                 // minHeight: "30rem",
                 height: { xs: "auto", md: "30rem" },
+                marginY: { xs: "1rem", md: "auto" },
             }}
         >
             <Stack

@@ -22,9 +22,9 @@ export default function Features() {
         >
             <Box
                 sx={{
-                    width: "50%",
-                    alignSelf: "flex-start",
-                    marginX: "4.5rem",
+                    width: { xs: "auto", md: "50%" },
+                    alignSelf: { xs: "center", md: "flex-start" },
+                    marginX: { xs: "1rem", md: "4.5rem" },
                 }}
             >
                 <Title
@@ -41,8 +41,8 @@ export default function Features() {
                     display: "flex",
                     flexDirection: { xs: "column", md: "row" },
                     alignItems: "center",
-                    justifyContent: "center",
-                    gap: "2.5rem",
+                    justifyContent: "space-around",
+                    // gap: "2.5rem",
                 }}
             >
                 <Logo width={400} />

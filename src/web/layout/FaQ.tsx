@@ -23,9 +23,9 @@ export default function FaQ() {
         >
             <Box
                 sx={{
-                    width: "50%",
-                    alignSelf: "flex-start",
-                    marginX: "4.5rem",
+                    width: { xs: "auto", md: "50%" },
+                    alignSelf: { xs: "center", md: "flex-start" },
+                    marginX: { xs: "1rem", md: "4.5rem" },
                 }}
             >
                 <Title

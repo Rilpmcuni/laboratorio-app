@@ -147,9 +147,9 @@ export default function Prices() {
                     handleAlignment={handleAlignment}
                     alignment={alignment}
                 />
-                <Box sx={{ position: "absolute", right: -145, top: 0 }}>
+                <Box sx={{ position: "absolute", right: -125, top: 0 }}>
                     <Typography
-                        variant="subtitle1"
+                        variant="subtitle2"
                         fontWeight={"bolder"}
                         color={
                             alignment === "Ano"
@@ -177,7 +177,14 @@ export default function Prices() {
                     marginX: "0.5rem",
                 }}
             >
-                <Grid container spacing={1}>
+                <Grid
+                    container
+                    spacing={1}
+                    sx={{
+                        flexDirection: { xs: "column-reverse", md: "unset" },
+                        flexWrap:"wrap"
+                    }}
+                >
                     <>
                         {PricesDataCard.map((Prices: any, index: any) => (
                             <PricesCard

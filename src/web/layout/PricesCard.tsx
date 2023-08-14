@@ -64,7 +64,7 @@ export default function PricesCard({
     }
     return (
         <>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} md={4} sm={12}>
                 <Card
                     variant="outlined"
                     sx={{

@@ -33,6 +33,7 @@ export default function Logo({ width }: { width: any }) {
             >
                 <StyledBadge badgeContent={"beta"} color="secondary">
                     <Image
+                        priority
                         style={{ pointerEvents: "none" }}
                         width={width}
                         src={LogoTamizLA}
