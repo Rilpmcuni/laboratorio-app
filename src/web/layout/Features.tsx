@@ -8,6 +8,8 @@ import Image from "next/image";
 import Curse_laptop from "@/assets/web/curse_laptop.png";
 import Doc_laptop from "@/assets/web/doc_laptop.png";
 import Plataform_laptop from "@/assets/web/plataform_laptop.png";
+import Carousel from "./HeroCarousel";
+import FeatureCarousel from "./FeatureCarousel";
 
 export default function Features() {
     const [feature, setFeature] = React.useState("0feature");
@@ -65,24 +67,44 @@ export default function Features() {
                     alignItems: "center",
                     justifyContent: "space-around",
                     // gap: "2.5rem",
+                    width: { xs: "100%", md: "auto" },
                 }}
             >
-                <Image
-                    // placeholder="blur"
-                    sizes="100vw"
-                    style={{
-                        width: "100%",
-                        height: "auto",
-                        pointerEvents: "none"
+                <Box
+                    sx={{
+                        display: { xs: "none", md: "flex" },
+                        alignItems: "center",
                     }}
-                    src={imageSelect(feature)}
-                    alt={"TamizLA"}
-                />
-                {/* <Logo width={400} /> */}
-                <ToogleFeatures
-                    handleFeature={handleFeature}
-                    feature={feature}
-                />
+                >
+                    <Image
+                        // placeholder="blur"
+                        sizes="100vw"
+                        style={{
+                            width: "100%",
+                            height: "fit-content",
+                            pointerEvents: "none",
+                        }}
+                        src={imageSelect(feature)}
+                        alt={"TamizLA"}
+                    />
+                    <ToogleFeatures
+                        handleFeature={handleFeature}
+                        feature={feature}
+                    />
+                </Box>
+
+                <Box
+                    sx={{
+                        display: { xs: "flex", md: "none" },
+                        width: "95%",
+                        //  height: "14rem",
+                        marginX: "0",
+                        marginTop: "1.5rem",
+                        marginBottom: "0.5rem",
+                    }}
+                >
+                    <FeatureCarousel />
+                </Box>
             </Box>
         </Box>
     );

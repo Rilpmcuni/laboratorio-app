@@ -14,10 +14,10 @@ import Image from "next/image";
 // import './styles.css';
 
 // import required modules
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay, EffectFade } from "swiper/modules";
 import { Box } from "@mui/material";
 
-export default function Carousel() {
+export default function HeroCarousel() {
     const JobsImage = [Curse_laptop, Doc_laptop, Plataform_laptop];
 
     return (
@@ -29,12 +29,13 @@ export default function Carousel() {
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
                 }}
+                effect={"fade"}
                 navigation={true}
                 centeredSlides={false}
                 slidesPerView={1}
                 // slidesPerGroup={1}
                 // spaceBetween={20}
-                modules={[Autoplay, Navigation]}
+                modules={[Autoplay, Navigation, EffectFade]}
                 className="mySwiper"
                 style={{
                     borderRadius: "1.5rem",

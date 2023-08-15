@@ -4,7 +4,7 @@ import React from "react";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
 import Title from "@/components/ui/Title";
-import Carousel from "./HeroCarousel";
+import HeroCarousel from "./HeroCarousel";
 
 export default function Hero() {
     return (
@@ -16,7 +16,7 @@ export default function Hero() {
                 justifyContent: "center",
                 // minHeight: "30rem",
                 height: { xs: "auto", md: "30rem" },
-                marginY: { xs: "1rem", md: "auto" },
+                marginY: { xs: "1.5rem", md: "auto" },
             }}
         >
             <Stack
@@ -69,7 +69,7 @@ export default function Hero() {
                     marginBottom: { xs: "0.5rem", md: "0" },
                 }}
             >
-                <Carousel />
+                <HeroCarousel />
             </Box>
         </Box>
     );

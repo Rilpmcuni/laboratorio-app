@@ -17,6 +17,8 @@ import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import { Button } from "@mui/material";
 import VerDescargarInforme from "@/components/function/VerDescargarInforme";
 import { Test } from "@/components/test/Test";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface DataInforme {
     numeroCarta: number;
@@ -126,6 +128,7 @@ export default function Laboratorio() {
 
         return "";
     };
+    const router = useRouter();
 
     return (
         <>
@@ -156,7 +159,15 @@ export default function Laboratorio() {
             <span style={{ height: "30rem" }}>Hola</span>
             <span style={{ height: "30rem" }}>Hola</span>
             <Box sx={{ height: "300rem" }}>Hola</Box>
-            
+            <Link href={"/Laboratorio/Mi-Laboratorio"}>Inicio</Link>
+            <span
+                onClick={() => {
+                    router.push("/Laboratorio/Mi-Laboratorio");
+                }}
+                style={{ height: "30rem" }}
+            >
+                Hola
+            </span>
         </>
     );
 }

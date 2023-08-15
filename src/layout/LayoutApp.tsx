@@ -32,6 +32,7 @@ import {
     Zoom,
     Collapse,
 } from "@mui/material";
+import Link from "next/link";
 import SpaceDashboardTwoToneIcon from "@mui/icons-material/SpaceDashboardTwoTone";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { ExpandLess, ExpandMore, PersonAdd } from "@mui/icons-material";
@@ -157,14 +158,12 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
             setState({ ...state, [anchor]: false });
         };
     };
-    
-    const handleDrawerItemClick = (path: string, anchor: Anchor) => {
+
+    const handleDrawerItemClick = (anchor: Anchor) => {
         const closeDrawer = handleCloseDrawer(anchor);
         closeDrawer();
-        router.push(path);
     };
-    
-    
+
     const list = (anchor: Anchor) => (
         <Box
             sx={{
@@ -250,6 +249,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                         bgcolor: "Background",
                         justifyContent: "flex-end",
                         padding: 0,
+                        zIndex: 50,
                     }}
                 >
                     <Toolbar
@@ -402,7 +402,9 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                     </Toolbar>
                     <Divider />
                 </AppBar>
+                {/*  */}
 
+                {/*  */}
                 <Drawer
                     sx={{
                         width: drawerWidth,
@@ -411,6 +413,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                             width: drawerWidth,
                             boxSizing: "border-box",
                         },
+                        zIndex: 50,
                     }}
                     variant="permanent"
                     anchor="left"
@@ -448,21 +451,18 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                             const handleSubItem = (subText: string) => {
                                 if (index === 1) {
                                     if (subText === "Carpeta") {
-                                        router.push("/Laboratorio/Carpeta");
+                                        return "/Laboratorio/Carpeta";
                                     } else {
-                                        router.push(
-                                            `/Laboratorio/Carpeta/${subText}`
-                                        );
+                                        return `/Laboratorio/Carpeta/${subText}`;
                                     }
                                 } else if (index === 2) {
                                     if (subText === "Ensayos") {
-                                        router.push("/Laboratorio/Ensayos");
+                                        return "/Laboratorio/Ensayos";
                                     } else {
-                                        router.push(
-                                            `/Laboratorio/Ensayos/${subText}`
-                                        );
+                                        return `/Laboratorio/Ensayos/${subText}`;
                                     }
                                 }
+                                return "";
                             };
 
                             return (
@@ -484,11 +484,12 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                                                     key={
                                                                         subItem.text
                                                                     }
-                                                                    onClick={() =>
-                                                                        handleSubItem(
-                                                                            subItem.text
-                                                                        )
-                                                                    }
+                                                                    component={
+                                                                        Link
+                                                                    } // Use Link as the LinkComponent
+                                                                    href={handleSubItem(
+                                                                        subItem.text
+                                                                    )}
                                                                 >
                                                                     {subIndex ===
                                                                     0
@@ -504,18 +505,18 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                     >
                                         <ListItem disablePadding>
                                             <ListItemButton
+                                                component={Link} // Use Link as the LinkComponent
+                                                href={
+                                                    index === 0
+                                                        ? "/Laboratorio"
+                                                        : `/Laboratorio/${text}`
+                                                }
                                                 onClick={() => {
                                                     if (
                                                         index === 0 ||
                                                         subItems.length === 0
                                                     ) {
-                                                        router.push(
-                                                            "/Laboratorio"
-                                                        );
-                                                    } else {
-                                                        router.push(
-                                                            `/Laboratorio/${text}`
-                                                        );
+                                                        // Do nothing, as Link will handle the navigation
                                                     }
                                                 }}
                                                 sx={{
@@ -598,6 +599,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                     variant="outlined"
                     sx={{
                         border: "none",
+                        zIndex: 50,
                     }}
                 >
                     <Toolbar
@@ -633,11 +635,14 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                             {items.map((item, index) => (
                                                 <React.Fragment key={item.text}>
                                                     <ListItemButton
+                                                        LinkComponent={Link}
+                                                        href={
+                                                            index === 0
+                                                                ? "/Laboratorio"
+                                                                : `/Laboratorio/${item.text}`
+                                                        }
                                                         onClick={() =>
                                                             handleDrawerItemClick(
-                                                                index === 0
-                                                                    ? "/Laboratorio"
-                                                                    : `/Laboratorio/${item.text}`,
                                                                 anchor
                                                             )
                                                         }
@@ -677,12 +682,17 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                                                             key={
                                                                                 subItem.text
                                                                             }
+                                                                            LinkComponent={
+                                                                                Link
+                                                                            }
+                                                                            href={
+                                                                                subIndex ===
+                                                                                0
+                                                                                    ? `/Laboratorio/${item.text}`
+                                                                                    : `/Laboratorio/${item.text}/${subItem.text}`
+                                                                            }
                                                                             onClick={() =>
                                                                                 handleDrawerItemClick(
-                                                                                    subIndex ===
-                                                                                        0
-                                                                                        ? `/Laboratorio/${item.text}`
-                                                                                        : `/Laboratorio/${item.text}/${subItem.text}`,
                                                                                     anchor
                                                                                 )
                                                                             }
