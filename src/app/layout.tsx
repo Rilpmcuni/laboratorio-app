@@ -1,11 +1,9 @@
-"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import Provider from "./Provider";
 import { Link as LinkMui, Typography } from "@mui/material";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const lato = Lato({
     subsets: ["latin"],
@@ -22,34 +20,12 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const pathname = usePathname();
 
     return (
         <html lang="es">
             <body className={lato.className} style={{ margin: 0 }}>
                 <Provider>
-                    <div
-                        style={{
-                            borderRadius: "1.5rem",
-                            // border: "solid 1px black",
-                            position: "fixed",
-                            top: 60,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "100vh",
-                            width: "100%",
-                            // boxShadow: "0px 0px 0px 15px black",
-                            boxShadow: `0px 0px 0px 15px ${
-                                pathname === "/" ? "white" : "#171717"
-                            }`,
-                            zIndex: 40,
-                            pointerEvents: "none",
-                        }}
-                    >
-                        {pathname}
-                    </div>
+                   
                     {children}
                 </Provider>
             </body>
