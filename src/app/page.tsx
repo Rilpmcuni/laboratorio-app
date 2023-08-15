@@ -16,6 +16,24 @@ import { Box } from "@mui/material";
 export default function Home() {
     return (
         <main className={""}>
+            <div
+                style={{
+                    borderRadius: "1.5rem",
+                    // border: "solid 1px black",
+                    position: "fixed",
+                    top: 60,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100vh",
+                    width: "100%",
+                    // boxShadow: "0px 0px 0px 15px black",
+                    boxShadow: "0px 0px 0px 15px white",
+                    zIndex: 40,
+                    pointerEvents: "none",
+                }}
+            ></div>
             <Header />
             <Hero />
             <Features />

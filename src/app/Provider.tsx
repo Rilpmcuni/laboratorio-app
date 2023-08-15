@@ -9,7 +9,6 @@ import { Divider } from "@mui/material";
 import Link from "next/link";
 import NextNProgressClient from "@/components/feedback/NextNProgressClient";
 // import Footer from "@/layouts/Footer";
-import { usePathname } from "next/navigation";
 
 const lato = Lato({
     subsets: ["latin"],
@@ -85,7 +84,6 @@ type Props = {
 };
 
 const Provider: React.FC<Props> = ({ children }) => {
-    const pathname = usePathname();
     return (
         <ThemeProvider theme={theme}>
             <NextNProgressClient />
@@ -99,28 +97,7 @@ const Provider: React.FC<Props> = ({ children }) => {
             {/* <Header /> */}
             {children}
             {/* <Footer /> */}
-            <div
-                        style={{
-                            borderRadius: "1.5rem",
-                            // border: "solid 1px black",
-                            position: "fixed",
-                            top: 60,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "100vh",
-                            width: "100%",
-                            // boxShadow: "0px 0px 0px 15px black",
-                            boxShadow: `0px 0px 0px 15px ${
-                                pathname === "/" ? "white" : "#171717"
-                            }`,
-                            zIndex: 40,
-                            pointerEvents: "none",
-                        }}
-                    >
-                        {pathname}
-                    </div>
+            
         </ThemeProvider>
     );
 };
