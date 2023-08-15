@@ -37,7 +37,8 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
             borderRadius: theme.shape.borderRadius,
         },
         "&:hover": {
-            backgroundColor: "theme.palette.text.caption",
+            // backgroundColor: "theme.palette.text.caption",
+            opacity: "0.7",
             transition: "ease all 250ms",
         },
     },

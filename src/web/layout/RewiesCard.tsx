@@ -17,14 +17,11 @@ export default function RewiesCard({ Features }: { Features: any }) {
                 <Card
                     variant="outlined"
                     sx={{
-                        userSelect: "none",
                         position: "relative",
                         overflow: "visible",
-                        cursor: "pointer",
                         borderRadius:"1rem"
                     }}
                 >
-                    <CardActionArea>
                         <CardContent>
                             <Stack direction="column" spacing={1}>
                                 <Stack direction="row" spacing={0}>
@@ -81,7 +78,6 @@ export default function RewiesCard({ Features }: { Features: any }) {
                                 </Box>
                             </Stack>
                         </CardContent>
-                    </CardActionArea>
                 </Card>
             </Grid>
         </>

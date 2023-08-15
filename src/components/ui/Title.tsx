@@ -33,7 +33,6 @@ export default function Title({
                     {title}
                 </Typography>
                 <Typography
-                    gutterBottom
                     marginBottom={"2rem"}
                     variant="h3"
                     fontWeight={"bolder"}
@@ -50,6 +49,7 @@ export default function Title({
                     {subTitle}
                 </Typography>
                 <Typography
+                    paragraph
                     variant="body2"
                     sx={{
                         backgroundcolor: "primary.main",
@@ -59,7 +59,7 @@ export default function Title({
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
-                        fontWeight:"bold"
+                        fontWeight: "bold",
                     }}
                 >
                     {parraph}

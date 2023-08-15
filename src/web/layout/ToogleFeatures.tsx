@@ -29,15 +29,21 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
 }));
 
-export default function ToogleFeatures() {
-    const [alignment, setAlignment] = React.useState("1center");
+export default function ToogleFeatures({
+    handleFeature,feature
+}: {
+    handleFeature: any;
+    feature:any
+}) {
+    // const [alignment, setAlignment] = React.useState("0feature");
 
-    const handleAlignment = (
-        event: React.MouseEvent<HTMLElement>,
-        newAlignment: string
-    ) => {
-        setAlignment(newAlignment);
-    };
+    // const handleAlignment = (
+    //     event: React.MouseEvent<HTMLElement>,
+    //     newAlignment: string
+    // ) => {
+    //     setAlignment(newAlignment);
+    // };
+
     const FeaturesList = [
         {
             ico: <DescriptionOutlinedIcon color="primary" />,
@@ -58,16 +64,17 @@ export default function ToogleFeatures() {
                 "Una aplicación multiplataforma, lo que significa que está disponible en diferentes sistemas operativos y dispositivos, como PC, tabletas y teléfonos móviles. Esto permite que los usuarios accedan a la aplicación en cualquier momento y lugar, lo que los hace más eficientes en su trabajo.",
         },
     ];
+
     return (
         <>
             <>
                 <StyledToggleButtonGroup
                     orientation="vertical"
                     size="large"
-                    value={alignment}
+                    value={feature}
                     exclusive
-                    onChange={handleAlignment}
-                    aria-label="text alignment"
+                    onChange={handleFeature}
+                    aria-label="Feature"
                     sx={{
                         display: "flex",
                         flexDirection: "column",

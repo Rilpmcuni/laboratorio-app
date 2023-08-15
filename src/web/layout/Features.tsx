@@ -4,8 +4,30 @@ import { Box, Stack } from "@mui/material";
 import React from "react";
 import ToogleFeatures from "./ToogleFeatures";
 import Logo from "@/components/ui/Logo";
+import Image from "next/image";
+import Curse_laptop from "@/assets/web/curse_laptop.png";
+import Doc_laptop from "@/assets/web/doc_laptop.png";
+import Plataform_laptop from "@/assets/web/plataform_laptop.png";
 
 export default function Features() {
+    const [feature, setFeature] = React.useState("0feature");
+
+    const handleFeature = (
+        event: React.MouseEvent<HTMLElement>,
+        newFeature: string
+    ) => {
+        setFeature(newFeature);
+    };
+
+    function imageSelect(numero: any): any {
+        const feature: { [key: string]: any } = {
+            "0feature": Doc_laptop,
+            "1feature": Curse_laptop,
+            "2feature": Plataform_laptop,
+        };
+
+        return feature[numero as keyof typeof feature] || "Curse_laptop";
+    }
     return (
         <Box
             sx={{
@@ -45,8 +67,22 @@ export default function Features() {
                     // gap: "2.5rem",
                 }}
             >
-                <Logo width={400} />
-                <ToogleFeatures />
+                <Image
+                    // placeholder="blur"
+                    sizes="100vw"
+                    style={{
+                        width: "100%",
+                        height: "auto",
+                        pointerEvents: "none"
+                    }}
+                    src={imageSelect(feature)}
+                    alt={"TamizLA"}
+                />
+                {/* <Logo width={400} /> */}
+                <ToogleFeatures
+                    handleFeature={handleFeature}
+                    feature={feature}
+                />
             </Box>
         </Box>
     );

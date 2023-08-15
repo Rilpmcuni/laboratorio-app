@@ -94,7 +94,7 @@ export default function PricesCard({
                                     <Typography
                                         variant="subtitle1"
                                         component="div"
-                                        fontWeight={600}
+                                        fontWeight={"1000"}
                                         // color={
                                         //     index === 2 ? "secondary.main" : "auto"
                                         // }
@@ -114,7 +114,7 @@ export default function PricesCard({
                                     <Typography
                                         variant="subtitle1"
                                         component="div"
-                                        fontWeight={600}
+                                        fontWeight={"1000"}
                                     >
                                         {Prices.title}
                                     </Typography>
@@ -249,7 +249,7 @@ export default function PricesCard({
                                 variant="contained"
                                 color={index === 2 ? "primary" : "secondary"}
                                 LinkComponent={Link}
-                                href="/Iniciar"
+                                href="/Laboratorio"
                                 // sx={{
                                 //     border: index === 2 ? "3px solid #ffd234" : "auto",
                                 // }}

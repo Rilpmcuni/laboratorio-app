@@ -168,7 +168,7 @@ export default function Header() {
                     variant="contained"
                     color="primary"
                     LinkComponent={Link}
-                    href="/Iniciar"
+                    href="/Laboratorio"
                 >
                     Iniciar sesión
                 </Button>
@@ -177,7 +177,7 @@ export default function Header() {
                     variant="outlined"
                     color="secondary"
                     LinkComponent={Link}
-                    href="/Crear"
+                    href="/Laboratorio"
                     sx={{ display: { xs: "none", md: "flex" } }}
                 >
                     Crear cuenta

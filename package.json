@@ -19,6 +19,7 @@
     "@types/react-dom": "18.2.6",
     "chart.js": "^4.3.3",
     "next": "13.4.9",
+    "next-nprogress-bar": "^2.1.0",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
@@ -26,6 +27,7 @@
     "react-pdf": "^7.1.2",
     "react-virtuoso": "^4.4.1",
     "remark-gfm": "^3.0.1",
+    "swiper": "^10.1.0",
     "typescript": "5.1.6"
   }
 }

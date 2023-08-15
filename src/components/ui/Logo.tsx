@@ -2,7 +2,6 @@
 import Image from "next/image";
 import React from "react";
 import LogoTamizLA from "@/assets/LogoTamizLA.svg";
-import { Box, Typography } from "@mui/material";
 import Badge, { BadgeProps } from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { Link as LinkMui } from "@mui/material";

@@ -55,7 +55,7 @@ export default function GetIt() {
                     variant="outlined"
                     color="primary"
                     LinkComponent={Link}
-                    href="/Crear"
+                    href="/Laboratorio"
                 >
                     Crear cuenta
                 </Button>

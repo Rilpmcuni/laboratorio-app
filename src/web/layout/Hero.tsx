@@ -4,6 +4,7 @@ import React from "react";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
 import Title from "@/components/ui/Title";
+import Carousel from "./HeroCarousel";
 
 export default function Hero() {
     return (
@@ -20,9 +21,9 @@ export default function Hero() {
         >
             <Stack
                 direction={"column"}
-                spacing={3}
+                spacing={0}
                 sx={{
-                    width: { xs: "90%", md: "60%" },
+                    width: { xs: "90%", md: "50%" },
                 }}
             >
                 <Title
@@ -39,7 +40,7 @@ export default function Hero() {
                         variant="outlined"
                         color="secondary"
                         LinkComponent={Link}
-                        href="/Crear"
+                        href="/Laboratorio"
                     >
                         Crear cuenta
                     </Button>
@@ -47,14 +48,29 @@ export default function Hero() {
                         variant="contained"
                         color="secondary"
                         LinkComponent={Link}
-                        href="/Iniciar"
+                        href="/Laboratorio"
                     >
                         Iniciar sesión
                     </Button>
                 </Stack>
             </Stack>
 
-            <Logo width={300} />
+            {/* <Logo width={300} /> */}
+            {/*  */}
+            {/* <Box sx={{ height: "14rem", margin: "0 auto" }}>
+                <Carousel />
+            </Box> */}
+            <Box
+                sx={{
+                    width: { xs: "100%", md: "40%" },
+                    //  height: "14rem",
+                    marginX: "0",
+                    marginTop: { xs: "1.5rem", md: "0" },
+                    marginBottom: { xs: "0.5rem", md: "0" },
+                }}
+            >
+                <Carousel />
+            </Box>
         </Box>
     );
 }

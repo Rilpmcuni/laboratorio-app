@@ -15,14 +15,11 @@ export default function FeaturesTwoCard({ Features }: { Features: any }) {
                 <Card
                     variant="outlined"
                     sx={{
-                        userSelect: "none",
                         position: "relative",
                         overflow: "visible",
-                        cursor: "pointer",
                         borderRadius:"1rem"
                     }}
                 >
-                    <CardActionArea>
                         <CardContent>
                             <Stack direction="column" spacing={0}>
                                 <Typography
@@ -44,7 +41,6 @@ export default function FeaturesTwoCard({ Features }: { Features: any }) {
                                 {Features.description}
                             </Typography>
                         </CardContent>
-                    </CardActionArea>
                 </Card>
             </Grid>
         </>

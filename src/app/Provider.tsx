@@ -7,6 +7,7 @@ import { Lato } from "next/font/google";
 // import Top from "@/layouts/Top";
 import { Divider } from "@mui/material";
 import Link from "next/link";
+import NextNProgressClient from "@/components/feedback/NextNProgressClient";
 // import Footer from "@/layouts/Footer";
 
 const lato = Lato({
@@ -85,6 +86,7 @@ type Props = {
 const Provider: React.FC<Props> = ({ children }) => {
     return (
         <ThemeProvider theme={theme}>
+            <NextNProgressClient />
             {/* <div style={{ zIndex: "50", position: "absolute" }}>
                 <Link href={"/Inicio"}>Inicio</Link>
                 <Link href={"/Laboratorio"}>Laboratorio</Link>

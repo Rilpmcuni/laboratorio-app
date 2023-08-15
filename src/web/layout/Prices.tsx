@@ -147,7 +147,16 @@ export default function Prices() {
                     handleAlignment={handleAlignment}
                     alignment={alignment}
                 />
-                <Box sx={{ position: "absolute", right: -125, top: 0 }}>
+                <Box
+                    sx={{
+                        position: "absolute",
+                        right: -125,
+                        top: 0,
+
+                        // pointerEvents: "none",
+                        userSelect:"none"
+                    }}
+                >
                     <Typography
                         variant="subtitle2"
                         fontWeight={"bolder"}
@@ -182,7 +191,7 @@ export default function Prices() {
                     spacing={1}
                     sx={{
                         flexDirection: { xs: "column-reverse", md: "unset" },
-                        flexWrap:"wrap"
+                        flexWrap: "wrap",
                     }}
                 >
                     <>
