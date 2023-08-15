@@ -30,10 +30,11 @@ import {
     MenuItem,
     Paper,
     Zoom,
+    Collapse,
 } from "@mui/material";
 import SpaceDashboardTwoToneIcon from "@mui/icons-material/SpaceDashboardTwoTone";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
-import { PersonAdd } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, PersonAdd } from "@mui/icons-material";
 import { Settings } from "@mui/icons-material";
 import { Logout } from "@mui/icons-material";
 import Logo from "@/../public/assets/img/IconoMiniTamizLA.svg";
@@ -45,9 +46,12 @@ import FeedTwoToneIcon from "@mui/icons-material/FeedTwoTone";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
 import LogoName from "@/components/ui/LogoName";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+
+import InboxIcon from "@mui/icons-material/MoveToInbox";
 
 const drawerWidth = 80;
-
+type Anchor = "top" | "left" | "bottom" | "right";
 export default function LayoutApp({ children }: { children: React.ReactNode }) {
     const theme = useTheme();
 
@@ -123,7 +127,115 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
             margin: "0",
         },
     }));
+    /* list drawer */
+    const [state, setState] = React.useState({
+        top: false,
+        left: false,
+        bottom: false,
+        right: false,
+    });
 
+    const toggleDrawer =
+        (anchor: Anchor, open: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event &&
+                event.type === "keydown" &&
+                ((event as React.KeyboardEvent).key === "Tab" ||
+                    (event as React.KeyboardEvent).key === "Shift")
+            ) {
+                return;
+            }
+
+            setState({ ...state, [anchor]: open });
+        };
+    const handleListItemClick = (path: string) => {
+        router.push(path);
+    };
+    const handleCloseDrawer = (anchor: Anchor) => {
+        return () => {
+            setState({ ...state, [anchor]: false });
+        };
+    };
+    
+    const handleDrawerItemClick = (path: string, anchor: Anchor) => {
+        const closeDrawer = handleCloseDrawer(anchor);
+        closeDrawer();
+        router.push(path);
+    };
+    
+    
+    const list = (anchor: Anchor) => (
+        <Box
+            sx={{
+                width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+            }}
+            role="presentation"
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                {items.map((item, index) => (
+                    <React.Fragment key={item.text}>
+                        <ListItemButton
+                            onClick={() =>
+                                handleListItemClick(
+                                    index === 0
+                                        ? "/Laboratorio"
+                                        : `/Laboratorio/${item.text}`
+                                )
+                            }
+                        >
+                            <ListItemIcon>{item.icon}</ListItemIcon>
+                            <ListItemText primary={item.text} />
+                            {item.subItems.length > 0 ? (
+                                state[anchor] ? (
+                                    <ExpandLess />
+                                ) : (
+                                    <ExpandMore />
+                                )
+                            ) : null}
+                        </ListItemButton>
+                        {item.subItems.length > 0 && (
+                            <Collapse
+                                in={state[anchor]}
+                                timeout="auto"
+                                unmountOnExit
+                            >
+                                <List component="div" disablePadding>
+                                    {item.subItems.map((subItem, subIndex) => (
+                                        <ListItemButton
+                                            key={subItem.text}
+                                            onClick={() =>
+                                                handleListItemClick(
+                                                    index === 1
+                                                        ? "/Laboratorio/Carpeta"
+                                                        : `/Laboratorio/Carpeta/${subItem.text}`
+                                                )
+                                            }
+                                            sx={{ pl: 4 }}
+                                        >
+                                            <ListItemIcon>
+                                                {subItem.icon}
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={subItem.text}
+                                            />
+                                        </ListItemButton>
+                                    ))}
+                                </List>
+                            </Collapse>
+                        )}
+                    </React.Fragment>
+                ))}
+            </List>
+        </Box>
+    );
+    /*  */
+    /*  */
+    /*  */
+    /*  */
+    /*  */
+    /*  */
     return (
         <Box sx={{ display: "flex" }}>
             {/* desktop */}
@@ -480,21 +592,153 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
             {/* desktop */}
             {/* mobile */}
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                <AppBar position="fixed" color="secondary" variant="outlined">
-                    <Toolbar sx={{flexDirection:"row",justifyContent:"space-between", alignItems:"center"}}>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                <AppBar
+                    position="fixed"
+                    color="secondary"
+                    variant="outlined"
+                    sx={{
+                        border: "none",
+                    }}
+                >
+                    <Toolbar
+                        sx={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        {(["left"] as const).map((anchor) => (
+                            <React.Fragment key={anchor}>
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="menu"
+                                    sx={{ mr: 2 }}
+                                    onClick={toggleDrawer(anchor, true)}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <SwipeableDrawer
+                                    anchor={anchor}
+                                    open={state[anchor]}
+                                    onClose={toggleDrawer(anchor, false)}
+                                    onOpen={toggleDrawer(anchor, true)}
+                                >
+                                    <Box
+                                        role="presentation"
+                                        onKeyDown={toggleDrawer(anchor, false)}
+                                    >
+                                        <List>
+                                            {items.map((item, index) => (
+                                                <React.Fragment key={item.text}>
+                                                    <ListItemButton
+                                                        onClick={() =>
+                                                            handleDrawerItemClick(
+                                                                index === 0
+                                                                    ? "/Laboratorio"
+                                                                    : `/Laboratorio/${item.text}`,
+                                                                anchor
+                                                            )
+                                                        }
+                                                    >
+                                                        <ListItemIcon>
+                                                            {item.icon}
+                                                        </ListItemIcon>
+                                                        <ListItemText
+                                                            primary={item.text}
+                                                        />
+                                                        {item.subItems.length >
+                                                        0 ? (
+                                                            state[anchor] ? (
+                                                                <ExpandLess />
+                                                            ) : (
+                                                                <ExpandMore />
+                                                            )
+                                                        ) : null}
+                                                    </ListItemButton>
+                                                    {item.subItems.length >
+                                                        0 && (
+                                                        <Collapse
+                                                            in={state[anchor]}
+                                                            timeout="auto"
+                                                            unmountOnExit
+                                                        >
+                                                            <List
+                                                                component="div"
+                                                                disablePadding
+                                                            >
+                                                                {item.subItems.map(
+                                                                    (
+                                                                        subItem,
+                                                                        subIndex
+                                                                    ) => (
+                                                                        <ListItemButton
+                                                                            key={
+                                                                                subItem.text
+                                                                            }
+                                                                            onClick={() =>
+                                                                                handleDrawerItemClick(
+                                                                                    subIndex ===
+                                                                                        0
+                                                                                        ? `/Laboratorio/${item.text}`
+                                                                                        : `/Laboratorio/${item.text}/${subItem.text}`,
+                                                                                    anchor
+                                                                                )
+                                                                            }
+                                                                            sx={{
+                                                                                pl: 4,
+                                                                            }}
+                                                                        >
+                                                                            <ListItemIcon>
+                                                                                {
+                                                                                    subItem.icon
+                                                                                }
+                                                                            </ListItemIcon>
+                                                                            <ListItemText
+                                                                                primary={
+                                                                                    subItem.text
+                                                                                }
+                                                                            />
+                                                                        </ListItemButton>
+                                                                    )
+                                                                )}
+                                                            </List>
+                                                        </Collapse>
+                                                    )}
+                                                </React.Fragment>
+                                            ))}
+                                        </List>
+                                    </Box>
+                                </SwipeableDrawer>
+                            </React.Fragment>
+                        ))}
+
                         <LogoName />
-                        <Button color="inherit">Login</Button>
+                        <Tooltip
+                            title="Configurar Perfil"
+                            arrow
+                            TransitionComponent={Zoom}
+                            disableInteractive
+                        >
+                            <IconButton
+                                onClick={handleClick}
+                                size="small"
+                                sx={{ ml: 2 }}
+                                aria-controls={
+                                    open ? "account-menu" : undefined
+                                }
+                                aria-haspopup="true"
+                                aria-expanded={open ? "true" : undefined}
+                            >
+                                <Avatar sx={{ width: 32, height: 32 }}>
+                                    C
+                                </Avatar>
+                            </IconButton>
+                        </Tooltip>
                     </Toolbar>
                 </AppBar>
+                {/*  */}
             </Box>
             {/* mobile */}
 

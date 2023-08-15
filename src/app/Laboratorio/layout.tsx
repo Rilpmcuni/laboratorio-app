@@ -14,7 +14,7 @@ export default function RootLaboratorio({
 }) {
     return (
         <>
-            <body>
+            <body style={{ margin: 0 }}>
                 <div
                     style={{
                         borderRadius: "1.5rem",
