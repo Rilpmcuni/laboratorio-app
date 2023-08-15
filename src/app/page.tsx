@@ -18,8 +18,6 @@ export default function Home() {
         <main className={""}>
             <Header />
             <Hero />
-
-            
             <Features />
             <FeaturesTwo />
             <GetIt />
@@ -28,10 +26,6 @@ export default function Home() {
             <Prices />
             <FaQ />
             <Footer />
-            <div>
-                Nada
-                <Link href="/Laboratorio">Laboratorio</Link>
-            </div>
         </main>
     );
 }

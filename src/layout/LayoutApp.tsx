@@ -1,4 +1,9 @@
 "use client";
+
+import Typography from "@mui/material/Typography";
+
+import MenuIcon from "@mui/icons-material/Menu";
+/*  */
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -39,6 +44,7 @@ import ScienceTwoToneIcon from "@mui/icons-material/ScienceTwoTone";
 import FeedTwoToneIcon from "@mui/icons-material/FeedTwoTone";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
+import LogoName from "@/components/ui/LogoName";
 
 const drawerWidth = 80;
 
@@ -120,51 +126,53 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
     return (
         <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: `calc(100% - ${drawerWidth}px)`,
-                    ml: `${drawerWidth}px`,
-                    boxShadow: 0,
-                    bgcolor: "Background",
-                    justifyContent: "flex-end",
-                    padding: 0,
-                }}
-            >
-                <Toolbar
+            {/* desktop */}
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <CssBaseline />
+                <AppBar
+                    position="fixed"
                     sx={{
-                        display: "flex",
+                        width: `calc(100% - ${drawerWidth}px)`,
+                        ml: `${drawerWidth}px`,
+                        boxShadow: 0,
+                        bgcolor: "Background",
                         justifyContent: "flex-end",
                         padding: 0,
                     }}
                 >
-                    <Box
+                    <Toolbar
                         sx={{
                             display: "flex",
-                            alignItems: "center",
-                            textAlign: "center",
+                            justifyContent: "flex-end",
+                            padding: 0,
                         }}
                     >
-                        <Button
-                            startIcon={
-                                <VerifiedOutlinedIcon
-                                    sx={{ color: "yellow" }}
-                                />
-                            }
+                        <Box
                             sx={{
-                                minWidth: 100,
-                                boxShadow: 0,
-                                "&:hover": {
-                                    boxShadow: 0,
-                                },
-                                textTransform: "lowercase",
+                                display: "flex",
+                                alignItems: "center",
+                                textAlign: "center",
                             }}
-                            variant="outlined"
                         >
-                            Actualizate al plan "Laboratorista"
-                        </Button>
-                        {/* <Button
+                            <Button
+                                startIcon={
+                                    <VerifiedOutlinedIcon
+                                        sx={{ color: "yellow" }}
+                                    />
+                                }
+                                sx={{
+                                    minWidth: 100,
+                                    boxShadow: 0,
+                                    "&:hover": {
+                                        boxShadow: 0,
+                                    },
+                                    textTransform: "lowercase",
+                                }}
+                                variant="outlined"
+                            >
+                                Actualizate al plan "Laboratorista"
+                            </Button>
+                            {/* <Button
                             startIcon={
                                 <FavoriteBorderRoundedIcon
                                     sx={{ color: "red" }}
@@ -183,286 +191,316 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                             ¡Apóyanos!
                         </Button> */}
 
-                        <Tooltip
-                            title="Configurar Perfil"
-                            arrow
-                            TransitionComponent={Zoom}
-                            disableInteractive
-                        >
-                            <IconButton
-                                onClick={handleClick}
-                                size="small"
-                                sx={{ ml: 2 }}
-                                aria-controls={
-                                    open ? "account-menu" : undefined
-                                }
-                                aria-haspopup="true"
-                                aria-expanded={open ? "true" : undefined}
+                            <Tooltip
+                                title="Configurar Perfil"
+                                arrow
+                                TransitionComponent={Zoom}
+                                disableInteractive
                             >
-                                <Avatar sx={{ width: 32, height: 32 }}>
-                                    C
-                                </Avatar>
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
-                    <Menu
-                        TransitionComponent={Zoom}
-                        anchorEl={anchorEl}
-                        id="account-menu"
-                        open={open}
-                        onClose={handleClose}
-                        onClick={handleClose}
-                        PaperProps={{
-                            elevation: 0,
-                            sx: {
-                                overflow: "visible",
-                                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                                mt: 1.5,
-                                "& .MuiAvatar-root": {
-                                    width: 32,
-                                    height: 32,
-                                    ml: -0.5,
-                                    mr: 1,
+                                <IconButton
+                                    onClick={handleClick}
+                                    size="small"
+                                    sx={{ ml: 2 }}
+                                    aria-controls={
+                                        open ? "account-menu" : undefined
+                                    }
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? "true" : undefined}
+                                >
+                                    <Avatar sx={{ width: 32, height: 32 }}>
+                                        C
+                                    </Avatar>
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                        <Menu
+                            TransitionComponent={Zoom}
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={open}
+                            onClose={handleClose}
+                            onClick={handleClose}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: "visible",
+                                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                                    mt: 1.5,
+                                    "& .MuiAvatar-root": {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    "&:before": {
+                                        content: '""',
+                                        display: "block",
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: "background.paper",
+                                        transform:
+                                            "translateY(-50%) rotate(45deg)",
+                                        zIndex: 0,
+                                    },
                                 },
-                                "&:before": {
-                                    content: '""',
-                                    display: "block",
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 14,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: "background.paper",
-                                    transform: "translateY(-50%) rotate(45deg)",
-                                    zIndex: 0,
-                                },
-                            },
-                        }}
-                        transformOrigin={{
-                            horizontal: "right",
-                            vertical: "top",
-                        }}
-                        anchorOrigin={{
-                            horizontal: "right",
-                            vertical: "bottom",
-                        }}
-                    >
-                        <MenuItem onClick={handleClose}>
-                            <Avatar /> Perfil
-                        </MenuItem>
-                        <MenuItem
-                            onClick={() => {
-                                handleClose();
-                                router.push("/Laboratorio/Mi-Laboratorio");
+                            }}
+                            transformOrigin={{
+                                horizontal: "right",
+                                vertical: "top",
+                            }}
+                            anchorOrigin={{
+                                horizontal: "right",
+                                vertical: "bottom",
                             }}
                         >
-                            <Avatar /> Mi Laboratorio
-                        </MenuItem>
-                        <Divider />
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <PersonAdd fontSize="small" />
-                            </ListItemIcon>
-                            Añadir otra cuenta
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <Settings fontSize="small" />
-                            </ListItemIcon>
-                            Configuración
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <ListItemIcon>
-                                <Logout fontSize="small" />
-                            </ListItemIcon>
-                            Cerrar sesión
-                        </MenuItem>
-                    </Menu>
-                </Toolbar>
-                <Divider />
-            </AppBar>
+                            <MenuItem onClick={handleClose}>
+                                <Avatar /> Perfil
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => {
+                                    handleClose();
+                                    router.push("/Laboratorio/Mi-Laboratorio");
+                                }}
+                            >
+                                <Avatar /> Mi Laboratorio
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem onClick={handleClose}>
+                                <ListItemIcon>
+                                    <PersonAdd fontSize="small" />
+                                </ListItemIcon>
+                                Añadir otra cuenta
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <ListItemIcon>
+                                    <Settings fontSize="small" />
+                                </ListItemIcon>
+                                Configuración
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <ListItemIcon>
+                                    <Logout fontSize="small" />
+                                </ListItemIcon>
+                                Cerrar sesión
+                            </MenuItem>
+                        </Menu>
+                    </Toolbar>
+                    <Divider />
+                </AppBar>
 
-            <Drawer
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    "& .MuiDrawer-paper": {
-                        width: drawerWidth,
-                        boxSizing: "border-box",
-                    },
-                }}
-                variant="permanent"
-                anchor="left"
-                PaperProps={{
-                    sx: {
-                        borderRight: "1px dashed #d9d9d9",
-                    },
-                }}
-            >
-                <Toolbar
+                <Drawer
                     sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        width: drawerWidth,
+                        flexShrink: 0,
+                        "& .MuiDrawer-paper": {
+                            width: drawerWidth,
+                            boxSizing: "border-box",
+                        },
+                    }}
+                    variant="permanent"
+                    anchor="left"
+                    PaperProps={{
+                        sx: {
+                            borderRight: "1px dashed #d9d9d9",
+                        },
                     }}
                 >
-                    <Image
-                        src={Logo}
-                        alt={"Logo"}
-                        fill={true}
-                        style={{
-                            padding: 8,
+                    <Toolbar
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
-                    />
-                </Toolbar>
+                    >
+                        <Image
+                            src={Logo}
+                            alt={"Logo"}
+                            fill={true}
+                            style={{
+                                padding: 8,
+                            }}
+                        />
+                    </Toolbar>
 
-                <List>
-                    {items.map((item, index) => {
-                        const { text, icon, subItems } = item;
+                    <List>
+                        {items.map((item, index) => {
+                            const { text, icon, subItems } = item;
 
-                        const isActive =
-                            (index === 0 && pathname === "/Laboratorio") ||
-                            pathname.startsWith(`/Laboratorio/${text}`);
+                            const isActive =
+                                (index === 0 && pathname === "/Laboratorio") ||
+                                pathname.startsWith(`/Laboratorio/${text}`);
 
-                        const handleSubItem = (subText: string) => {
-                            if (index === 1) {
-                                if (subText === "Carpeta") {
-                                    router.push("/Laboratorio/Carpeta");
-                                } else {
-                                    router.push(
-                                        `/Laboratorio/Carpeta/${subText}`
-                                    );
-                                }
-                            } else if (index === 2) {
-                                if (subText === "Ensayos") {
-                                    router.push("/Laboratorio/Ensayos");
-                                } else {
-                                    router.push(
-                                        `/Laboratorio/Ensayos/${subText}`
-                                    );
-                                }
-                            }
-                        };
-
-                        return (
-                            <React.Fragment key={text}>
-                                <LightTooltip
-                                    TransitionComponent={Zoom}
-                                    placement="right"
-                                    arrow
-                                    title={
-                                        <React.Fragment>
-                                            <Paper>
-                                                <MenuList>
-                                                    {subItems.map(
-                                                        (subItem, subIndex) => (
-                                                            <MenuItem
-                                                                key={
-                                                                    subItem.text
-                                                                }
-                                                                onClick={() =>
-                                                                    handleSubItem(
-                                                                        subItem.text
-                                                                    )
-                                                                }
-                                                            >
-                                                                {subIndex === 0
-                                                                    ? text
-                                                                    : subItem.text}
-                                                            </MenuItem>
-                                                        )
-                                                    )}
-                                                </MenuList>
-                                            </Paper>
-                                        </React.Fragment>
+                            const handleSubItem = (subText: string) => {
+                                if (index === 1) {
+                                    if (subText === "Carpeta") {
+                                        router.push("/Laboratorio/Carpeta");
+                                    } else {
+                                        router.push(
+                                            `/Laboratorio/Carpeta/${subText}`
+                                        );
                                     }
-                                >
-                                    <ListItem disablePadding>
-                                        <ListItemButton
-                                            onClick={() => {
-                                                if (
-                                                    index === 0 ||
-                                                    subItems.length === 0
-                                                ) {
-                                                    router.push("/Laboratorio");
-                                                } else {
-                                                    router.push(
-                                                        `/Laboratorio/${text}`
-                                                    );
-                                                }
-                                            }}
-                                            sx={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                color: isActive
-                                                    ? "primary.main"
-                                                    : "",
-                                                bgcolor: isActive
-                                                    ? alpha(
-                                                          theme.palette.primary
-                                                              .main,
-                                                          0.1
-                                                      )
-                                                    : "",
-                                            }}
-                                        >
-                                            <ListItemIcon
+                                } else if (index === 2) {
+                                    if (subText === "Ensayos") {
+                                        router.push("/Laboratorio/Ensayos");
+                                    } else {
+                                        router.push(
+                                            `/Laboratorio/Ensayos/${subText}`
+                                        );
+                                    }
+                                }
+                            };
+
+                            return (
+                                <React.Fragment key={text}>
+                                    <LightTooltip
+                                        TransitionComponent={Zoom}
+                                        placement="right"
+                                        arrow
+                                        title={
+                                            <React.Fragment>
+                                                <Paper>
+                                                    <MenuList>
+                                                        {subItems.map(
+                                                            (
+                                                                subItem,
+                                                                subIndex
+                                                            ) => (
+                                                                <MenuItem
+                                                                    key={
+                                                                        subItem.text
+                                                                    }
+                                                                    onClick={() =>
+                                                                        handleSubItem(
+                                                                            subItem.text
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {subIndex ===
+                                                                    0
+                                                                        ? text
+                                                                        : subItem.text}
+                                                                </MenuItem>
+                                                            )
+                                                        )}
+                                                    </MenuList>
+                                                </Paper>
+                                            </React.Fragment>
+                                        }
+                                    >
+                                        <ListItem disablePadding>
+                                            <ListItemButton
+                                                onClick={() => {
+                                                    if (
+                                                        index === 0 ||
+                                                        subItems.length === 0
+                                                    ) {
+                                                        router.push(
+                                                            "/Laboratorio"
+                                                        );
+                                                    } else {
+                                                        router.push(
+                                                            `/Laboratorio/${text}`
+                                                        );
+                                                    }
+                                                }}
                                                 sx={{
-                                                    position: "relative",
                                                     display: "flex",
-                                                    flexDirection: "row",
+                                                    flexDirection: "column",
                                                     alignItems: "center",
                                                     justifyContent: "center",
                                                     color: isActive
                                                         ? "primary.main"
                                                         : "",
+                                                    bgcolor: isActive
+                                                        ? alpha(
+                                                              theme.palette
+                                                                  .primary.main,
+                                                              0.1
+                                                          )
+                                                        : "",
                                                 }}
                                             >
-                                                {icon}
-                                                {subItems.length > 0 && (
-                                                    <KeyboardArrowRightRoundedIcon
-                                                        fontSize="small"
-                                                        sx={{
-                                                            position:
-                                                                "absolute",
-                                                            top: 0,
-                                                            display: "flex",
-                                                            bottom: 0,
-                                                            right: -4,
-                                                            alignItems:
-                                                                "center",
-                                                            alignSelf: "center",
-                                                            justifySelf:
-                                                                "center",
-                                                        }}
-                                                    />
-                                                )}
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primaryTypographyProps={{
-                                                    fontSize: 12,
-                                                    fontWeight: isActive
-                                                        ? 600
-                                                        : 400,
-                                                }}
-                                                primary={text}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                </LightTooltip>
-                            </React.Fragment>
-                        );
-                    })}
-                </List>
+                                                <ListItemIcon
+                                                    sx={{
+                                                        position: "relative",
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        alignItems: "center",
+                                                        justifyContent:
+                                                            "center",
+                                                        color: isActive
+                                                            ? "primary.main"
+                                                            : "",
+                                                    }}
+                                                >
+                                                    {icon}
+                                                    {subItems.length > 0 && (
+                                                        <KeyboardArrowRightRoundedIcon
+                                                            fontSize="small"
+                                                            sx={{
+                                                                position:
+                                                                    "absolute",
+                                                                top: 0,
+                                                                display: "flex",
+                                                                bottom: 0,
+                                                                right: -4,
+                                                                alignItems:
+                                                                    "center",
+                                                                alignSelf:
+                                                                    "center",
+                                                                justifySelf:
+                                                                    "center",
+                                                            }}
+                                                        />
+                                                    )}
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primaryTypographyProps={{
+                                                        fontSize: 12,
+                                                        fontWeight: isActive
+                                                            ? 600
+                                                            : 400,
+                                                    }}
+                                                    primary={text}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </LightTooltip>
+                                </React.Fragment>
+                            );
+                        })}
+                    </List>
 
-                <Divider />
-            </Drawer>
+                    <Divider />
+                </Drawer>
+            </Box>
+            {/* desktop */}
+            {/* mobile */}
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <AppBar position="fixed" color="secondary" variant="outlined">
+                    <Toolbar sx={{flexDirection:"row",justifyContent:"space-between", alignItems:"center"}}>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <LogoName />
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+            {/* mobile */}
 
             <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+                // component="main"
+                sx={{ flexGrow: 1, bgcolor: "background.default", p: 2 }}
             >
                 <Toolbar />
                 {children}

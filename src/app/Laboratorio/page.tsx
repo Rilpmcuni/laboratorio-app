@@ -128,7 +128,8 @@ export default function Laboratorio() {
     };
 
     return (
-        <TableContainer component={Paper}>
+        <>
+            {/* <TableContainer component={Paper}>
             <Table size="small" aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
@@ -149,7 +150,14 @@ export default function Laboratorio() {
                     ))}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer> */}
+            <span>Hola</span>
+            <span style={{ height: "30rem" }}>Hola</span>
+            <span style={{ height: "30rem" }}>Hola</span>
+            <span style={{ height: "30rem" }}>Hola</span>
+            <Box sx={{ height: "300rem" }}>Hola</Box>
+            
+        </>
     );
 }
 
@@ -184,7 +192,10 @@ function Row(props: {
                 <TableCell>{row.quincena}</TableCell>
                 <TableCell>{numeroInforme}</TableCell>
                 <TableCell>
-                    <VerDescargarInforme numeroInforme={numeroInforme} row={row}  />
+                    <VerDescargarInforme
+                        numeroInforme={numeroInforme}
+                        row={row}
+                    />
                 </TableCell>
             </TableRow>
             {/*  */}
@@ -235,10 +246,6 @@ function Row(props: {
                     </Collapse>
                 </TableCell>
             </TableRow>
-            <div style={{width:"40vw", height:"100vh"}}>
-
-            <Test pasa={undefined}/>
-            </div>
         </React.Fragment>
     );
 }
