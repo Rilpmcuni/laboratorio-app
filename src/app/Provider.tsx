@@ -86,7 +86,7 @@ type Props = {
 const Provider: React.FC<Props> = ({ children }) => {
     return (
         <ThemeProvider theme={theme}>
-            <NextNProgressClient />
+            {/* <NextNProgressClient /> */}
             {/* <div style={{ zIndex: "50", position: "absolute" }}>
                 <Link href={"/Inicio"}>Inicio</Link>
                 <Link href={"/Laboratorio"}>Laboratorio</Link>

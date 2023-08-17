@@ -1,25 +1,10 @@
-"use client";
-import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
-
-const NextNProgressClient = () => {
+import NextTopLoader from "nextjs-toploader";
+const NextNProgressClient = ({ children }: { children: React.ReactNode }) => {
     return (
-        // <NextNProgress
-        //     color="#000"
-        //     startPosition={0.3}
-        //     stopDelayMs={200}
-        //     height={99}
-        //     // showOnShallow={true}
-        //     // options={{ showSpinner: false }}
-        // />
-
-        <ProgressBar
-            height="4px"
-            color="#0AB4D6"
-            options={{ showSpinner: false }}
-            // delay={200}
-            shallowRouting
-        />
+        <>
+            <NextTopLoader height={4} color="#0AB4D6" showSpinner={false} />
+            {children}
+        </>
     );
 };
-
 export default NextNProgressClient;
