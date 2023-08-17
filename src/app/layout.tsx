@@ -11,75 +11,74 @@ const lato = Lato({
 });
 
 export const metadata = {
-    title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
-    description:
-        "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
-    generator: "Tamíz.LA",
-    applicationName: "Tamíz.LA",
+    title: "Fabian Lisantti | Desarrollador Frontend",
+    description: "Mi portafolio.",
+    generator: "Portafolio",
+    applicationName: "Portafolio",
     referrer: "origin-when-cross-origin",
-    keywords: ["Tamíz.LA", "Laboratorio", "Vial"],
-    authors: [{ name: "Tamíz.LA" }],
+    keywords: ["Portafolio", "Lisantti", "Rilpmcuni"],
+    authors: [{ name: "Lisantti" }],
     colorScheme: "light",
-    creator: "Tamíz.LA",
-    publisher: "Tamíz.LA",
+    creator: "Fabian Lisantti",
+    publisher: "Fabian Lisantti",
     formatDetection: {
         email: false,
         address: false,
         telephone: false,
     },
     openGraph: {
-        title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
-        description:
-            "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
-        url: "http://tamizla-beta.vercel.app",
+        title: "Fabian Lisantti | Desarrollador Frontend",
+        description: "Mi portafolio.",
+        url: "http://www.fabian-lisantti.vercel.app",
         images: "/image.png",
-        siteName: "Tamíz.LA",
+        siteName: "Lisantti Fronten",
         locale: "es_CL",
         type: "website",
     },
-    // robots: {
-    //     index: false,
-    //     follow: true,
-    //     nocache: true,
-    //     googleBot: {
-    //         index: true,
-    //         follow: false,
-    //         noimageindex: true,
-    //         "max-video-preview": -1,
-    //         "max-image-preview": "large",
-    //         "max-snippet": -1,
-    //     },
-    // },
+    robots: {
+        index: false,
+        follow: true,
+        nocache: true,
+        googleBot: {
+            index: true,
+            follow: false,
+            noimageindex: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
     themeColor: "light",
     twitter: {
         card: "summary_large_image",
-        title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
-        description:
-            "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
+        title: "Fabian Lisantti | Desarrollador Frontend",
+        description: "Mi portafolio.",
         siteId: "1467726470533754880",
-        creator: "@Tamíz.LA",
+        creator: "@Rilpmcuni",
         creatorId: "1467726470533754880",
         images: {
             url: "/image.png",
-            alt: "@Tamíz.LA",
+            alt: "@Rilpmcuni",
         },
     },
-    // viewport: {
-    //     width: "device-width",
-    //     initialScale: 1,
-    //     maximumScale: 1,
-    // },
-    // verification: {
-    //     google: "google",
-    //     yandex: "yandex",
-    //     yahoo: "yahoo",
-    //     other: {
-    //         me: ["contacto@tamiz.la", "http://tamizla-beta.vercel.app"],
-    //     },
-    // },
+    viewport: {
+        width: "device-width",
+        initialScale: 1,
+        maximumScale: 1,
+    },
+    verification: {
+        google: "google",
+        yandex: "yandex",
+        yahoo: "yahoo",
+        other: {
+            me: [
+                "fabian.lisantti@gmail.com",
+                "http://www.fabian-lisantti.vercel.app",
+            ],
+        },
+    },
     category: "technology",
 };
-
 export default function RootLayout({
     children,
 }: {
