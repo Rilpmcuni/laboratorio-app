@@ -1,5 +1,4 @@
 import "./globals.css";
-import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import Provider from "./Provider";
 import { Link as LinkMui, Typography } from "@mui/material";
@@ -10,75 +9,13 @@ const lato = Lato({
     weight: "400",
 });
 
-export const metadata = {
-    title: "Fabian Lisantti | Desarrollador Frontend",
-    description: "Mi portafolio.",
-    generator: "Portafolio",
-    applicationName: "Portafolio",
-    referrer: "origin-when-cross-origin",
-    keywords: ["Portafolio", "Lisantti", "Rilpmcuni"],
-    authors: [{ name: "Lisantti" }],
-    colorScheme: "light",
-    creator: "Fabian Lisantti",
-    publisher: "Fabian Lisantti",
-    formatDetection: {
-        email: false,
-        address: false,
-        telephone: false,
-    },
-    openGraph: {
-        title: "Fabian Lisantti | Desarrollador Frontend",
-        description: "Mi portafolio.",
-        url: "http://www.fabian-lisantti.vercel.app",
-        images: "/image.png",
-        siteName: "Lisantti Fronten",
-        locale: "es_CL",
-        type: "website",
-    },
-    robots: {
-        index: false,
-        follow: true,
-        nocache: true,
-        googleBot: {
-            index: true,
-            follow: false,
-            noimageindex: true,
-            "max-video-preview": -1,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-        },
-    },
-    themeColor: "light",
-    twitter: {
-        card: "summary_large_image",
-        title: "Fabian Lisantti | Desarrollador Frontend",
-        description: "Mi portafolio.",
-        siteId: "1467726470533754880",
-        creator: "@Rilpmcuni",
-        creatorId: "1467726470533754880",
-        images: {
-            url: "/image.png",
-            alt: "@Rilpmcuni",
-        },
-    },
-    viewport: {
-        width: "device-width",
-        initialScale: 1,
-        maximumScale: 1,
-    },
-    verification: {
-        google: "google",
-        yandex: "yandex",
-        yahoo: "yahoo",
-        other: {
-            me: [
-                "fabian.lisantti@gmail.com",
-                "http://www.fabian-lisantti.vercel.app",
-            ],
-        },
-    },
-    category: "technology",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "titulo de prueba",
+    description: "descripcion de prueba",
 };
+
 export default function RootLayout({
     children,
 }: {
@@ -112,3 +49,73 @@ export default function RootLayout({
         </html>
     );
 }
+
+// export const metadata = {
+//     title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
+//     description:
+//         "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
+//     generator: "Tamíz.LA",
+//     applicationName: "Tamíz.LA",
+//     referrer: "origin-when-cross-origin",
+//     keywords: ["Tamíz.LA", "Laboratorio", "Vial"],
+//     authors: [{ name: "Tamíz.LA" }],
+//     colorScheme: "light",
+//     creator: "Tamíz.LA",
+//     publisher: "Tamíz.LA",
+//     formatDetection: {
+//         email: false,
+//         address: false,
+//         telephone: false,
+//     },
+//     openGraph: {
+//         title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
+//         description:
+//             "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
+//         url: "http://tamizla-beta.vercel.app",
+//         images: "/image.png",
+//         siteName: "Tamíz.LA",
+//         locale: "es_CL",
+//         type: "website",
+//     },
+//     robots: {
+//         index: false,
+//         follow: true,
+//         nocache: true,
+//         googleBot: {
+//             index: true,
+//             follow: false,
+//             noimageindex: true,
+//             "max-video-preview": -1,
+//             "max-image-preview": "large",
+//             "max-snippet": -1,
+//         },
+//     },
+//     themeColor: "light",
+//     twitter: {
+//         card: "summary_large_image",
+//         title: "Tamíz.LA | La solución tecnológica para profesionales laboratoristas",
+//         description:
+//             "Tamíz.LA: La solución tecnológica para laboratoristas viales que optimiza el trabajo, impulsa la eficiencia y ofrece herramientas innovadoras para resultados excepcionales en el laboratorio vial.",
+//         siteId: "1467726470533754880",
+//         creator: "@Tamíz.LA",
+//         creatorId: "1467726470533754880",
+//         images: {
+//             url: "/image.png",
+//             alt: "@Tamíz.LA",
+//         },
+//     },
+//     // viewport: {
+//     //     width: "device-width",
+//     //     initialScale: 1,
+//     //     maximumScale: 1,
+//     // },
+//     // verification: {
+//     //     google: "google",
+//     //     yandex: "yandex",
+//     //     yahoo: "yahoo",
+//     //     other: {
+//     //         me: ["contacto@tamiz.la", "http://tamizla-beta.vercel.app"],
+//     //     },
+//     // },
+//     category: "technology",
+// };
