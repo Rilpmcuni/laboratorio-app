@@ -16,13 +16,13 @@ export default function FeaturesTwo() {
             ico: <CalculateOutlinedIcon color="primary" />,
             title: "Fórmulas",
             description:
-                "Optimiza tus cálculos con nuestras fórmulas automatizadas.",
+                " Simplifica tus cálculos con nuestras fórmulas automatizadas, ahorrando tiempo y esfuerzo.",
         },
         {
             ico: <SchoolOutlinedIcon color="primary" />,
             title: "Cursos E-learning",
             description:
-                "Descubre nuestra sección de Cursos E-learning y prepárate para rendir tu examen C, B, A.",
+                "Prepárate para tus exámenes C, B, A de vialidad con nuestros cursos interactivos.",
         },
         {
             ico: <DevicesRoundedIcon color="primary" />,
@@ -46,7 +46,7 @@ export default function FeaturesTwo() {
             ico: <DescriptionOutlinedIcon color="primary" />,
             title: "Informes",
             description:
-                "Imprime, organiza y exporta tus informes fácilmente con Tamíz.LA",
+                "¿Informes? ¡Listos en un pestañeo! Generen, organicen y exporten sin estrés.",
         },
     ];
     return (
@@ -60,9 +60,8 @@ export default function FeaturesTwo() {
                 // minHeight: "30rem",
                 // height: "30rem",
                 paddingY: "2rem",
-                backgroundColor:"white",
+                backgroundColor: "white",
                 zIndex: 40,
-
             }}
         >
             <Box
