@@ -58,15 +58,20 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
                 aria-describedby="scroll-dialog-description"
             >
                 <DialogTitle id="scroll-dialog-title">
-                    Informe N°{numeroInforme} {row.quincena} del {row.fechaMuestreo}
+                    Informe N°{numeroInforme} {row.quincena} del{" "}
+                    {row.fechaMuestreo}
                 </DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
                     <DialogContentText
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
                         tabIndex={-1}
-                    >hola
-                        <MarcoInformePdf  row={row} numeroInforme={numeroInforme}  />
+                    >
+                        hola
+                        <MarcoInformePdf
+                            row={row}
+                            numeroInforme={numeroInforme}
+                        />
                         hola
                     </DialogContentText>
                 </DialogContent>

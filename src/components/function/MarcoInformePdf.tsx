@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import InformePdf from "@/components/function/InformePdf";
+import ReactPDF from "@react-pdf/renderer";
 
 interface DataInforme {
     numeroCarta: number;
@@ -98,6 +99,28 @@ const MarcoInformePdf: React.FC<Props> = ({ row, numeroInforme }) => {
                     fecha={row.fechaMuestreo}
                 />
             </PDFViewer>
+            <div>
+                <PDFDownloadLink
+                    document={
+                        <InformePdf
+                            Ncarta={numeroCarta}
+                            residente={nombreResidente}
+                            inspector={nombreInspector}
+                            empresa={nombreEmpresa}
+                            selectedDate={selectedDate}
+                            image={logoEmpresa}
+                            nombreContrato={nombreContrato}
+                            numeroInforme={numeroInforme}
+                            fecha={row.fechaMuestreo}
+                        />
+                    }
+                    fileName="somename.pdf"
+                >
+                    {({ blob, url, loading, error }) =>
+                        loading ? "Loading document..." : "Download now!"
+                    }
+                </PDFDownloadLink>
+            </div>
         </div>
     );
 };

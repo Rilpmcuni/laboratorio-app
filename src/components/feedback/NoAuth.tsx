@@ -31,8 +31,8 @@ export default function NoAuth() {
     };
 
     const handleAgree = () => {
-        setOpen(false);
-        localStorage.setItem("open", "false"); // Cerrar y guardar en el almacenamiento local
+        // setOpen(false);
+        // localStorage.setItem("open", "false"); // Cerrar y guardar en el almacenamiento local
         router.push("/"); // Redirigir después de hacer clic en "Agree"
     };
 

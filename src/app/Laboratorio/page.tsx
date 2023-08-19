@@ -135,7 +135,25 @@ export default function Laboratorio() {
 
     return (
         <>
-            {/* <TableContainer component={Paper}>
+            
+            <>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} md={8}>
+                        <HeroAppCard />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <ContactoCard/>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <span>xs=12 md=4</span>
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                        <span>xs=12 md=8</span>
+                    </Grid>
+                </Grid>
+                <NoAuth/>
+            </>
+            <TableContainer component={Paper}>
             <Table size="small" aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
@@ -156,24 +174,7 @@ export default function Laboratorio() {
                     ))}
                 </TableBody>
             </Table>
-        </TableContainer> */}
-            <>
-                <Grid container spacing={1}>
-                    <Grid item xs={12} md={8}>
-                        <HeroAppCard />
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <ContactoCard/>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <span>xs=12 md=4</span>
-                    </Grid>
-                    <Grid item xs={12} md={8}>
-                        <span>xs=12 md=8</span>
-                    </Grid>
-                </Grid>
-                <NoAuth/>
-            </>
+        </TableContainer>
         </>
     );
 }

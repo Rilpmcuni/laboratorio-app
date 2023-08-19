@@ -35,7 +35,7 @@ export default function ContactoCard() {
                         title={"hablémos"}
                         subTitle={""}
                         parraph={
-                            "Si tienes alguna duda o consulta no dudes en llamarnos."
+                            "Comentarios, duda o consulta no dudes en llamarnos."
                         }
                         color={"black"}
                     />
