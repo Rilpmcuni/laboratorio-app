@@ -23,18 +23,21 @@ export default function FeatureCarousel() {
     const JobsImage = [
         {
             ico: <DescriptionOutlinedIcon color="primary" fontSize="large" />,
+            title: "Fórmulas, Informes",
             img: Curse_mobile,
             parraph:
                 "Ofrecemos una amplia variedad de herramientas para laboratoristas, incluyendo fórmulas, seguimiento de ensayos, generación de informes, etc. Características esenciales para la realización de ensayos precisos, rápidos y eficientes.",
         },
         {
             ico: <SchoolOutlinedIcon color="primary" fontSize="large" />,
+            title: "Cursos E-learning",
             img: Doc_mobile,
             parraph:
                 "La solución tecnológica para laboratoristas que buscan prepararse para los examenes tipo A, B y C. Con características como material de estudio, apoyo, e-learning y más. La plataforma fácil de usar que hace que sea accesible desde cualquier dispositivo.",
         },
         {
             ico: <DevicesRoundedIcon color="primary" fontSize="large" />,
+            title: "Multiplataforma",
             img: Plataform_mobile,
             parraph:
                 "Una aplicación multiplataforma, lo que significa que está disponible en diferentes sistemas operativos y dispositivos, como PC, tabletas y teléfonos móviles. Esto permite que los usuarios accedan a la aplicación en cualquier momento y lugar, lo que los hace más eficientes en su trabajo.",
@@ -64,7 +67,7 @@ export default function FeatureCarousel() {
                     background: "none",
                 }}
             >
-                {JobsImage.map(({ img, parraph,ico }, index) => (
+                {JobsImage.map(({ img, parraph,title, ico }, index) => (
                     <SwiperSlide key={index}>
                         <Box
                             sx={{
@@ -96,6 +99,14 @@ export default function FeatureCarousel() {
                             >
                                 {ico}
                                 <Typography
+                                    variant="h6"
+                                    component="div"
+                                    fontWeight={600}
+                                    color="secondary.contrastText"
+                                >
+                                    {title}
+                                </Typography>
+                                <Typography
                                     paragraph
                                     variant="body2"
                                     sx={{
@@ -108,10 +119,8 @@ export default function FeatureCarousel() {
                                         WebkitTextFillColor: "transparent",
                                         fontWeight: "bold",
                                         width: "90%",
-                           
                                     }}
                                 >
-
                                     {parraph}
                                 </Typography>
                             </Box>

@@ -65,6 +65,18 @@ const theme = createTheme({
             main: "#171717",
             contrastText: "#d9d9d9",
         },
+        success: {
+            main: "#5bc346",
+        },
+        error: {
+            main: "#ff1f1f",
+        },
+        warning: {
+            main: "#F5A314",
+        },
+        info: {
+            main: "#2667FF",
+        },
         text: {
             primary: "#262626",
             secondary: "rgba(38,38,38,0.71)",

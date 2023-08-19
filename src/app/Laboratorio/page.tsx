@@ -14,11 +14,14 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import VerDescargarInforme from "@/components/function/VerDescargarInforme";
 import { Test } from "@/components/test/Test";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import HeroAppCard from "@/components/ui/HeroAppCard";
+import ContactoCard from "@/components/ui/ContactoCard";
+import NoAuth from "@/components/feedback/NoAuth";
 
 interface DataInforme {
     numeroCarta: number;
@@ -154,20 +157,23 @@ export default function Laboratorio() {
                 </TableBody>
             </Table>
         </TableContainer> */}
-            <span>Hola</span>
-            <span style={{ height: "30rem" }}>Hola</span>
-            <span style={{ height: "30rem" }}>Hola</span>
-            <span style={{ height: "30rem" }}>Hola</span>
-            <Box sx={{ height: "300rem" }}>Hola</Box>
-            <Link href={"/Laboratorio/Mi-Laboratorio"}>Inicio</Link>
-            <span
-                onClick={() => {
-                    router.push("/Laboratorio/Mi-Laboratorio");
-                }}
-                style={{ height: "30rem" }}
-            >
-                Hola
-            </span>
+            <>
+                <Grid container spacing={1}>
+                    <Grid item xs={12} md={8}>
+                        <HeroAppCard />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <ContactoCard/>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <span>xs=12 md=4</span>
+                    </Grid>
+                    <Grid item xs={12} md={8}>
+                        <span>xs=12 md=8</span>
+                    </Grid>
+                </Grid>
+                <NoAuth/>
+            </>
         </>
     );
 }

@@ -48,6 +48,7 @@ import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRigh
 import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
 import LogoName from "@/components/ui/LogoName";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 
@@ -85,10 +86,6 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                     text: "Informes",
                     icon: <MailIcon />,
                 },
-                {
-                    text: "Certificados",
-                    icon: <MailIcon />,
-                },
             ],
         },
         {
@@ -112,6 +109,11 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
         {
             text: "Manuales",
             icon: <FeedTwoToneIcon />,
+            subItems: [],
+        },
+        {
+            text: "Cursos",
+            icon: <SchoolTwoToneIcon />,
             subItems: [],
         },
     ];
@@ -754,7 +756,12 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
             <Box
                 // component="main"
-                sx={{ flexGrow: 1, bgcolor: "background.default", p: 2 }}
+                sx={{
+                    flexGrow: 1,
+                    bgcolor: "background.default",
+                    paddingX: 0.5,
+                    paddingY: 1,
+                }}
             >
                 <Toolbar />
                 {children}

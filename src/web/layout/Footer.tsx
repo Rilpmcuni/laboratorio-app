@@ -44,7 +44,7 @@ export default function Footer() {
             link: `tel: +56 9 8845 6231`,
         },
         {
-            title: "contacto@tamiz.la",
+            title: "hola@tamiz.la",
             ico: (
                 <EmailRoundedIcon
                     fontSize="small"
@@ -52,7 +52,7 @@ export default function Footer() {
                     color={"primary"}
                 />
             ),
-            link: `mailto:contacto@tamiz.la`,
+            link: `mailto:hola@tamiz.la`,
         },
         {
             title: "C. Talca 344, Cartagena, Valparaiso, Chile",

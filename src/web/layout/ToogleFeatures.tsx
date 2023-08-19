@@ -30,10 +30,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 export default function ToogleFeatures({
-    handleFeature,feature
+    handleFeature,
+    feature,
 }: {
     handleFeature: any;
-    feature:any
+    feature: any;
 }) {
     // const [alignment, setAlignment] = React.useState("0feature");
 
