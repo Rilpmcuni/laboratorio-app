@@ -13,6 +13,7 @@ import FaQ from "@/web/layout/FaQ";
 import Footer from "@/web/layout/Footer";
 import Carousel from "@/web/layout/HeroCarousel";
 import { Box } from "@mui/material";
+import InstallButton from "@/components/feedback/handleInstallClick";
 export default function Home() {
     return (
         <main className={""}>
@@ -36,6 +37,7 @@ export default function Home() {
             ></div>
             <Header />
             <Hero />
+            <InstallButton/>
             <Features />
             <FeaturesTwo />
             <GetIt />
