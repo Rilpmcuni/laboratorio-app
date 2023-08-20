@@ -50,6 +50,9 @@ const InstallButton: React.FC = () => {
             <button onClick={handleInstallClick} disabled={!installPromptEvent}>
                 Instalar la PWA
             </button>
+            <button onClick={handleInstallClick}>
+                Instalar la PWA
+            </button>
         </div>
     );
 };
