@@ -148,23 +148,7 @@ export default function ThemeRegistry(props: { options: any; children: any }) {
                 {/* <NextNProgressClient /> */}
 
                 <NextNProgressClient>
-                    <div
-                        style={{
-                            borderRadius: "1.5rem",
-                            // border: "solid 1px black",
-                            position: "fixed",
-                            top: 63,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            height: "100vh",
-                            width: "100%",
-                            boxShadow: "0px 0px 0px 15px white",
-                            zIndex: 40,
-                            pointerEvents: "none",
-                        }}
-                    ></div>
+                    
                     {children}
                 </NextNProgressClient>
                 {/* </Provider> */}
