@@ -1,25 +1,23 @@
-// components/OpenAppButton.js
-import React from "react";
+import React from 'react';
 
-const OpenAppButton = () => {
-    const handleOpenAppClick = () => {
-        if (
-            window.matchMedia("(display-mode: standalone)").matches ||
-            window.matchMedia("(display-mode: fullscreen)").matches
-        ) {
-            // Abrir la PWA si está instalada
-            window.open(window.location.href, "_blank");
-        } else {
-            // La PWA no está instalada
-            console.log("La PWA no está instalada.");
-        }
-    };
+function OpenAppButton() {
+  const abrirPWA = () => {
+    window.open(window.location.origin);
+  };
 
+  if ('standalone' in window.navigator) {
     return (
-        <div>
-            <button onClick={handleOpenAppClick}>Abrir la PWA</button>
-        </div>
+      <button onClick={abrirPWA}>
+        Abrir la aplicación
+      </button>
     );
-};
+  } else {
+    return (
+      <p>
+        Por favor, instala la aplicación para acceder.
+      </p>
+    );
+  }
+}
 
 export default OpenAppButton;
