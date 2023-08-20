@@ -98,7 +98,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="es-cl">
+        <html lang="es-CL">
             <body className={lato.className} style={{ margin: 0 }}>
                 <ThemeRegistry options={{ key: "mui" }}>
                     {children}
