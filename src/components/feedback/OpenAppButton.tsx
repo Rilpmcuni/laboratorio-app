@@ -13,7 +13,12 @@ function MiComponente() {
     if (isStandalone()) {
         return <button onClick={abrirPWA}>Abrir la aplicación</button>;
     } else {
-        return <p>Por favor, instala la aplicación para acceder.</p>;
+        return;
+
+        <>
+            <p>Por favor, instala la aplicación para acceder.</p>;
+            <button onClick={abrirPWA}>Abrir la aplicación</button>
+        </>;
     }
 }
 
