@@ -14,7 +14,6 @@ import Footer from "@/web/layout/Footer";
 import Carousel from "@/web/layout/HeroCarousel";
 import { Box } from "@mui/material";
 import InstallButton from "@/components/feedback/handleInstallClick";
-import OpenAppButton from "@/components/feedback/OpenAppButton";
 export default function Home() {
     return (
         <main className={""}>
@@ -39,7 +38,6 @@ export default function Home() {
             <Header />
             <Hero />
             <InstallButton/>
-            <OpenAppButton/>
             <Features />
             <FeaturesTwo />
             <GetIt />

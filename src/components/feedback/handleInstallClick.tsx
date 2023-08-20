@@ -47,12 +47,21 @@ const InstallButton: React.FC = () => {
 
     return (
         <div>
-            <button onClick={handleInstallClick} disabled={!installPromptEvent}>
-                Instalar la PWA
-            </button>
-            <button onClick={handleInstallClick}>
-                Instalar la PWA
-            </button>
+            <>
+                {installPromptEvent ? (
+                    <button
+                        onClick={handleInstallClick}
+                        disabled={!installPromptEvent}
+                    >
+                        Instalar la App
+                    </button>
+                ) : (
+                    <span>
+                        ¡aplicación instalada! te recomendamos que uses nuestra
+                        aplicación ya instalada en tu sistema.
+                    </span>
+                )}
+            </>
         </div>
     );
 };
