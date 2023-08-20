@@ -1,25 +1,25 @@
-import { isStandalone } from "@/helpers/pwaDetection";
+// components/OpenAppButton.js
 import React from "react";
 
-function MiComponente() {
-    const abrirPWA = () => {
-        if (isStandalone()) {
-            // Puedes manejar la apertura de la PWA aquí
-            // Por ejemplo, redirigir a una URL específica de la PWA
-            window.location.href = "/ruta-de-tu-pwa";
+const OpenAppButton = () => {
+    const handleOpenAppClick = () => {
+        if ('standalone' in window.navigator) {
+            // Abrir la PWA si está instalada en iOS
+            window.location.href = "ruta-de-tu-pwa";
+        } else if (window.matchMedia("(display-mode: standalone)").matches) {
+            // Abrir la PWA si está instalada en Android u otros navegadores
+            window.open("ruta-de-tu-pwa", "_blank");
+        } else {
+            // La PWA no está instalada
+            console.log("La PWA no está instalada.");
         }
     };
 
-    if (isStandalone()) {
-        return <button onClick={abrirPWA}>Abrir la aplicación</button>;
-    } else {
-        return;
+    return (
+        <div>
+            <button onClick={handleOpenAppClick}>Abrir la PWA</button>
+        </div>
+    );
+};
 
-        <>
-            <p>Por favor, instala la aplicación para acceder.</p>;
-            <button onClick={abrirPWA}>Abrir la aplicación</button>
-        </>;
-    }
-}
-
-export default MiComponente;
+export default OpenAppButton;
