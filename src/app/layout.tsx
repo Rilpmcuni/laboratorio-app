@@ -24,6 +24,16 @@ export const metadata = {
     colorScheme: "light",
     creator: "Tamíz.LA",
     publisher: "Tamíz.LA",
+    manifest: "/manifest.json",
+    icons: {
+        icon: "/icon.png",
+        shortcut: "/shortcut-icon.png",
+        apple: "/apple-icon.png",
+        other: {
+            rel: "apple-touch-icon-precomposed",
+            url: "/apple-touch-icon-precomposed.png",
+        },
+    },
     formatDetection: {
         email: false,
         address: false,
