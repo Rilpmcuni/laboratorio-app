@@ -12,16 +12,17 @@ export default function AuthForm() {
     return (
         <>
             <Auth
+            view="sign_in"
                 localization={{
                     variables: esES,
                 }}
                 supabaseClient={supabase}
                 appearance={{
-                    theme: ThemeSupa,
+                    // theme: ThemeSupa,
                     style: {
                         button: {
                             borderRadius: "0.5rem",
-                            borderColor: 'rgba(0,0,0,0)',
+                            borderColor: "rgba(0,0,0,0)",
                         },
                         anchor: {
                             borderRadius: "0.5rem",
@@ -43,8 +44,7 @@ export default function AuthForm() {
                         },
                         message: {
                             borderRadius: "0.5rem",
-                            color:"white"
-
+                            color: "white",
                         },
                     },
                     variables: {
@@ -56,11 +56,21 @@ export default function AuthForm() {
                         },
                     },
                 }}
-                theme="dark"
-                providers={["google", "facebook", "azure"]}
+                // theme="dark"
+                // providers={["google", "facebook", "azure"]}
                 socialLayout="horizontal"
-                redirectTo="https://tamizla-beta.vercel.app/Laboratorio"
+                showLinks={false}
+                redirectTo="https://tamizla-beta.vercel.app/Auth/Callback"
             />
+            {/* <Auth
+      supabaseClient={supabase}
+      view="magic_link"
+      appearance={{ theme: ThemeSupa }}
+      theme="dark"
+      showLinks={false}
+      providers={[]}
+      redirectTo="http://localhost:3000/Auth/Callback"
+    /> */}
         </>
     );
 }

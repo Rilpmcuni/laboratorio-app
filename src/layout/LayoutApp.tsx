@@ -394,11 +394,15 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 </ListItemIcon>
                                 Configuración
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>
+                            <MenuItem
+                                onClick={handleClose}
+                                component={Link}
+                                href="/Auth/Signout"
+                            >
                                 <ListItemIcon>
                                     <Logout fontSize="small" />
                                 </ListItemIcon>
-                                Cerrar sesión
+                                Cerrar sesións
                             </MenuItem>
                         </Menu>
                     </Toolbar>

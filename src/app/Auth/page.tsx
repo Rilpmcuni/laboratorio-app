@@ -4,6 +4,8 @@ import Logo from "@/components/ui/Logo";
 import LogoName from "@/components/ui/LogoName";
 import Rewies from "@/web/layout/Rewies";
 import RewiesCard from "@/web/layout/RewiesCard";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
 import {
     Avatar,
     Box,
@@ -14,20 +16,38 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import React from "react";
+import { redirect, useRouter } from "next/navigation";
 
+interface Job {
+    id: number; // Reemplaza esto con el tipo correcto para el id si es diferente
+    title: string;
+    Job: any;
+    user_metadata: any;
+    // Agrega otras propiedades que tenga tu objeto Job si las tienes definidas
+}
 export default function Auth() {
-    const FeaturesCard = [
-        {
-            ico: <Avatar alt="María" src="/static/images/avatar/1.jpg" />,
-            title: "Le doy cinco estrellas",
-            name: "María",
-            lastName: "Jefa de laboratorio @LEM",
-            description:
-                "Tamiz LA me ha permitido optimizar mi tiempo y aumentar mi eficiencia en el trabajo. Ahora puedo realizar ensayos y elaborar informes de manera más rápida y fácil.",
-        },
-    ];
+    const supabase = createClientComponentClient();
+    const [Jobs, setJobs] = useState<Job[] | null>(null); // Tipo explícito para Jobs
+
+    const router = useRouter();
+    // useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+        if (event == "SIGNED_IN") router.push("/Auth/Callback");
+    });
+    // }, []);
+
+    async function getJobs() {
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+        setJobs(user ? [] : null);
+        console.log(user?.user_metadata);
+        console.log(user?.email);
+        console.log(user?.id);
+    }
     return (
         <Box
             sx={{
@@ -102,9 +122,9 @@ export default function Auth() {
                         variant="contained"
                         color="secondary"
                         LinkComponent={Link}
-                        href="/secondary"
+                        href="/Auth/Callback"
                     >
-                        Pasar al laboratorio
+                        Pasar al laboratorios
                     </Button>
                 </Stack>
             </Box>
@@ -147,13 +167,13 @@ export default function Auth() {
                     </Button>
                     <Button
                         size="small"
-                        variant="outlined"
-                        color="primary"
+                        variant="contained"
+                        color="secondary"
                         LinkComponent={Link}
-                        href="/Laboratorio"
+                        href="/Auth/Callback"
                         sx={{ display: "flex" }}
                     >
-                        Pasar al laboratorio
+                        Pasar al laboratorios
                     </Button>
                 </Box>
             </Box>

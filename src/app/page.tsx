@@ -14,6 +14,7 @@ import Footer from "@/web/layout/Footer";
 import Carousel from "@/web/layout/HeroCarousel";
 import { Box } from "@mui/material";
 import InstallButton from "@/components/feedback/handleInstallClick";
+import AuthForm from "@/components/ui/AuthForm";
 export default function Home() {
     return (
         <main className={""}>
@@ -37,6 +38,7 @@ export default function Home() {
             ></div>
             <Header />
             <Hero />
+            <AuthForm/>
             <InstallButton/>
             <Features />
             <FeaturesTwo />
