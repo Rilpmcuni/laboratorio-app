@@ -135,14 +135,13 @@ export default function Laboratorio() {
 
     return (
         <>
-            
             <>
                 <Grid container spacing={1}>
                     <Grid item xs={12} md={8}>
                         <HeroAppCard />
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <ContactoCard/>
+                        <ContactoCard />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <span>xs=12 md=4</span>
@@ -151,30 +150,30 @@ export default function Laboratorio() {
                         <span>xs=12 md=8</span>
                     </Grid>
                 </Grid>
-                <NoAuth/>
+                <NoAuth />
             </>
             <TableContainer component={Paper}>
-            <Table size="small" aria-label="collapsible table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell />
-                        <TableCell>Fecha</TableCell>
-                        <TableCell>Quincena</TableCell>
-                        <TableCell>Informe N°</TableCell>
-                        <TableCell>Ver/Descargar</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {generateRows().map((row, index) => (
-                        <Row
-                            key={index}
-                            row={row}
-                            numeroInforme={numeroInforme}
-                        />
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                <Table size="small" aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell />
+                            <TableCell>Fecha</TableCell>
+                            <TableCell>Quincena</TableCell>
+                            <TableCell>Informe N°</TableCell>
+                            <TableCell>Ver/Descargar</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {generateRows().map((row, index) => (
+                            <Row
+                                key={index}
+                                row={row}
+                                numeroInforme={numeroInforme}
+                            />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </>
     );
 }

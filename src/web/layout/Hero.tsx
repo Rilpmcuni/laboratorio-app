@@ -40,7 +40,7 @@ export default function Hero() {
                         variant="outlined"
                         color="secondary"
                         LinkComponent={Link}
-                        href="/Laboratorio"
+                        href="/Auth"
                     >
                         Crear cuenta
                     </Button>
@@ -48,7 +48,7 @@ export default function Hero() {
                         variant="contained"
                         color="secondary"
                         LinkComponent={Link}
-                        href="/Laboratorio"
+                        href="/Auth"
                     >
                         Iniciar sesión
                     </Button>

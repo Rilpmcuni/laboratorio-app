@@ -12,6 +12,8 @@ import { createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import NextNProgressClient from "@/components/feedback/NextNProgressClient";
 
+import { esES } from "@mui/material/locale";
+
 // import NextNProgressClient from "@/components/function/NextNProgressClient";
 
 const lato = Lato({
@@ -19,81 +21,84 @@ const lato = Lato({
     weight: "400",
 });
 
-const theme = createTheme({
-    components: {
-        MuiListItem: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 10,
+const theme = createTheme(
+    {
+        components: {
+            MuiListItem: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: 10,
+                    },
                 },
             },
-        },
-        MuiListItemButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 10,
+            MuiListItemButton: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: 10,
+                    },
                 },
             },
-        },
-        MuiMenuItem: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 10,
+            MuiMenuItem: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: 10,
+                    },
                 },
             },
-        },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    fontWeight: "bold",
-                    boxShadow: "none",
-                    "&:hover": {
+            MuiButton: {
+                styleOverrides: {
+                    root: {
+                        fontWeight: "bold",
                         boxShadow: "none",
+                        "&:hover": {
+                            boxShadow: "none",
+                        },
                     },
                 },
             },
         },
+        palette: {
+            mode: "light",
+            primary: {
+                main: "#0AB4D6",
+                contrastText: "#fff",
+                // contrastText: "#171717",
+            },
+            secondary: {
+                main: "#171717",
+                contrastText: "#d9d9d9",
+            },
+            success: {
+                main: "#5bc346",
+            },
+            error: {
+                main: "#ff1f1f",
+            },
+            warning: {
+                main: "#F5A314",
+            },
+            info: {
+                main: "#2667FF",
+            },
+            text: {
+                primary: "#262626",
+                secondary: "rgba(38,38,38,0.71)",
+                disabled: "rgba(38,38,38,0.4)",
+            },
+            divider: "#d9d9d9",
+        },
+        shape: {
+            borderRadius: 10,
+        },
+        spacing: 10,
+        typography: {
+            fontFamily: lato.style.fontFamily,
+            fontSize: 15,
+            fontWeightLight: 400,
+        },
     },
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#0AB4D6",
-            contrastText: "#fff",
-            // contrastText: "#171717",
-        },
-        secondary: {
-            main: "#171717",
-            contrastText: "#d9d9d9",
-        },
-        success: {
-            main: "#5bc346",
-        },
-        error: {
-            main: "#ff1f1f",
-        },
-        warning: {
-            main: "#F5A314",
-        },
-        info: {
-            main: "#2667FF",
-        },
-        text: {
-            primary: "#262626",
-            secondary: "rgba(38,38,38,0.71)",
-            disabled: "rgba(38,38,38,0.4)",
-        },
-        divider: "#d9d9d9",
-    },
-    shape: {
-        borderRadius: 10,
-    },
-    spacing: 10,
-    typography: {
-        fontFamily: lato.style.fontFamily,
-        fontSize: 15,
-        fontWeightLight: 400,
-    },
-});
+    esES
+);
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
@@ -147,10 +152,7 @@ export default function ThemeRegistry(props: { options: any; children: any }) {
                 {/* <Provider> */}
                 {/* <NextNProgressClient /> */}
 
-                <NextNProgressClient>
-                    
-                    {children}
-                </NextNProgressClient>
+                <NextNProgressClient>{children}</NextNProgressClient>
                 {/* </Provider> */}
             </ThemeProvider>
         </CacheProvider>
