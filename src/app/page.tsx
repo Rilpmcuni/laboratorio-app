@@ -38,7 +38,6 @@ export default function Home() {
             ></div>
             <Header />
             <Hero />
-            <AuthForm/>
             <InstallButton/>
             <Features />
             <FeaturesTwo />

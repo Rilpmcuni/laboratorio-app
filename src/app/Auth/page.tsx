@@ -35,7 +35,12 @@ export default function Auth() {
     const router = useRouter();
     // useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
-        if (event == "SIGNED_IN") router.push("/Auth/Callback");
+        if (event == "SIGNED_IN") {
+            router.push("/Auth/Callback");
+        }
+        if (event == "INITIAL_SESSION") {
+            router.push("/Auth/Callback");
+        }
     });
     // }, []);
 
@@ -57,6 +62,10 @@ export default function Auth() {
                 alignItems: "center",
                 height: "100vh",
                 justifyContent: "space-between",
+                backgroundColor: {
+                    xs: "primary.main",
+                    md: "primary.contrastText",
+                },
             }}
         >
             <Box

@@ -18,7 +18,7 @@ export default function AuthForm() {
                 }}
                 supabaseClient={supabase}
                 appearance={{
-                    // theme: ThemeSupa,
+                    theme: ThemeSupa,
                     style: {
                         button: {
                             borderRadius: "0.5rem",
@@ -56,8 +56,8 @@ export default function AuthForm() {
                         },
                     },
                 }}
-                // theme="dark"
-                // providers={["google", "facebook", "azure"]}
+                theme="dark"
+                providers={[]}
                 socialLayout="horizontal"
                 showLinks={false}
                 redirectTo="https://tamizla-beta.vercel.app/Auth/Callback"
