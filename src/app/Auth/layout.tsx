@@ -1,16 +1,11 @@
 import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
-export const metadata: Metadata = {
-    title: "Informes",
-    description: "Soy el Informes",
+export const metadata = {
+    title: "Tamíz.LA",
 };
 /*  */
-export default function RootAuth({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootAuth({ children }: { children: React.ReactNode }) {
     return (
         <>
             <>{children}</>

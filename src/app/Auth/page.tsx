@@ -7,6 +7,8 @@ import RewiesCard from "@/web/layout/RewiesCard";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import {
+    Alert,
+    AlertTitle,
     Avatar,
     Box,
     Button,
@@ -78,8 +80,18 @@ export default function Auth() {
                     backgroundColor: "primary.main",
                     borderTopRightRadius: { xs: "auto", md: "1.5rem" },
                     borderBottomRightRadius: { xs: "auto", md: "1.5rem" },
+                    gap: 1,
                 }}
             >
+                <Alert
+                    variant="filled"
+                    severity="warning"
+                    sx={{ width: "26rem" }}
+                >
+                    <AlertTitle sx={{ fontweight: "bold" }}>
+                        <strong>Acceso solo por invitación</strong>
+                    </AlertTitle>
+                </Alert>
                 <Card
                     variant="elevation"
                     sx={{
@@ -92,7 +104,12 @@ export default function Auth() {
                     }}
                 >
                     <CardContent>
-                        <Stack direction="column" spacing={0}>
+                        <Stack
+                            direction="row"
+                            spacing={0}
+                            alignItems={"center"}
+                            justifyContent={"space-between"}
+                        >
                             <Typography
                                 variant="h6"
                                 component="div"
@@ -101,6 +118,15 @@ export default function Auth() {
                             >
                                 <LogoName />
                             </Typography>
+                            {/* <Typography
+                                variant="body1"
+                                component="div"
+                                // fontWeight={600}
+                                gutterBottom
+                                color="secondary.contrastText"
+                            >
+                                Acceso solo por invitación
+                            </Typography> */}
                         </Stack>
                         <AuthForm />
                     </CardContent>
@@ -124,15 +150,6 @@ export default function Auth() {
                         href="/"
                     >
                         Volver al inicio
-                    </Button>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        color="secondary"
-                        LinkComponent={Link}
-                        href="/Auth/Callback"
-                    >
-                        Pasar al laboratorios
                     </Button>
                 </Stack>
             </Box>
@@ -172,16 +189,6 @@ export default function Auth() {
                         sx={{ display: "flex" }}
                     >
                         Volver al inicio
-                    </Button>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        color="secondary"
-                        LinkComponent={Link}
-                        href="/Auth/Callback"
-                        sx={{ display: "flex" }}
-                    >
-                        Pasar al laboratorios
                     </Button>
                 </Box>
             </Box>
