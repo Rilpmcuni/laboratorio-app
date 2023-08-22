@@ -71,10 +71,10 @@ export default function NoAuth() {
                 </DialogContent>
                 <DialogActions  sx={{backgroundColor:"secondary.main"}}>
                     <Button autoFocus onClick={handleAgree}>
-                        Disagree
+                        Salir
                     </Button>
                     <Button autoFocus onClick={handleClose}>
-                        Agree
+                        Estoy autorizado
                     </Button>
                 </DialogActions>
             </Dialog>
