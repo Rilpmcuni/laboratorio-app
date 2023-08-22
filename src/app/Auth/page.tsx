@@ -35,13 +35,7 @@ export default function Auth() {
     const router = useRouter();
     // useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
-        if (event == "SIGNED_IN") {
-            router.push("/Auth/Callback");
-        }
-        if (event == "INITIAL_SESSION") {
-            router.push("/Auth/Callback");
-        }
-    });
+        if (event == "SIGNED_IN") router.push("/Auth/Callback");
     // }, []);
 
     async function getJobs() {
