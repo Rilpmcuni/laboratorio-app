@@ -9,16 +9,19 @@ interface Props {
     children: string;
     message: string;
     fullWidth: boolean;
+    onClick: any;
 }
 export const SimpleSnackbar: React.FC<Props> = ({
     children,
     message,
     fullWidth,
+    onClick,
 }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
         setOpen(true);
+        onClick();
     };
 
     const handleClose = (

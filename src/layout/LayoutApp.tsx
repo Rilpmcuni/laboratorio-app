@@ -306,7 +306,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                         </Button> */}
 
                             <Tooltip
-                                title="Configurar Perfil"
+                                title="Opciones"
                                 arrow
                                 TransitionComponent={Zoom}
                                 disableInteractive
@@ -370,19 +370,24 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 vertical: "bottom",
                             }}
                         >
-                            <MenuItem onClick={handleClose}>
+                            {/* <MenuItem onClick={handleClose}>
                                 <Avatar /> Perfil
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={() => {
                                     handleClose();
-                                    router.push("/Laboratorio/Mi-Laboratorio");
+                                    // router.push("/Laboratorio/Mi-Laboratorio");
                                 }}
+                                component={Link}
+                                href="/Laboratorio/Mi-Laboratorio"
                             >
-                                <Avatar /> Mi Laboratorio
+                                <ListItemIcon>
+                                    <Settings />
+                                </ListItemIcon>
+                                Mi Laboratorio
                             </MenuItem>
                             <Divider />
-                            <MenuItem onClick={handleClose}>
+                            {/* <MenuItem onClick={handleClose}>
                                 <ListItemIcon>
                                     <PersonAdd fontSize="small" />
                                 </ListItemIcon>
@@ -393,7 +398,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                     <Settings fontSize="small" />
                                 </ListItemIcon>
                                 Configuración
-                            </MenuItem>
+                            </MenuItem> */}
                             <MenuItem
                                 onClick={handleClose}
                                 component={Link}

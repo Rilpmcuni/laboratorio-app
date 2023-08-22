@@ -55,6 +55,7 @@ export default function ContactoCard() {
                             },
                         ].map((item, index) => (
                             <Box
+                                key={index}
                                 sx={{
                                     borderRadius: "1.5rem",
                                     backgroundColor:

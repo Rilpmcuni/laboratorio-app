@@ -15,17 +15,15 @@ import {
 } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import { PDFViewer } from "@react-pdf/renderer";
 import InformePdf from "@/components/function/InformePdf";
 import { SimpleSnackbar } from "../feedback/SnackBar";
 import BasicTabs from "../ui/BasicTabs";
 
-interface DataInforme {
+interface DataLaboratorio {
     numeroCarta: number;
     nombreResidente: string;
     nombreInspector: string;
     nombreEmpresa: string;
-    renderInforme: string | null;
     selectedDate: string;
     logoEmpresa: string | null;
     nombreContrato: string;
@@ -55,37 +53,45 @@ export default function ConfigLab() {
     const [region, setRegion] = useState("");
     const [banda, setBanda] = useState("");
 
+    const handleRemoveImage = () => {
+        setSelectedImage(null);
+        setLogoEmpresa(null);
+    };
     useEffect(() => {
         // Cargar los datos del Local Storage al cargar la página
-        const dataFromLocalStorage = localStorage.getItem("informeData");
+        const dataFromLocalStorage = localStorage.getItem("laboratorioData");
         if (dataFromLocalStorage) {
-            const parsedData: DataInforme = JSON.parse(dataFromLocalStorage);
-            setNumeroCarta(parsedData.numeroCarta);
-            setNombreResidente(parsedData.nombreResidente);
-            setNombreInspector(parsedData.nombreInspector);
-            setNombreEmpresa(parsedData.nombreEmpresa);
-            setSelectedDate(parsedData.selectedDate);
-            setSelectedImage(null); // Borra la imagen seleccionada en cada carga para evitar problemas de visualización
-            setLogoEmpresa(parsedData.logoEmpresa);
-            setNombreContrato(parsedData.nombreContrato);
-            setNumeroInforme(parsedData.numeroInforme);
-            setCodigoSAFI(parsedData.codigoSAFI);
-            setNombreLaboratorista(parsedData.nombreLaboratorista);
-            setClaseLicencia(parsedData.claseLicencia);
-            setRol(parsedData.rol);
-            setRegion(parsedData.region);
-            setBanda(parsedData.banda);
+            const parsedData: DataLaboratorio =
+                JSON.parse(dataFromLocalStorage);
+            // Establecer todos los datos en un solo estado
+            setFormData(parsedData);
         }
     }, []);
 
-    useEffect(() => {
-        // Guardar los datos en el Local Storage cuando cambien
-        const informeData: DataInforme = {
+    const setFormData = (formData: DataLaboratorio) => {
+        setNumeroCarta(formData.numeroCarta);
+        setNombreResidente(formData.nombreResidente);
+        setNombreInspector(formData.nombreInspector);
+        setNombreEmpresa(formData.nombreEmpresa);
+        setSelectedDate(formData.selectedDate);
+        setLogoEmpresa(formData.logoEmpresa);
+        setNombreContrato(formData.nombreContrato);
+        setNumeroInforme(formData.numeroInforme);
+        setCodigoSAFI(formData.codigoSAFI);
+        setNombreLaboratorista(formData.nombreLaboratorista);
+        setClaseLicencia(formData.claseLicencia);
+        setRol(formData.rol);
+        setRegion(formData.region);
+        setBanda(formData.banda);
+    };
+
+    const handleSave = () => {
+        // Guardar los datos en el Local Storage
+        const laboratorioData: DataLaboratorio = {
             numeroCarta,
             nombreResidente,
             nombreInspector,
             nombreEmpresa,
-            renderInforme: renderInforme(),
             selectedDate,
             logoEmpresa,
             nombreContrato,
@@ -97,59 +103,10 @@ export default function ConfigLab() {
             region,
             banda,
         };
-        localStorage.setItem("informeData", JSON.stringify(informeData));
-    }, [
-        numeroCarta,
-        nombreResidente,
-        nombreInspector,
-        nombreEmpresa,
-        selectedDate,
-        logoEmpresa,
-        nombreContrato,
-        numeroInforme,
-        codigoSAFI,
-        nombreLaboratorista,
-        claseLicencia,
-        rol,
-        region,
-        banda,
-    ]);
-
-    const renderInforme = () => {
-        if (selectedDate !== "") {
-            const date = new Date(selectedDate);
-            const day = date.getDate();
-            const month = date.toLocaleString("default", { month: "long" });
-            const year = date.getFullYear();
-            if (day >= 1 && day <= 15) {
-                const previousMonth = new Date(
-                    date.getFullYear(),
-                    date.getMonth(),
-                    0
-                );
-                const previousMonthName = previousMonth.toLocaleString(
-                    "default",
-                    {
-                        month: "long",
-                    }
-                );
-
-                return `la segunda quincena del 16 al ${previousMonth.getDate()} ${previousMonthName} ${year}`;
-            } else {
-                return `la primera quincena del 1 al 15 ${month} ${year}`;
-            }
-        }
-
-        return null;
-    };
-
-    const handleGenerate = () => {
-        // Generar informe
-    };
-
-    const handleRemoveImage = () => {
-        setSelectedImage(null);
-        setLogoEmpresa(null);
+        localStorage.setItem(
+            "laboratorioData",
+            JSON.stringify(laboratorioData)
+        );
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,7 +134,6 @@ export default function ConfigLab() {
                 Son datos con los que trabajarás y solo es necesario
                 configurarlos una vez o cunado creas necesario.
             </Typography>
-            
 
             <BasicTabs
                 labels={["Laboratorio", "Contrato", "Usuario"]}
@@ -470,7 +426,11 @@ export default function ConfigLab() {
                     <span>En construcción</span>,
                 ]}
             />
-            <SimpleSnackbar fullWidth={true} message={"Guardado con éxito"}>
+            <SimpleSnackbar
+                onClick={handleSave}
+                fullWidth={true}
+                message={"¡Datos actualizados!"}
+            >
                 Guardar Datos
             </SimpleSnackbar>
         </Box>
