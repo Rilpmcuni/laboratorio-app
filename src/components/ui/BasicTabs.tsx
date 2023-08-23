@@ -22,7 +22,7 @@ function CustomTabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
+                <Box sx={{ paddingX:1,paddingY:2.5 }}>
                     <Typography>{children}</Typography>
                 </Box>
             )}

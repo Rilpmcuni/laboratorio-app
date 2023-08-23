@@ -17,12 +17,12 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
         color: theme.palette.primary.main,
     },
 }));
-export default function LogoName() {
+export default function LogoName({href}: {href:string}) {
     return (
         <>
             <LinkMui
                 component={Link}
-                href={"/"}
+                href={href}
                 sx={{
                     display: "flex",
                     flexDirection: "row",

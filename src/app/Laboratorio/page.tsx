@@ -152,7 +152,7 @@ export default function Laboratorio() {
                 </Grid>
                 <NoAuth />
             </>
-            <TableContainer component={Paper}>
+            {/* <TableContainer component={Paper}>
                 <Table size="small" aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
@@ -173,7 +173,7 @@ export default function Laboratorio() {
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer> */}
         </>
     );
 }

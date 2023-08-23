@@ -642,6 +642,16 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                         role="presentation"
                                         onKeyDown={toggleDrawer(anchor, false)}
                                     >
+                                        <Box
+                                            sx={{
+                                                width:"100%",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <LogoName href="/Laboratorio" />
+                                        </Box>
                                         <List>
                                             {items.map((item, index) => (
                                                 <React.Fragment key={item.text}>
@@ -734,8 +744,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 </SwipeableDrawer>
                             </React.Fragment>
                         ))}
-
-                        <LogoName />
+                        <LogoName href="/Laboratorio" />
                         <Tooltip
                             title="Configurar Perfil"
                             arrow
@@ -762,35 +771,35 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                 {/*  */}
             </Box>
             {/* mobile */}
-
+            <div
+                style={{
+                    borderRadius: "1.5rem",
+                    // border: "solid 1px black",
+                    position: "fixed",
+                    top: 60,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100vh",
+                    width: "100%",
+                    // boxShadow: "0px 0px 0px 15px black",
+                    boxShadow: "0px 0px 0px 15px #171717",
+                    zIndex: 40,
+                    pointerEvents: "none",
+                }}
+            ></div>
             <Box
                 // component="main"
                 sx={{
                     flexGrow: 1,
                     bgcolor: "background.default",
-                    paddingX: 0.5,
+                    paddingX: 0.3,
                     paddingY: 1,
                 }}
             >
                 <Toolbar />
-                <div
-                    style={{
-                        borderRadius: "1.5rem",
-                        // border: "solid 1px black",
-                        position: "fixed",
-                        top: 60,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100vh",
-                        width: "100%",
-                        // boxShadow: "0px 0px 0px 15px black",
-                        boxShadow: "0px 0px 0px 15px #171717",
-                        zIndex: 40,
-                        pointerEvents: "none",
-                    }}
-                ></div>
+
                 {children}
             </Box>
         </Box>

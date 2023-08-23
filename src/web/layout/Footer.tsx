@@ -100,7 +100,7 @@ export default function Footer() {
                     gap: "1rem",
                 }}
             >
-                <LogoName />
+                <LogoName href="/" />
                 <Typography variant="body2" color="InactiveCaptionText">
                 Bienvenido, a la nueva tecnología de Laboratorio.
                 </Typography>

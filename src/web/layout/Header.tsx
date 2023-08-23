@@ -64,7 +64,7 @@ export default function Header() {
             zIndex={50}
             // borderBottom={"solid 1px #d9d9d9"}
         >
-            <LogoName />
+            <LogoName href="/" />
             <Stack
                 sx={{ display: { xs: "none", md: "flex" } }}
                 direction="row"
