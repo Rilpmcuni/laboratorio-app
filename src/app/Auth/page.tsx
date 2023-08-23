@@ -116,7 +116,7 @@ export default function Auth() {
                                 fontWeight={600}
                                 gutterBottom
                             >
-                                <LogoName />
+                                <LogoName href="/" />
                             </Typography>
                             {/* <Typography
                                 variant="body1"
