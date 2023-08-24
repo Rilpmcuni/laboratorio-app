@@ -86,7 +86,7 @@ export default function ConfigLab() {
         setRol(formData.rol);
         setRegion(formData.region);
         setBanda(formData.banda);
-        setRangoCono(formData.rangoCono)
+        setRangoCono(formData.rangoCono);
     };
 
     const handleSave = () => {
@@ -106,7 +106,7 @@ export default function ConfigLab() {
             rol,
             region,
             banda,
-            rangoCono
+            rangoCono,
         };
         localStorage.setItem(
             "laboratorioData",
@@ -226,9 +226,14 @@ export default function ConfigLab() {
                                 <MenuItem value="TM-25">TM-25</MenuItem>
                             </Select>
                         </FormControl>
-                        <Box sx={{ width:"100%",paddingX:2,paddingY:1 }}>
-                            <Typography id="slider-asentamiento-de-hormigon" gutterBottom color="InactiveCaptionText">
-                            Asentamiento de Hormigón
+                        <Box sx={{ width: "100%", paddingX: 2, paddingY: 1 }}>
+                            <Typography
+                                id="slider-asentamiento-de-hormigon"
+                                gutterBottom
+                                color="InactiveCaptionText"
+                                sx={{ paddingBottom: "2rem" }}
+                            >
+                                Asentamiento de Hormigón
                             </Typography>
                             <Slider
                                 id="range-slider"
@@ -237,12 +242,14 @@ export default function ConfigLab() {
                                     setRangoCono(newValue as number[]);
                                 }}
                                 valueLabelDisplay="on"
+                                valueLabelFormat={(value) => `${value} cm`}
                                 min={0}
                                 max={24}
                                 marks={[
                                     { value: 0, label: "0 cm" },
                                     { value: 6, label: "6 cm" },
                                     { value: 12, label: "12 cm" },
+                                    { value: 18, label: "18 cm" },
                                     { value: 24, label: "24 cm" },
                                 ]}
                             />

@@ -51,6 +51,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import AvatarUser from "@/components/ui/AvatarUser";
 
 const drawerWidth = 80;
 type Anchor = "top" | "left" | "bottom" | "right";
@@ -324,9 +325,10 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                     aria-haspopup="true"
                                     aria-expanded={open ? "true" : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }}>
+                                    {/* <Avatar sx={{ width: 32, height: 32 }}>
                                         C
-                                    </Avatar>
+                                    </Avatar> */}
+                                     <AvatarUser/>
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -863,9 +865,10 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 aria-haspopup="true"
                                 aria-expanded={open ? "true" : undefined}
                             >
-                                <Avatar sx={{ width: 32, height: 32 }}>
+                                {/* <Avatar sx={{ width: 32, height: 32 }}>
                                     C
-                                </Avatar>
+                                </Avatar> */}
+                                <AvatarUser/>
                             </IconButton>
                         </Tooltip>
                     </Toolbar>
