@@ -19,7 +19,7 @@ export default function HeroAppCard() {
             <Card
                 variant="outlined"
                 sx={{
-                    position: "relative",
+                    // position: "relative",
                     overflow: "visible",
                     borderRadius: "1rem",
                     //

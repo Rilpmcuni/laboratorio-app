@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Typography,
     TextField,
@@ -17,66 +17,77 @@ import MetodoConoAbrams from "@/components/metodos/MetodoConoAbrams";
 interface DataHormigon {
     nombreContrato: string;
     proveedor: string | null;
-    gradoHormigon: number;
-    codigoHormigon: number;
-    dosificacion: number;
-    visacion: number;
+    gradoHormigon: number | null;
+    codigoHormigon: number | null;
+    dosificacion: number | null;
+    visacion: number | null;
     visadoPor: string;
-    guiaDespacho: number;
+    guiaDespacho: number | null;
     patenteCamion: string;
-    volumen: number;
+    volumen: number | null;
     horaSalidaPlanta: string;
     horaLlegadaObra: string;
     codigo: string;
     tipoProbetas: string;
-    cantidadProbetas: number;
+    cantidadProbetas: number | null;
     fechaMuestreo: string;
     horaInicioDescarga: string;
     horaMuestreo: string;
-    asentamientoCono: number;
-    temperaturaHormigon: number;
-    temperaturaAmbiente: number;
+    asentamientoCono: number | null;
+    temperaturaHormigon: number | null;
+    temperaturaAmbiente: number | null;
     incorporacionAditivo: boolean;
     marcaAditivo: string;
     tipoAditivo: string;
-    cantidadAditivo: number;
-    edadEnsaye: number;
+    cantidadAditivo: number | null;
+    edadEnsaye: number | null;
 }
 
 export default function HormigonFicha() {
-    const [nombreContrato, setNombreContrato] = React.useState("");
-    const [proveedor, setProveedor] = React.useState<string | null>(null);
-    const [gradoHormigon, setGradoHormigon] = React.useState(0);
-    const [codigoHormigon, setCodigoHormigon] = React.useState(0);
-    const [dosificacion, setDosificacion] = React.useState(0);
-    const [visacion, setVisacion] = React.useState(0);
-    const [visadoPor, setVisadoPor] = React.useState("");
-    const [guiaDespacho, setGuiaDespacho] = React.useState(0);
-    const [patenteCamion, setPatenteCamion] = React.useState("");
-    const [volumen, setVolumen] = React.useState(0);
-    const [horaSalidaPlanta, setHoraSalidaPlanta] = React.useState("");
-    const [horaLlegadaObra, setHoraLlegadaObra] = React.useState("");
-    const [horaActual, setHoraActual] = React.useState("");
-    const [showSnackbar, setShowSnackbar] = React.useState(false);
-    const [hormigonData, setHormigonData] = React.useState<DataHormigon[]>([]);
-    const [muestra, setMuestra] = React.useState(1);
-    const [codigo, setCodigo] = React.useState("");
-    const [tipoProbetas, setTipoProbetas] = React.useState("");
-    const [cantidadProbetas, setCantidadProbetas] = React.useState(1);
-    const [fechaMuestreo, setFechaMuestreo] = React.useState("");
-    const [horaInicioDescarga, setHoraInicioDescarga] = React.useState("");
-    const [horaMuestreo, setHoraMuestreo] = React.useState("");
-    const [asentamientoCono, setAsentamientoCono] = React.useState(0);
-    const [temperaturaHormigon, setTemperaturaHormigon] = React.useState(0);
-    const [temperaturaAmbiente, setTemperaturaAmbiente] = React.useState(0);
-    const [incorporacionAditivo, setIncorporacionAditivo] =
-        React.useState(false);
-    const [marcaAditivo, setMarcaAditivo] = React.useState("");
-    const [tipoAditivo, setTipoAditivo] = React.useState("");
-    const [cantidadAditivo, setCantidadAditivo] = React.useState(0);
-    const [edadEnsaye, setEdadEnsaye] = React.useState(0);
+    const [nombreContrato, setNombreContrato] = useState("");
+    const [proveedor, setProveedor] = useState<string | null>(null);
+    const [gradoHormigon, setGradoHormigon] = useState<number | null>(null);
+    const [codigoHormigon, setCodigoHormigon] = useState<number | null>(null);
+    const [dosificacion, setDosificacion] = useState<number | null>(null);
+    const [visacion, setVisacion] = useState<number | null>(null);
+    const [visadoPor, setVisadoPor] = useState("");
+    const [guiaDespacho, setGuiaDespacho] = useState<number | null>(null);
+    const [patenteCamion, setPatenteCamion] = useState("");
+    const [volumen, setVolumen] = useState<number | null>(null);
+    const [horaSalidaPlanta, setHoraSalidaPlanta] = useState("");
+    const [horaLlegadaObra, setHoraLlegadaObra] = useState("");
+    const [horaActual, setHoraActual] = useState("");
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [hormigonData, setHormigonData] = useState<DataHormigon[]>([]);
+    const [muestra, setMuestra] = useState(1);
+    const [codigo, setCodigo] = useState("");
+    const [tipoProbetas, setTipoProbetas] = useState("");
+    const [cantidadProbetas, setCantidadProbetas] = useState(1);
+    const [fechaMuestreo, setFechaMuestreo] = useState("");
+    const [horaInicioDescarga, setHoraInicioDescarga] = useState("");
+    const [horaMuestreo, setHoraMuestreo] = useState("");
+    const [asentamientoCono, setAsentamientoCono] = useState<number | null>(
+        null
+    );
+    const [temperaturaHormigon, setTemperaturaHormigon] = useState<
+        number | null
+    >(null);
+    const [temperaturaAmbiente, setTemperaturaAmbiente] = useState<
+        number | null
+    >(null);
+    const [incorporacionAditivo, setIncorporacionAditivo] = useState(false);
+    const [marcaAditivo, setMarcaAditivo] = useState("");
+    const [tipoAditivo, setTipoAditivo] = useState("");
+    const [cantidadAditivo, setCantidadAditivo] = useState<number | null>(null);
+    const [edadEnsaye, setEdadEnsaye] = useState<number | null>(null);
+    const [asentamientoConoError, setAsentamientoConoError] =
+        useState<boolean>(false);
+        const [rangoCono, setRangoCono] = useState<number[]>([0,24]);
 
-    React.useEffect(() => {
+
+    const asentCono = [4, 12];
+
+    useEffect(() => {
         // Cargar los datos del Local Storage al cargar la página
         const hormigonData = localStorage.getItem("hormigonData");
         if (hormigonData) {
@@ -84,14 +95,23 @@ export default function HormigonFicha() {
             setHormigonData(parsedHormigonData);
             setMuestra(parsedHormigonData.length + 1);
         }
+    
+        // Obtener el laboratorioData del Local Storage si existe
+        const laboratorioData = localStorage.getItem("laboratorioData");
+        if (laboratorioData) {
+            const parsedLaboratorioData: any = JSON.parse(laboratorioData);
+            setNombreContrato(parsedLaboratorioData.nombreContrato);
+            setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
+        }
     }, []);
+    
 
-    React.useEffect(() => {
+    useEffect(() => {
         // Guardar los datos en el Local Storage cuando cambien
         localStorage.setItem("hormigonData", JSON.stringify(hormigonData));
     }, [hormigonData]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         // Obtener la hora actual al cargar la página
         const obtenerHoraActual = () => {
             const fechaActual = new Date();
@@ -117,62 +137,53 @@ export default function HormigonFicha() {
         };
     }, []);
 
-    React.useEffect(() => {
-        // Obtener el nombre del contrato del componente ConfigLab
-        const informeData = localStorage.getItem("informeData");
-        let nombreContrato = "";
-        if (informeData) {
-            const parsedData: any = JSON.parse(informeData);
-            nombreContrato = parsedData.nombreContrato;
-        }
-        setNombreContrato(nombreContrato);
-    }, []);
+
 
     const handleSaveData = () => {
         // Generar código aleatorio de 6 caracteres entre letras mayúsculas y números
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let generatedCode = "";
         for (let i = 0; i < 6; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          generatedCode += characters[randomIndex];
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            generatedCode += characters[randomIndex];
         }
-      
+
         const newHormigonData: DataHormigon = {
-          nombreContrato,
-          proveedor,
-          gradoHormigon,
-          codigoHormigon,
-          dosificacion,
-          visacion,
-          visadoPor,
-          guiaDespacho,
-          patenteCamion,
-          volumen,
-          horaSalidaPlanta,
-          horaLlegadaObra,
-          codigo: generatedCode,
-          tipoProbetas,
-          cantidadProbetas,
-          fechaMuestreo,
-          horaInicioDescarga,
-          horaMuestreo,
-          asentamientoCono,
-          temperaturaHormigon,
-          temperaturaAmbiente,
-          incorporacionAditivo,
-          marcaAditivo,
-          tipoAditivo,
-          cantidadAditivo,
-          edadEnsaye,
-          // Remove muestra property since it does not exist in DataHormigon type
+            nombreContrato,
+            proveedor,
+            gradoHormigon,
+            codigoHormigon,
+            dosificacion,
+            visacion,
+            visadoPor,
+            guiaDespacho,
+            patenteCamion,
+            volumen,
+            horaSalidaPlanta,
+            horaLlegadaObra,
+            codigo: generatedCode,
+            tipoProbetas,
+            cantidadProbetas,
+            fechaMuestreo,
+            horaInicioDescarga,
+            horaMuestreo,
+            asentamientoCono,
+            temperaturaHormigon,
+            temperaturaAmbiente,
+            incorporacionAditivo,
+            marcaAditivo,
+            tipoAditivo,
+            cantidadAditivo,
+            edadEnsaye,
+            // Remove muestra property since it does not exist in DataHormigon type
         };
-      
+
         setHormigonData((prevData) => [...prevData, newHormigonData]);
         setCodigo(generatedCode);
         setShowSnackbar(true);
-      };
+    };
 
-    React.useEffect(() => {
+    useEffect(() => {
         // Obtener la fecha actual al cargar la página
         const obtenerFechaActual = () => {
             const fechaActual = new Date();
@@ -196,16 +207,19 @@ export default function HormigonFicha() {
                 flexDirection: "column",
             }}
         >
-            <Typography variant="h3" fontWeight={900} sx={{ position: "relative" }}>
+            <Typography
+                variant="h3"
+                fontWeight={900}
+                sx={{ position: "relative" }}
+            >
                 Muestreo hormigón fresco
-                  {/* <Box > */}
-                  <MetodoConoAbrams />
+                {/* <Box > */}
+                <MetodoConoAbrams />
                 {/* </Box> */}
             </Typography>
-            <Typography variant="subtitle2" >
+            <Typography variant="subtitle2">
                 HORMIGONES, MÉTODO PARA EXTRAER MUESTRAS DE HORMIGÓN FRESCO,
                 ÍTEM 8.402.6
-              
             </Typography>
 
             <Stack
@@ -484,8 +498,23 @@ export default function HormigonFicha() {
                             type="number"
                             value={asentamientoCono}
                             onChange={(event) => {
-                                setAsentamientoCono(Number(event.target.value));
+                                const inputValue = Number(event.target.value);
+                                setAsentamientoCono(inputValue);
+                                if (
+                                    inputValue >= rangoCono[0] &&
+                                    inputValue <= rangoCono[1]
+                                ) {
+                                    setAsentamientoConoError(false); // Valor válido, sin error
+                                } else {
+                                    setAsentamientoConoError(true); // Valor inválido, con error
+                                }
                             }}
+                            error={asentamientoConoError} // Indica si hay error en el valor
+                            helperText={
+                                asentamientoConoError
+                                    ? `Valor fuera de las especificaciones ${rangoCono[0]} y ${rangoCono[1]} cm`
+                                    : ""
+                            }
                         />
                         <TextField
                             sx={{ flexGrow: 1 }}

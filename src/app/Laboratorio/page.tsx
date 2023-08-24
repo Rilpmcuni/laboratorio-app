@@ -16,7 +16,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import { Button, Grid } from "@mui/material";
 import VerDescargarInforme from "@/components/function/VerDescargarInforme";
-import { Test } from "@/components/test/Test";
+import TabsComponent from "@/components/test/Test";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import HeroAppCard from "@/components/ui/HeroAppCard";
@@ -174,6 +174,7 @@ export default function Laboratorio() {
                     </TableBody>
                 </Table>
             </TableContainer> */}
+            hola
         </>
     );
 }

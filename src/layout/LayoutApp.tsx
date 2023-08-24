@@ -165,6 +165,9 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
         const closeDrawer = handleCloseDrawer(anchor);
         closeDrawer();
     };
+    function removeAccents(str: string) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
 
     const list = (anchor: Anchor) => (
         <Box
@@ -644,7 +647,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                     >
                                         <Box
                                             sx={{
-                                                width:"100%",
+                                                width: "100%",
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "center",
@@ -652,93 +655,192 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                         >
                                             <LogoName href="/Laboratorio" />
                                         </Box>
+                                        <Divider variant="middle" />
                                         <List>
-                                            {items.map((item, index) => (
-                                                <React.Fragment key={item.text}>
-                                                    <ListItemButton
-                                                        LinkComponent={Link}
-                                                        href={
-                                                            index === 0
-                                                                ? "/Laboratorio"
-                                                                : `/Laboratorio/${item.text}`
-                                                        }
-                                                        onClick={() =>
-                                                            handleDrawerItemClick(
-                                                                anchor
-                                                            )
-                                                        }
+                                            {items.map((item, index) => {
+                                                const normalizedItemText =
+                                                    removeAccents(item.text);
+                                                const isActivePrimary = (() => {
+                                                    const pathSegments =
+                                                        pathname
+                                                            .split("/")
+                                                            .filter(
+                                                                (segment) =>
+                                                                    segment !==
+                                                                    ""
+                                                            );
+                                                    const decodedLastSegment =
+                                                        decodeURIComponent(
+                                                            pathSegments[
+                                                                pathSegments.length -
+                                                                    1
+                                                            ]
+                                                        );
+                                                    const normalizedLastSegment =
+                                                        removeAccents(
+                                                            decodedLastSegment
+                                                        );
+
+                                                    return (
+                                                        (index === 0 &&
+                                                            pathSegments.length ===
+                                                                1 &&
+                                                            pathSegments[0] ===
+                                                                "Laboratorio") ||
+                                                        (pathSegments.length >=
+                                                            2 &&
+                                                            pathSegments[0] ===
+                                                                "Laboratorio" &&
+                                                            pathSegments[1] ===
+                                                                normalizedItemText)
+                                                    );
+                                                })();
+                                                return (
+                                                    <React.Fragment
+                                                        key={item.text}
                                                     >
-                                                        <ListItemIcon>
-                                                            {item.icon}
-                                                        </ListItemIcon>
-                                                        <ListItemText
-                                                            primary={item.text}
-                                                        />
-                                                        {item.subItems.length >
-                                                        0 ? (
-                                                            state[anchor] ? (
-                                                                <ExpandLess />
-                                                            ) : (
-                                                                <ExpandMore />
-                                                            )
-                                                        ) : null}
-                                                    </ListItemButton>
-                                                    {item.subItems.length >
-                                                        0 && (
-                                                        <Collapse
-                                                            in={state[anchor]}
-                                                            timeout="auto"
-                                                            unmountOnExit
+                                                        <ListItemButton
+                                                            sx={{
+                                                                // display: "flex",
+                                                                // flexDirection: "column",
+                                                                // alignItems: "center",
+                                                                // justifyContent: "center",
+                                                                color: isActivePrimary
+                                                                    ? "primary.main"
+                                                                    : "",
+                                                                bgcolor:
+                                                                    isActivePrimary
+                                                                        ? alpha(
+                                                                              theme
+                                                                                  .palette
+                                                                                  .primary
+                                                                                  .main,
+                                                                              0.1
+                                                                          )
+                                                                        : "",
+                                                            }}
+                                                            LinkComponent={Link}
+                                                            href={
+                                                                index === 0
+                                                                    ? "/Laboratorio"
+                                                                    : `/Laboratorio/${normalizedItemText}`
+                                                            }
+                                                            onClick={() =>
+                                                                handleDrawerItemClick(
+                                                                    anchor
+                                                                )
+                                                            }
                                                         >
-                                                            <List
-                                                                component="div"
-                                                                disablePadding
+                                                            <ListItemIcon>
+                                                                {item.icon}
+                                                            </ListItemIcon>
+                                                            <ListItemText
+                                                                primary={
+                                                                    item.text
+                                                                }
+                                                            />
+                                                            {item.subItems
+                                                                .length > 0 ? (
+                                                                state[
+                                                                    anchor
+                                                                ] ? (
+                                                                    <ExpandLess />
+                                                                ) : (
+                                                                    <ExpandMore />
+                                                                )
+                                                            ) : null}
+                                                        </ListItemButton>
+                                                        {item.subItems.length >
+                                                            0 && (
+                                                            <Collapse
+                                                                in={
+                                                                    state[
+                                                                        anchor
+                                                                    ]
+                                                                }
+                                                                // in={
+                                                                //     isActivePrimary
+                                                                // }
+                                                                timeout="auto"
+                                                                unmountOnExit
                                                             >
-                                                                {item.subItems.map(
-                                                                    (
-                                                                        subItem,
-                                                                        subIndex
-                                                                    ) => (
-                                                                        <ListItemButton
-                                                                            key={
-                                                                                subItem.text
-                                                                            }
-                                                                            LinkComponent={
-                                                                                Link
-                                                                            }
-                                                                            href={
-                                                                                subIndex ===
-                                                                                0
-                                                                                    ? `/Laboratorio/${item.text}`
-                                                                                    : `/Laboratorio/${item.text}/${subItem.text}`
-                                                                            }
-                                                                            onClick={() =>
-                                                                                handleDrawerItemClick(
-                                                                                    anchor
-                                                                                )
-                                                                            }
-                                                                            sx={{
-                                                                                pl: 4,
-                                                                            }}
-                                                                        >
-                                                                            <ListItemIcon>
-                                                                                {
-                                                                                    subItem.icon
-                                                                                }
-                                                                            </ListItemIcon>
-                                                                            <ListItemText
-                                                                                primary={
+                                                                <List
+                                                                    component="div"
+                                                                    disablePadding
+                                                                >
+                                                                    {item.subItems.map(
+                                                                        (
+                                                                            subItem,
+                                                                            subIndex
+                                                                        ) => {
+                                                                            const subItemDecodedText =
+                                                                                decodeURIComponent(
                                                                                     subItem.text
-                                                                                }
-                                                                            />
-                                                                        </ListItemButton>
-                                                                    )
-                                                                )}
-                                                            </List>
-                                                        </Collapse>
-                                                    )}
-                                                </React.Fragment>
-                                            ))}
+                                                                                );
+                                                                            const subItemNormalizedText =
+                                                                                removeAccents(
+                                                                                    subItemDecodedText
+                                                                                );
+                                                                            const subItemPath = `/Laboratorio/${normalizedItemText}/${subItemNormalizedText}`;
+                                                                            const isActiveSubItem =
+                                                                                pathname ===
+                                                                                subItemPath;
+
+                                                                            return (
+                                                                                <ListItemButton
+                                                                                    key={
+                                                                                        subItem.text
+                                                                                    }
+                                                                                    LinkComponent={
+                                                                                        Link
+                                                                                    }
+                                                                                    href={
+                                                                                        subItemDecodedText
+                                                                                            ? `/Laboratorio/${normalizedItemText}/${subItemNormalizedText}`
+                                                                                            : `/Laboratorio/${normalizedItemText}`
+                                                                                    }
+                                                                                    onClick={() =>
+                                                                                        handleDrawerItemClick(
+                                                                                            anchor
+                                                                                        )
+                                                                                    }
+                                                                                    sx={{
+                                                                                        pl: 4,
+                                                                                        color: isActiveSubItem
+                                                                                            ? "primary.main"
+                                                                                            : "",
+                                                                                        bgcolor:
+                                                                                            isActiveSubItem
+                                                                                                ? alpha(
+                                                                                                      theme
+                                                                                                          .palette
+                                                                                                          .primary
+                                                                                                          .main,
+                                                                                                      0.1
+                                                                                                  )
+                                                                                                : "",
+                                                                                    }}
+                                                                                >
+                                                                                    <ListItemIcon>
+                                                                                        {
+                                                                                            subItem.icon
+                                                                                        }
+                                                                                    </ListItemIcon>
+                                                                                    <ListItemText
+                                                                                        primary={
+                                                                                            subItem.text
+                                                                                        }
+                                                                                    />
+                                                                                </ListItemButton>
+                                                                            );
+                                                                        }
+                                                                    )}
+                                                                </List>
+                                                            </Collapse>
+                                                        )}
+                                                    </React.Fragment>
+                                                );
+                                            })}
                                         </List>
                                     </Box>
                                 </SwipeableDrawer>
@@ -771,30 +873,13 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                 {/*  */}
             </Box>
             {/* mobile */}
-            <div
-                style={{
-                    borderRadius: "1.5rem",
-                    // border: "solid 1px black",
-                    position: "fixed",
-                    top: 60,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100vh",
-                    width: "100%",
-                    // boxShadow: "0px 0px 0px 15px black",
-                    boxShadow: "0px 0px 0px 15px #171717",
-                    zIndex: 40,
-                    pointerEvents: "none",
-                }}
-            ></div>
+
             <Box
                 // component="main"
                 sx={{
                     flexGrow: 1,
                     bgcolor: "background.default",
-                    paddingX: 0.3,
+                    paddingX: 0.5,
                     paddingY: 1,
                 }}
             >

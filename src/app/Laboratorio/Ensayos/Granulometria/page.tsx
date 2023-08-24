@@ -20,7 +20,6 @@ import {
     Typography,
 } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Test } from "@/components/test/Test";
 interface DataInforme {
     banda: string;
 }
@@ -612,10 +611,6 @@ const Granulometria = () => {
                 </Table>
             </TableContainer>
             <Divider variant="middle" sx={{ marginY: "1rem" }} />
-            <div style={{width:"40vw", height:"100vh"}}>
-
-            <Test pasa={porcentajesPasaArray}/>
-                        </div>
             {porcentajesPasaArray}
         </Box>
     );

@@ -12,6 +12,7 @@ import {
     Stack,
     Box,
     IconButton,
+    Slider,
 } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
@@ -34,6 +35,7 @@ interface DataLaboratorio {
     rol: string;
     region: string;
     banda: string;
+    rangoCono: number[];
 }
 
 export default function ConfigLab() {
@@ -52,6 +54,7 @@ export default function ConfigLab() {
     const [rol, setRol] = useState("");
     const [region, setRegion] = useState("");
     const [banda, setBanda] = useState("");
+    const [rangoCono, setRangoCono] = useState<number[]>([1, 22]);
 
     const handleRemoveImage = () => {
         setSelectedImage(null);
@@ -83,6 +86,7 @@ export default function ConfigLab() {
         setRol(formData.rol);
         setRegion(formData.region);
         setBanda(formData.banda);
+        setRangoCono(formData.rangoCono)
     };
 
     const handleSave = () => {
@@ -102,6 +106,7 @@ export default function ConfigLab() {
             rol,
             region,
             banda,
+            rangoCono
         };
         localStorage.setItem(
             "laboratorioData",
@@ -221,6 +226,27 @@ export default function ConfigLab() {
                                 <MenuItem value="TM-25">TM-25</MenuItem>
                             </Select>
                         </FormControl>
+                        <Box sx={{ width:"100%",paddingX:2,paddingY:1 }}>
+                            <Typography id="slider-asentamiento-de-hormigon" gutterBottom color="InactiveCaptionText">
+                            Asentamiento de Hormigón
+                            </Typography>
+                            <Slider
+                                id="range-slider"
+                                value={rangoCono}
+                                onChange={(event, newValue) => {
+                                    setRangoCono(newValue as number[]);
+                                }}
+                                valueLabelDisplay="on"
+                                min={0}
+                                max={24}
+                                marks={[
+                                    { value: 0, label: "0 cm" },
+                                    { value: 6, label: "6 cm" },
+                                    { value: 12, label: "12 cm" },
+                                    { value: 24, label: "24 cm" },
+                                ]}
+                            />
+                        </Box>
                     </Stack>,
                     <Stack
                         spacing={{ xs: 1, sm: 2 }}
