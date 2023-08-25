@@ -72,10 +72,10 @@ const theme = createTheme(
                 main: "#5bc346",
             },
             error: {
-                main: "#ff1f1f",
+                main: "#ff0035",
             },
             warning: {
-                main: "#F5A314",
+                main: "#fbff1f",
             },
             info: {
                 main: "#2667FF",

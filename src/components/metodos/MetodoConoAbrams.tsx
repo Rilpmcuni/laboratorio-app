@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Box, IconButton, Zoom } from "@mui/material";
 import HelpIcon from "@mui/icons-material/Help";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm";
 
 const markdown = `
 
@@ -105,10 +105,9 @@ const markdown = `
 
 
 
-`
+`;
 
 export default function MetodoConoAbrams() {
-
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
@@ -132,7 +131,9 @@ export default function MetodoConoAbrams() {
     }, [open]);
 
     return (
-        <Box sx={{ position: "absolute", top: -21, right: -21 }}>
+        <Box
+            sx={{ position: "absolute", top: -21, right: { xs: -3, md: -21 } }}
+        >
             <IconButton
                 size="small"
                 aria-label="dudas"
@@ -159,7 +160,10 @@ export default function MetodoConoAbrams() {
                         ref={descriptionElementRef}
                         tabIndex={-1}
                     >
-                        <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
+                        <ReactMarkdown
+                            children={markdown}
+                            remarkPlugins={[remarkGfm]}
+                        />
                     </DialogContentText>
                 </DialogContent>
             </Dialog>

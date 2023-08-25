@@ -33,7 +33,7 @@ export default function NoAuth() {
     const handleAgree = () => {
         // setOpen(false);
         // localStorage.setItem("open", "false"); // Cerrar y guardar en el almacenamiento local
-        router.push("/"); // Redirigir después de hacer clic en "Agree"
+        router.push("/Auth/Signout"); // Redirigir después de hacer clic en "Agree"
     };
 
     return (
@@ -46,10 +46,16 @@ export default function NoAuth() {
                 aria-labelledby="responsive-dialog-title"
                 // sx={{ backgroundColor: "red" }}
             >
-                <DialogTitle  sx={{backgroundColor:"secondary.main", color:"secondary.contrastText"}} id="responsive-dialog-title">
+                <DialogTitle
+                    sx={{
+                        backgroundColor: "secondary.main",
+                        color: "secondary.contrastText",
+                    }}
+                    id="responsive-dialog-title"
+                >
                     {"Lea atentamente"}
                 </DialogTitle>
-                <DialogContent sx={{backgroundColor:"secondary.main"}}>
+                <DialogContent sx={{ backgroundColor: "secondary.main" }}>
                     <DialogContentText>
                         <Alert variant="filled" severity="error">
                             <AlertTitle sx={{ fontweight: "bold" }}>
@@ -57,19 +63,21 @@ export default function NoAuth() {
                             </AlertTitle>
                             — Si no tienes una invitación especial para ser un
                             tester Beta, te pedimos que cierres la aplicación.
+                            <br />
                             De lo contrario, podríamos tener que bloquear tu
                             cuenta indefinidamente.
                             <br />
-                            Si estás interesado en obtener una invitación
+                            — Si estás interesado en obtener una invitación
                             exclusiva, no dudes en enviarnos un mensaje a
                             cualquiera de los datos de contacto que se
-                            encuentran a continuación. ¡Gracias por tu
-                            comprensión y entusiasmo por ser parte de nuestra
-                            emocionante fase Beta! 🌟🚀
+                            encuentran a continuación.
+                            <br />
+                            ¡Gracias por tu comprensión y entusiasmo por ser
+                            parte de nuestra emocionante fase Beta! 🌟🚀
                         </Alert>
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions  sx={{backgroundColor:"secondary.main"}}>
+                <DialogActions sx={{ backgroundColor: "secondary.main" }}>
                     <Button autoFocus onClick={handleAgree}>
                         Salir
                     </Button>

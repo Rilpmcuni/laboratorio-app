@@ -412,7 +412,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 <ListItemIcon>
                                     <Logout fontSize="small" />
                                 </ListItemIcon>
-                                Cerrar sesións
+                                Cerrar sesión
                             </MenuItem>
                         </Menu>
                     </Toolbar>

@@ -8,7 +8,13 @@ import {
     Stack,
     Button,
     Collapse,
+    Badge,
+    Grid,
+    Card,
+    CardContent,
+    CardActionArea,
 } from "@mui/material";
+import CardActions from "@mui/material/CardActions";
 import { SimpleSnackbar } from "@/components/feedback/SnackBar";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -82,8 +88,7 @@ export default function HormigonFicha() {
     const [edadEnsaye, setEdadEnsaye] = useState<number | null>(null);
     const [asentamientoConoError, setAsentamientoConoError] =
         useState<boolean>(false);
-        const [rangoCono, setRangoCono] = useState<number[]>([0,24]);
-
+    const [rangoCono, setRangoCono] = useState<number[]>([0, 24]);
 
     const asentCono = [4, 12];
 
@@ -95,7 +100,7 @@ export default function HormigonFicha() {
             setHormigonData(parsedHormigonData);
             setMuestra(parsedHormigonData.length + 1);
         }
-    
+
         // Obtener el laboratorioData del Local Storage si existe
         const laboratorioData = localStorage.getItem("laboratorioData");
         if (laboratorioData) {
@@ -104,7 +109,6 @@ export default function HormigonFicha() {
             setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
         }
     }, []);
-    
 
     useEffect(() => {
         // Guardar los datos en el Local Storage cuando cambien
@@ -136,8 +140,6 @@ export default function HormigonFicha() {
             clearInterval(interval);
         };
     }, []);
-
-
 
     const handleSaveData = () => {
         // Generar código aleatorio de 6 caracteres entre letras mayúsculas y números
@@ -221,336 +223,383 @@ export default function HormigonFicha() {
                 HORMIGONES, MÉTODO PARA EXTRAER MUESTRAS DE HORMIGÓN FRESCO,
                 ÍTEM 8.402.6
             </Typography>
-
-            <Stack
-                spacing={{ xs: 1, sm: 2 }}
-                direction="row"
-                useFlexGap
-                flexWrap="wrap"
-                justifyContent={"center"}
-            >
-                <Stack
-                    spacing={{ xs: 1, sm: 2 }}
-                    direction="row"
-                    useFlexGap
-                    flexWrap="wrap"
-                    justifyContent={"center"}
-                    width={"100%"}
-                >
-                    <TextField
-                        disabled
-                        sx={{ flexGrow: 1 }}
-                        fullWidth
-                        multiline
-                        maxRows={0}
-                        id="outlined-controlled"
-                        label="Contrato"
-                        value={nombreContrato}
-                    />
-                    <TextField
-                        disabled
-                        sx={{ flexGrow: 1 }}
-                        multiline
-                        maxRows={0}
-                        id="fecha-muestreo"
-                        label="Fecha Muestreo"
-                        value={fechaMuestreo}
-                    />
-                    <TextField
-                        disabled
-                        sx={{ flexGrow: 1 }}
-                        multiline
-                        maxRows={0}
-                        id="hora-actual"
-                        label="Hora actual"
-                        value={horaActual}
-                    />
-                </Stack>
-                {/*  */}
-                <Stack
-                    spacing={{ xs: 1, sm: 2 }}
-                    direction="column"
-                    useFlexGap
-                    flexWrap="wrap"
-                    justifyContent={"center"}
-                >
-                    <Typography variant="subtitle2">
-                        Procedencia de hormigón.
-                    </Typography>
-                    <Stack
-                        spacing={{ xs: 1, sm: 2 }}
-                        direction="row"
-                        useFlexGap
-                        flexWrap="wrap"
-                        justifyContent={"center"}
+            <Grid container spacing={1}>
+                <Grid item xs={12} md={12}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            // position: "relative",
+                            // overflow: "visible",
+                            borderRadius: "1rem",
+                        }}
                     >
-                        <Autocomplete
-                            sx={{ flexGrow: 1 }}
-                            id="proveedor-autocomplete"
-                            options={[
-                                "Bitumix",
-                                "Melon",
-                                "Polpaico",
-                                "TecnoHabitat",
-                                "Hormigones Cbb",
-                                "Hormigones BSA",
-                                "Transex",
-                            ]}
-                            value={proveedor}
-                            onChange={(event, value) => {
-                                setProveedor(value);
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                Datos
+                            </Typography>
+                        </CardContent>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                p: 1.5,
+                                gap: 1,
                             }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Proveedor"
-                                    fullWidth
-                                />
-                            )}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="grado-hormigon"
-                            label="Grado H°"
-                            type="number"
-                            value={gradoHormigon}
-                            onChange={(event) => {
-                                setGradoHormigon(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="codigo-hormigon"
-                            label="Codigo H°"
-                            type="number"
-                            value={codigoHormigon}
-                            onChange={(event) => {
-                                setCodigoHormigon(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="dosificacion"
-                            label="Dosificacion N°"
-                            type="number"
-                            value={dosificacion}
-                            onChange={(event) => {
-                                setDosificacion(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="visacion"
-                            label="Visacion N°"
-                            type="number"
-                            value={visacion}
-                            onChange={(event) => {
-                                setVisacion(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="visado-por"
-                            label="Visado por"
-                            value={visadoPor}
-                            onChange={(event) => {
-                                setVisadoPor(event.target.value);
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="guia-despacho"
-                            label="Guia despacho N°"
-                            type="number"
-                            value={guiaDespacho}
-                            onChange={(event) => {
-                                setGuiaDespacho(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="patente-camion"
-                            label="Patente Camión"
-                            value={patenteCamion}
-                            onChange={(event) => {
-                                setPatenteCamion(
-                                    event.target.value.toUpperCase()
-                                );
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="volumen"
-                            label="Volumen (m2)"
-                            type="number"
-                            value={volumen}
-                            onChange={(event) => {
-                                setVolumen(Number(event.target.value));
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="hora-salida-planta"
-                            label="Hora salida planta"
-                            type="time"
-                            value={horaSalidaPlanta}
-                            onChange={(event) => {
-                                setHoraSalidaPlanta(event.target.value);
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="hora-llegada-obra"
-                            label="Hora llegada obra"
-                            type="time"
-                            value={horaLlegadaObra}
-                            onChange={(event) => {
-                                setHoraLlegadaObra(event.target.value);
-                            }}
-                        />
-                    </Stack>
-                </Stack>
-                {/*  */}
-                <Stack
-                    spacing={{ xs: 1, sm: 2 }}
-                    direction="column"
-                    useFlexGap
-                    flexWrap="wrap"
-                    justifyContent={"center"}
-                >
-                    <Typography variant="subtitle2">
-                        Muestreo de hormigón fresco.
-                    </Typography>
-                    <Stack
-                        spacing={{ xs: 1, sm: 2 }}
-                        direction="row"
-                        useFlexGap
-                        flexWrap="wrap"
-                        justifyContent={"center"}
-                    >
-                        <TextField
-                            disabled
-                            sx={{ flexGrow: 1 }}
-                            multiline
-                            maxRows={0}
-                            id="muestra-numero"
-                            label="Muestra N°"
-                            value={`Muestra N°${
-                                hormigonData.length === 0
-                                    ? 1
-                                    : hormigonData.length + 1
-                            }`}
-                        />
-                        <TextField
-                            disabled
-                            sx={{ flexGrow: 1 }}
-                            id="codigo"
-                            label="Código"
-                            value={codigo}
-                            inputProps={{
-                                style: { textTransform: "uppercase" },
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="tipo-probetas"
-                            label="Tipo de Probetas"
-                            value={tipoProbetas}
-                            onChange={(event) => {
-                                setTipoProbetas(event.target.value);
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="cantidad-probetas"
-                            label="Cantidad de Probetas"
-                            type="number"
-                            value={cantidadProbetas}
-                            onChange={(event) => {
-                                setCantidadProbetas(Number(event.target.value));
-                            }}
-                        />
-
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="hora-inicio-descarga"
-                            label="Hora Inicio Descarga"
-                            type="time"
-                            value={horaInicioDescarga}
-                            onChange={(event) => {
-                                setHoraInicioDescarga(event.target.value);
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="hora-muestreo"
-                            label="Hora de Muestreo"
-                            type="time"
-                            value={horaMuestreo}
-                            onChange={(event) => {
-                                setHoraMuestreo(event.target.value);
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="asentamiento-cono"
-                            label="Asentamiento de Cono (cm)"
-                            type="number"
-                            value={asentamientoCono}
-                            onChange={(event) => {
-                                const inputValue = Number(event.target.value);
-                                setAsentamientoCono(inputValue);
-                                if (
-                                    inputValue >= rangoCono[0] &&
-                                    inputValue <= rangoCono[1]
-                                ) {
-                                    setAsentamientoConoError(false); // Valor válido, sin error
-                                } else {
-                                    setAsentamientoConoError(true); // Valor inválido, con error
-                                }
-                            }}
-                            error={asentamientoConoError} // Indica si hay error en el valor
-                            helperText={
-                                asentamientoConoError
-                                    ? `Valor fuera de las especificaciones ${rangoCono[0]} y ${rangoCono[1]} cm`
-                                    : ""
-                            }
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="temperatura-hormigon"
-                            label="Temperatura del Hormigón (C°)"
-                            type="number"
-                            value={temperaturaHormigon}
-                            onChange={(event) => {
-                                setTemperaturaHormigon(
-                                    Number(event.target.value)
-                                );
-                            }}
-                        />
-                        <TextField
-                            sx={{ flexGrow: 1 }}
-                            id="temperatura-ambiente"
-                            label="Temperatura Ambiente (C°)"
-                            type="number"
-                            value={temperaturaAmbiente}
-                            onChange={(event) => {
-                                setTemperaturaAmbiente(
-                                    Number(event.target.value)
-                                );
-                            }}
-                        />
-                        {/* aditivos */}
-                        <Stack
-                            spacing={{ xs: 1, sm: 2 }}
-                            direction="row"
-                            useFlexGap
-                            flexWrap="wrap"
-                            justifyContent={"center"}
                         >
-                            <Typography variant="subtitle2">
+                            <TextField
+                                disabled
+                                sx={{ width: "100%" }}
+                                fullWidth
+                                multiline
+                                maxRows={0}
+                                id="outlined-controlled"
+                                label="Contrato"
+                                value={nombreContrato}
+                            />
+                            <TextField
+                                disabled
+                                // fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="fecha-muestreo"
+                                label="Fecha Muestreo"
+                                value={fechaMuestreo}
+                            />
+                            <TextField
+                                disabled
+                                // fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="hora-actual"
+                                label="Hora actual"
+                                value={horaActual}
+                            />
+                        </Box>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            // position: "relative",
+                            // overflow: "visible",
+                            borderRadius: "1rem",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                Procedencia de hormigón.
+                            </Typography>
+                        </CardContent>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                p: 1.5,
+                                gap: 1,
+                            }}
+                        >
+                            <Autocomplete
+                                fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="proveedor-autocomplete"
+                                options={[
+                                    "Bitumix",
+                                    "Melon",
+                                    "Polpaico",
+                                    "TecnoHabitat",
+                                    "Hormigones Cbb",
+                                    "Hormigones BSA",
+                                    "Transex",
+                                ]}
+                                value={proveedor}
+                                onChange={(event, value) => {
+                                    setProveedor(value);
+                                }}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Proveedor"
+                                        fullWidth
+                                    />
+                                )}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="grado-hormigon"
+                                label="Grado H°"
+                                type="number"
+                                value={gradoHormigon}
+                                onChange={(event) => {
+                                    setGradoHormigon(
+                                        Number(event.target.value)
+                                    );
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="codigo-hormigon"
+                                label="Codigo H°"
+                                type="number"
+                                value={codigoHormigon}
+                                onChange={(event) => {
+                                    setCodigoHormigon(
+                                        Number(event.target.value)
+                                    );
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="dosificacion"
+                                label="Dosificacion N°"
+                                type="number"
+                                value={dosificacion}
+                                onChange={(event) => {
+                                    setDosificacion(Number(event.target.value));
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="visacion"
+                                label="Visacion N°"
+                                type="number"
+                                value={visacion}
+                                onChange={(event) => {
+                                    setVisacion(Number(event.target.value));
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="visado-por"
+                                label="Visado por"
+                                value={visadoPor}
+                                onChange={(event) => {
+                                    setVisadoPor(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="guia-despacho"
+                                label="Guia despacho N°"
+                                type="number"
+                                value={guiaDespacho}
+                                onChange={(event) => {
+                                    setGuiaDespacho(Number(event.target.value));
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="patente-camion"
+                                label="Patente Camión"
+                                value={patenteCamion}
+                                onChange={(event) => {
+                                    setPatenteCamion(
+                                        event.target.value.toUpperCase()
+                                    );
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="volumen"
+                                label="Volumen (m2)"
+                                type="number"
+                                value={volumen}
+                                onChange={(event) => {
+                                    setVolumen(Number(event.target.value));
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="hora-salida-planta"
+                                label="Hora salida planta"
+                                type="time"
+                                value={horaSalidaPlanta}
+                                onChange={(event) => {
+                                    setHoraSalidaPlanta(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="hora-llegada-obra"
+                                label="Hora llegada obra"
+                                type="time"
+                                value={horaLlegadaObra}
+                                onChange={(event) => {
+                                    setHoraLlegadaObra(event.target.value);
+                                }}
+                            />
+                        </Box>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            // position: "relative",
+                            // overflow: "visible",
+                            borderRadius: "1rem",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                Muestreo de hormigón fresco.
+                            </Typography>
+                        </CardContent>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                p: 1.5,
+                                gap: 1,
+                            }}
+                        >
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                multiline
+                                maxRows={0}
+                                id="muestra-numero"
+                                label="Muestra N°"
+                                value={`Muestra N°${
+                                    hormigonData.length === 0
+                                        ? 1
+                                        : hormigonData.length + 1
+                                }`}
+                            />
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                id="codigo"
+                                label="Código"
+                                value={codigo}
+                                inputProps={{
+                                    style: { textTransform: "uppercase" },
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="tipo-probetas"
+                                label="Tipo de Probetas"
+                                value={tipoProbetas}
+                                onChange={(event) => {
+                                    setTipoProbetas(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="cantidad-probetas"
+                                label="Cantidad de Probetas"
+                                type="number"
+                                value={cantidadProbetas}
+                                onChange={(event) => {
+                                    setCantidadProbetas(
+                                        Number(event.target.value)
+                                    );
+                                }}
+                            />
+
+                            <TextField
+                                fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="hora-inicio-descarga"
+                                label="Hora Inicio Descarga"
+                                type="time"
+                                value={horaInicioDescarga}
+                                onChange={(event) => {
+                                    setHoraInicioDescarga(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                fullWidth
+                                sx={{ flexGrow: 1 }}
+                                id="hora-muestreo"
+                                label="Hora de Muestreo"
+                                type="time"
+                                value={horaMuestreo}
+                                onChange={(event) => {
+                                    setHoraMuestreo(event.target.value);
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="asentamiento-cono"
+                                label="Asentamiento de Cono (cm)"
+                                type="number"
+                                value={asentamientoCono}
+                                onChange={(event) => {
+                                    const inputValue = Number(
+                                        event.target.value
+                                    );
+                                    setAsentamientoCono(inputValue);
+                                    if (
+                                        inputValue >= rangoCono[0] &&
+                                        inputValue <= rangoCono[1]
+                                    ) {
+                                        setAsentamientoConoError(false); // Valor válido, sin error
+                                    } else {
+                                        setAsentamientoConoError(true); // Valor inválido, con error
+                                    }
+                                }}
+                                error={asentamientoConoError} // Indica si hay error en el valor
+                                helperText={
+                                    asentamientoConoError
+                                        ? `Valor fuera de las especificaciones ${rangoCono[0]} y ${rangoCono[1]} cm`
+                                        : ""
+                                }
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="temperatura-hormigon"
+                                label="Temperatura del Hormigón (C°)"
+                                type="number"
+                                value={temperaturaHormigon}
+                                onChange={(event) => {
+                                    setTemperaturaHormigon(
+                                        Number(event.target.value)
+                                    );
+                                }}
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                id="temperatura-ambiente"
+                                label="Temperatura Ambiente (C°)"
+                                type="number"
+                                value={temperaturaAmbiente}
+                                onChange={(event) => {
+                                    setTemperaturaAmbiente(
+                                        Number(event.target.value)
+                                    );
+                                }}
+                            />
+                        </Box>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            // position: "relative",
+                            // overflow: "visible",
+                            borderRadius: "1rem",
+                        }}
+                    >
+                        <CardContent>
+                            <Typography variant="h5" component="div">
                                 Incorporación de Aditivo en la Obra
                             </Typography>
+                        </CardContent>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                p: 1.5,
+                                gap: 1,
+                            }}
+                        >
                             <ToggleButtonGroup
                                 value={incorporacionAditivo ? "si" : "no"}
                                 exclusive
@@ -574,50 +623,107 @@ export default function HormigonFicha() {
                             </ToggleButtonGroup>
                             {incorporacionAditivo && (
                                 <Collapse in={incorporacionAditivo}>
-                                    <TextField
-                                        sx={{ flexGrow: 1 }}
-                                        id="marca-aditivo"
-                                        label="Marca"
-                                        value={marcaAditivo}
-                                        onChange={(event) => {
-                                            setMarcaAditivo(event.target.value);
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            flexWrap: "wrap",
+                                            p: 1.5,
+                                            gap: 1,
                                         }}
-                                    />
-                                    <TextField
-                                        sx={{ flexGrow: 1 }}
-                                        id="tipo-aditivo"
-                                        label="Tipo"
-                                        value={tipoAditivo}
-                                        onChange={(event) => {
-                                            setTipoAditivo(event.target.value);
-                                        }}
-                                    />
-                                    <TextField
-                                        sx={{ flexGrow: 1 }}
-                                        id="cantidad-aditivo"
-                                        label="Cantidad (L)"
-                                        type="number"
-                                        value={cantidadAditivo}
-                                        onChange={(event) => {
-                                            setCantidadAditivo(
-                                                Number(event.target.value)
-                                            );
-                                        }}
-                                    />
-                                    <TextField
-                                        sx={{ flexGrow: 1 }}
-                                        id="edad-ensaye"
-                                        label="Edad de Ensaye (días)"
-                                        type="number"
-                                        value={edadEnsaye}
-                                        onChange={(event) => {
-                                            setEdadEnsaye(
-                                                Number(event.target.value)
-                                            );
-                                        }}
-                                    />
+                                    >
+                                        <TextField
+                                            sx={{ flexGrow: 1 }}
+                                            id="marca-aditivo"
+                                            label="Marca"
+                                            value={marcaAditivo}
+                                            onChange={(event) => {
+                                                setMarcaAditivo(
+                                                    event.target.value
+                                                );
+                                            }}
+                                        />
+                                        <TextField
+                                            sx={{ flexGrow: 1 }}
+                                            id="tipo-aditivo"
+                                            label="Tipo"
+                                            value={tipoAditivo}
+                                            onChange={(event) => {
+                                                setTipoAditivo(
+                                                    event.target.value
+                                                );
+                                            }}
+                                        />
+                                        <TextField
+                                            sx={{ flexGrow: 1 }}
+                                            id="cantidad-aditivo"
+                                            label="Cantidad (L)"
+                                            type="number"
+                                            value={cantidadAditivo}
+                                            onChange={(event) => {
+                                                setCantidadAditivo(
+                                                    Number(event.target.value)
+                                                );
+                                            }}
+                                        />
+                                        <TextField
+                                            sx={{ flexGrow: 1 }}
+                                            id="edad-ensaye"
+                                            label="Edad de Ensaye (días)"
+                                            type="number"
+                                            value={edadEnsaye}
+                                            onChange={(event) => {
+                                                setEdadEnsaye(
+                                                    Number(event.target.value)
+                                                );
+                                            }}
+                                        />
+                                    </Box>
                                 </Collapse>
                             )}
+                        </Box>
+                    </Card>
+                </Grid>
+            </Grid>
+
+            <Stack
+                spacing={{ xs: 1, sm: 2 }}
+                direction="row"
+                useFlexGap
+                flexWrap="wrap"
+                justifyContent={"center"}
+            >
+                {/*  */}
+
+                {/*  */}
+                <Stack
+                    spacing={{ xs: 1, sm: 2 }}
+                    direction="column"
+                    useFlexGap
+                    flexWrap="wrap"
+                    justifyContent={"center"}
+                >
+                    <Typography variant="subtitle2">
+                        Muestreo de hormigón fresco.
+                    </Typography>
+                    <Stack
+                        spacing={{ xs: 1, sm: 2 }}
+                        direction="row"
+                        useFlexGap
+                        flexWrap="wrap"
+                        justifyContent={"center"}
+                    >
+                        {/* aditivos */}
+                        <Stack
+                            spacing={{ xs: 1, sm: 2 }}
+                            direction="row"
+                            useFlexGap
+                            flexWrap="wrap"
+                            justifyContent={"center"}
+                        >
+                            <Typography variant="subtitle2">
+                                Incorporación de Aditivo en la Obra
+                            </Typography>
                         </Stack>
                     </Stack>
                 </Stack>

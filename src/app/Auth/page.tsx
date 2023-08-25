@@ -5,7 +5,8 @@ import LogoName from "@/components/ui/LogoName";
 import Rewies from "@/web/layout/Rewies";
 import RewiesCard from "@/web/layout/RewiesCard";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
     Alert,
     AlertTitle,
@@ -37,23 +38,26 @@ export default function Auth() {
     const router = useRouter();
     // useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
-        if (event == "SIGNED_IN") router.push("/Auth/Callback");
+        // if (event == "SIGNED_IN") router.push("/Auth/Callback");
 
+        if (event == "SIGNED_IN") {
+            router.push("/Auth/Callback");
+            setOpen(true);
+        }
         // if (event == "INITIAL_SESSION") {
         //     router.push("/Auth/Callback");
         // }
     });
     // }, []);
 
-    async function getJobs() {
-        const {
-            data: { user },
-        } = await supabase.auth.getUser();
-        setJobs(user ? [] : null);
-        console.log(user?.user_metadata);
-        console.log(user?.email);
-        console.log(user?.id);
-    }
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
     return (
         <Box
             sx={{
@@ -104,21 +108,32 @@ export default function Auth() {
                     }}
                 >
                     <CardContent>
-                        <Stack
-                            direction="row"
-                            spacing={0}
-                            alignItems={"center"}
-                            justifyContent={"space-between"}
+                        <Backdrop
+                            sx={{
+                                color: "#fff",
+                                zIndex: (theme) => theme.zIndex.drawer + 1,
+                            }}
+                            open={open}
+                            // onClick={handleClose}
                         >
-                            <Typography
-                                variant="h6"
-                                component="div"
-                                fontWeight={600}
-                                gutterBottom
+                            <CircularProgress color="inherit" />
+                            </Backdrop>
+
+                            <Stack
+                                direction="row"
+                                spacing={0}
+                                alignItems={"center"}
+                                justifyContent={"space-between"}
                             >
-                                <LogoName href="/" />
-                            </Typography>
-                            {/* <Typography
+                                <Typography
+                                    variant="h6"
+                                    component="div"
+                                    fontWeight={600}
+                                    gutterBottom
+                                >
+                                    <LogoName href="/" />
+                                </Typography>
+                                {/* <Typography
                                 variant="body1"
                                 component="div"
                                 // fontWeight={600}
@@ -127,8 +142,8 @@ export default function Auth() {
                             >
                                 Acceso solo por invitación
                             </Typography> */}
-                        </Stack>
-                        <AuthForm />
+                            </Stack>
+                            <AuthForm />
                     </CardContent>
                 </Card>
                 <Stack
