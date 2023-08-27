@@ -5,25 +5,30 @@ import {
     TextField,
     Autocomplete,
     Box,
-    Stack,
     Button,
     Collapse,
-    Badge,
     Grid,
     Card,
     CardContent,
-    CardActionArea,
+    MenuItem,
+    Select,
+    InputLabel,
+    FormControl,
+    SelectChangeEvent,
+    InputAdornment,
 } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
-import { SimpleSnackbar } from "@/components/feedback/SnackBar";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import MetodoConoAbrams from "@/components/metodos/MetodoConoAbrams";
+import { Codigo } from "@/utils/Codigo";
+import { useFechaYHoraActual } from "@/utils/Fecha";
+import { SimpleSnackbar } from "@/components/feedback/SnackBar";
 
 interface DataHormigon {
     nombreContrato: string;
     proveedor: string | null;
-    gradoHormigon: number | null;
+    gradoHormigon: string | null;
     codigoHormigon: number | null;
     dosificacion: number | null;
     visacion: number | null;
@@ -36,7 +41,7 @@ interface DataHormigon {
     codigo: string;
     tipoProbetas: string;
     cantidadProbetas: number | null;
-    fechaMuestreo: string;
+    fechaLocal: string;
     horaInicioDescarga: string;
     horaMuestreo: string;
     asentamientoCono: number | null;
@@ -47,12 +52,13 @@ interface DataHormigon {
     tipoAditivo: string;
     cantidadAditivo: number | null;
     edadEnsaye: number | null;
+    region: string;
 }
 
 export default function HormigonFicha() {
     const [nombreContrato, setNombreContrato] = useState("");
     const [proveedor, setProveedor] = useState<string | null>(null);
-    const [gradoHormigon, setGradoHormigon] = useState<number | null>(null);
+    const [gradoHormigon, setGradoHormigon] = useState("");
     const [codigoHormigon, setCodigoHormigon] = useState<number | null>(null);
     const [dosificacion, setDosificacion] = useState<number | null>(null);
     const [visacion, setVisacion] = useState<number | null>(null);
@@ -62,14 +68,14 @@ export default function HormigonFicha() {
     const [volumen, setVolumen] = useState<number | null>(null);
     const [horaSalidaPlanta, setHoraSalidaPlanta] = useState("");
     const [horaLlegadaObra, setHoraLlegadaObra] = useState("");
-    const [horaActual, setHoraActual] = useState("");
+    const [horaLocal, setHoraLocal] = useState("");
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [hormigonData, setHormigonData] = useState<DataHormigon[]>([]);
     const [muestra, setMuestra] = useState(1);
     const [codigo, setCodigo] = useState("");
     const [tipoProbetas, setTipoProbetas] = useState("");
-    const [cantidadProbetas, setCantidadProbetas] = useState(1);
-    const [fechaMuestreo, setFechaMuestreo] = useState("");
+    const [cantidadProbetas, setCantidadProbetas] = useState(3);
+    const [fechaLocal, setFechaLocal] = useState("");
     const [horaInicioDescarga, setHoraInicioDescarga] = useState("");
     const [horaMuestreo, setHoraMuestreo] = useState("");
     const [asentamientoCono, setAsentamientoCono] = useState<number | null>(
@@ -89,8 +95,14 @@ export default function HormigonFicha() {
     const [asentamientoConoError, setAsentamientoConoError] =
         useState<boolean>(false);
     const [rangoCono, setRangoCono] = useState<number[]>([0, 24]);
+    const [region, setRegion] = useState("");
 
-    const asentCono = [4, 12];
+    const { fecha, hora } = useFechaYHoraActual();
+
+    useEffect(() => {
+        {fecha && setFechaLocal(fecha)}
+        {hora && setHoraLocal(hora)}
+    }, [fecha, hora]);
 
     useEffect(() => {
         // Cargar los datos del Local Storage al cargar la página
@@ -107,48 +119,16 @@ export default function HormigonFicha() {
             const parsedLaboratorioData: any = JSON.parse(laboratorioData);
             setNombreContrato(parsedLaboratorioData.nombreContrato);
             setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
+            setRegion(parsedLaboratorioData.region); // Actualiza el rangoCono
         }
+
+       
     }, []);
 
-    useEffect(() => {
-        // Guardar los datos en el Local Storage cuando cambien
-        localStorage.setItem("hormigonData", JSON.stringify(hormigonData));
-    }, [hormigonData]);
 
-    useEffect(() => {
-        // Obtener la hora actual al cargar la página
-        const obtenerHoraActual = () => {
-            const fechaActual = new Date();
-            const hora = fechaActual.getHours().toString().padStart(2, "0");
-            const minutos = fechaActual
-                .getMinutes()
-                .toString()
-                .padStart(2, "0");
-            const segundos = fechaActual
-                .getSeconds()
-                .toString()
-                .padStart(2, "0");
-            setHoraActual(`${hora}:${minutos}:${segundos}`);
-        };
 
-        obtenerHoraActual();
-
-        // Actualizar la hora actual cada segundo
-        const interval = setInterval(obtenerHoraActual, 1000);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
 
     const handleSaveData = () => {
-        // Generar código aleatorio de 6 caracteres entre letras mayúsculas y números
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let generatedCode = "";
-        for (let i = 0; i < 6; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            generatedCode += characters[randomIndex];
-        }
 
         const newHormigonData: DataHormigon = {
             nombreContrato,
@@ -163,10 +143,10 @@ export default function HormigonFicha() {
             volumen,
             horaSalidaPlanta,
             horaLlegadaObra,
-            codigo: generatedCode,
+            codigo,
             tipoProbetas,
             cantidadProbetas,
-            fechaMuestreo,
+            fechaLocal,
             horaInicioDescarga,
             horaMuestreo,
             asentamientoCono,
@@ -177,29 +157,23 @@ export default function HormigonFicha() {
             tipoAditivo,
             cantidadAditivo,
             edadEnsaye,
+            region,
             // Remove muestra property since it does not exist in DataHormigon type
         };
-
+        localStorage.setItem(
+            "hormigonData",
+            JSON.stringify(hormigonData)
+        );
         setHormigonData((prevData) => [...prevData, newHormigonData]);
-        setCodigo(generatedCode);
+        setCodigo(codigoTest);
         setShowSnackbar(true);
     };
 
-    useEffect(() => {
-        // Obtener la fecha actual al cargar la página
-        const obtenerFechaActual = () => {
-            const fechaActual = new Date();
-            const dia = fechaActual.getDate().toString().padStart(2, "0");
-            const mes = (fechaActual.getMonth() + 1)
-                .toString()
-                .padStart(2, "0");
-            const anio = fechaActual.getFullYear().toString();
-            setFechaMuestreo(`${dia}/${mes}/${anio}`);
-        };
-
-        obtenerFechaActual();
-    }, []);
-
+    const codigoTest = Codigo({
+        length: hormigonData.length === 0 ? 1 : hormigonData.length + 1,
+        opcion: gradoHormigon && `-${gradoHormigon}`,
+    });
+    
     return (
         <main
             style={{
@@ -225,14 +199,7 @@ export default function HormigonFicha() {
             </Typography>
             <Grid container spacing={1}>
                 <Grid item xs={12} md={12}>
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            // position: "relative",
-                            // overflow: "visible",
-                            borderRadius: "1rem",
-                        }}
-                    >
+                    <Card variant="outlined">
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Datos
@@ -253,9 +220,31 @@ export default function HormigonFicha() {
                                 fullWidth
                                 multiline
                                 maxRows={0}
-                                id="outlined-controlled"
+                                id="ontrolled"
                                 label="Contrato"
                                 value={nombreContrato}
+                                color="primary"
+                            />
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                id="muestra-numero"
+                                label="Muestra N°"
+                                value={`Muestra N°${
+                                    hormigonData.length === 0
+                                        ? 1
+                                        : hormigonData.length + 1
+                                }`}
+                            />
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                id="codigo"
+                                label="Código"
+                                value={codigoTest}
+                                inputProps={{
+                                    style: { textTransform: "uppercase" },
+                                }}
                             />
                             <TextField
                                 disabled
@@ -263,7 +252,7 @@ export default function HormigonFicha() {
                                 sx={{ flexGrow: 1 }}
                                 id="fecha-muestreo"
                                 label="Fecha Muestreo"
-                                value={fechaMuestreo}
+                                value={fechaLocal}
                             />
                             <TextField
                                 disabled
@@ -271,23 +260,16 @@ export default function HormigonFicha() {
                                 sx={{ flexGrow: 1 }}
                                 id="hora-actual"
                                 label="Hora actual"
-                                value={horaActual}
+                                value={horaLocal}
                             />
                         </Box>
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            // position: "relative",
-                            // overflow: "visible",
-                            borderRadius: "1rem",
-                        }}
-                    >
+                    <Card variant="outlined">
                         <CardContent>
                             <Typography variant="h5" component="div">
-                                Procedencia de hormigón.
+                                Procedencia de hormigón
                             </Typography>
                         </CardContent>
                         <Box
@@ -304,13 +286,13 @@ export default function HormigonFicha() {
                                 sx={{ flexGrow: 1 }}
                                 id="proveedor-autocomplete"
                                 options={[
-                                    "Bitumix",
                                     "Melon",
+                                    "Bitumix",
                                     "Polpaico",
                                     "TecnoHabitat",
                                     "Hormigones Cbb",
                                     "Hormigones BSA",
-                                    "Transex",
+                                    "Cementos Transex",
                                 ]}
                                 value={proveedor}
                                 onChange={(event, value) => {
@@ -324,18 +306,34 @@ export default function HormigonFicha() {
                                     />
                                 )}
                             />
-                            <TextField
-                                sx={{ flexGrow: 1 }}
-                                id="grado-hormigon"
-                                label="Grado H°"
-                                type="number"
-                                value={gradoHormigon}
-                                onChange={(event) => {
-                                    setGradoHormigon(
-                                        Number(event.target.value)
-                                    );
-                                }}
-                            />
+                            <FormControl sx={{ minWidth: 140, flexGrow: 1 }}>
+                                <InputLabel id="demo-simple-select-label">
+                                    Grado H°
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={gradoHormigon}
+                                    label="Grado H°"
+                                    onChange={(
+                                        event: SelectChangeEvent<string>
+                                    ) => {
+                                        setGradoHormigon(
+                                            event.target.value as string
+                                        );
+                                    }}
+                                >
+                                    <MenuItem value="G05">G05</MenuItem>
+                                    <MenuItem value="G10">G10</MenuItem>
+                                    <MenuItem value="G15">G15</MenuItem>
+                                    <MenuItem value="G17">G17</MenuItem>
+                                    <MenuItem value="G20">G20</MenuItem>
+                                    <MenuItem value="G25">G25</MenuItem>
+                                    <MenuItem value="G30">G30</MenuItem>
+                                    <MenuItem value="G35">G35</MenuItem>
+                                    <MenuItem value="G40">G40</MenuItem>
+                                </Select>
+                            </FormControl>
                             <TextField
                                 sx={{ flexGrow: 1 }}
                                 id="codigo-hormigon"
@@ -434,17 +432,10 @@ export default function HormigonFicha() {
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            // position: "relative",
-                            // overflow: "visible",
-                            borderRadius: "1rem",
-                        }}
-                    >
+                    <Card variant="outlined">
                         <CardContent>
                             <Typography variant="h5" component="div">
-                                Muestreo de hormigón fresco.
+                                Muestreo de hormigón fresco
                             </Typography>
                         </CardContent>
                         <Box
@@ -456,38 +447,32 @@ export default function HormigonFicha() {
                                 gap: 1,
                             }}
                         >
-                            <TextField
-                                disabled
-                                sx={{ flexGrow: 1 }}
-                                multiline
-                                maxRows={0}
-                                id="muestra-numero"
-                                label="Muestra N°"
-                                value={`Muestra N°${
-                                    hormigonData.length === 0
-                                        ? 1
-                                        : hormigonData.length + 1
-                                }`}
-                            />
-                            <TextField
-                                disabled
-                                sx={{ flexGrow: 1 }}
-                                id="codigo"
-                                label="Código"
-                                value={codigo}
-                                inputProps={{
-                                    style: { textTransform: "uppercase" },
-                                }}
-                            />
-                            <TextField
-                                sx={{ flexGrow: 1 }}
-                                id="tipo-probetas"
-                                label="Tipo de Probetas"
-                                value={tipoProbetas}
-                                onChange={(event) => {
-                                    setTipoProbetas(event.target.value);
-                                }}
-                            />
+                            <FormControl sx={{ minWidth: 140, flexGrow: 1 }}>
+                                <InputLabel id="demo-simple-select-label">
+                                    Tipo de Probetas
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={tipoProbetas}
+                                    label="Tipo de Probetas"
+                                    onChange={(
+                                        event: SelectChangeEvent<string>
+                                    ) => {
+                                        setTipoProbetas(
+                                            event.target.value as string
+                                        );
+                                    }}
+                                >
+                                    <MenuItem value="Cilindricas">
+                                        Cilindricas
+                                    </MenuItem>
+                                    <MenuItem value="Cúbicas">Cúbicas</MenuItem>
+                                    <MenuItem value="Prismáticas">
+                                        Prismáticas
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
                             <TextField
                                 sx={{ flexGrow: 1 }}
                                 id="cantidad-probetas"
@@ -556,6 +541,13 @@ export default function HormigonFicha() {
                                 label="Temperatura del Hormigón (C°)"
                                 type="number"
                                 value={temperaturaHormigon}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            C°
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 onChange={(event) => {
                                     setTemperaturaHormigon(
                                         Number(event.target.value)
@@ -568,6 +560,13 @@ export default function HormigonFicha() {
                                 label="Temperatura Ambiente (C°)"
                                 type="number"
                                 value={temperaturaAmbiente}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            C°
+                                        </InputAdornment>
+                                    ),
+                                }}
                                 onChange={(event) => {
                                     setTemperaturaAmbiente(
                                         Number(event.target.value)
@@ -578,28 +577,14 @@ export default function HormigonFicha() {
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <Card
-                        variant="outlined"
-                        sx={{
-                            // position: "relative",
-                            // overflow: "visible",
-                            borderRadius: "1rem",
-                        }}
-                    >
+                    <Card variant="outlined">
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 Incorporación de Aditivo en la Obra
                             </Typography>
                         </CardContent>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                                p: 1.5,
-                                gap: 1,
-                            }}
-                        >
+
+                        <CardContent>
                             <ToggleButtonGroup
                                 value={incorporacionAditivo ? "si" : "no"}
                                 exclusive
@@ -609,18 +594,20 @@ export default function HormigonFicha() {
                                 aria-label="incorporacion-aditivo"
                             >
                                 <ToggleButton
-                                    value="si"
-                                    aria-label="incorporar-si"
-                                >
-                                    Si
-                                </ToggleButton>
-                                <ToggleButton
                                     value="no"
                                     aria-label="incorporar-no"
                                 >
                                     No
                                 </ToggleButton>
+                                <ToggleButton
+                                    value="si"
+                                    aria-label="incorporar-si"
+                                >
+                                    Si
+                                </ToggleButton>
                             </ToggleButtonGroup>
+                        </CardContent>
+                        <CardActions>
                             {incorporacionAditivo && (
                                 <Collapse in={incorporacionAditivo}>
                                     <Box
@@ -681,57 +668,19 @@ export default function HormigonFicha() {
                                     </Box>
                                 </Collapse>
                             )}
-                        </Box>
+                        </CardActions>
                     </Card>
                 </Grid>
             </Grid>
 
-            <Stack
-                spacing={{ xs: 1, sm: 2 }}
-                direction="row"
-                useFlexGap
-                flexWrap="wrap"
-                justifyContent={"center"}
+            {/*  */}
+            <SimpleSnackbar
+                onClick={handleSaveData}
+                fullWidth={true}
+                message={"¡Ficha terminada!"}
             >
-                {/*  */}
-
-                {/*  */}
-                <Stack
-                    spacing={{ xs: 1, sm: 2 }}
-                    direction="column"
-                    useFlexGap
-                    flexWrap="wrap"
-                    justifyContent={"center"}
-                >
-                    <Typography variant="subtitle2">
-                        Muestreo de hormigón fresco.
-                    </Typography>
-                    <Stack
-                        spacing={{ xs: 1, sm: 2 }}
-                        direction="row"
-                        useFlexGap
-                        flexWrap="wrap"
-                        justifyContent={"center"}
-                    >
-                        {/* aditivos */}
-                        <Stack
-                            spacing={{ xs: 1, sm: 2 }}
-                            direction="row"
-                            useFlexGap
-                            flexWrap="wrap"
-                            justifyContent={"center"}
-                        >
-                            <Typography variant="subtitle2">
-                                Incorporación de Aditivo en la Obra
-                            </Typography>
-                        </Stack>
-                    </Stack>
-                </Stack>
-            </Stack>
-
-            <Button variant="contained" onClick={handleSaveData}>
                 Terminar ficha
-            </Button>
+            </SimpleSnackbar>
             {/* Lista de Hormigones */}
             <Box mt={4}>
                 <Typography variant="h5" fontWeight={700}>
@@ -740,9 +689,9 @@ export default function HormigonFicha() {
                 <ul>
                     {hormigonData.map((data, index) => (
                         <li key={index}>
-                            Muestra N° {index + 1}: Contrato:{" "}
-                            {data.nombreContrato}, Proveedor: {data.proveedor},
-                            Grado H°: {data.gradoHormigon}, Código H°:{" "}
+                            Muestra N° {index + 1}: Fecha Muestreo: {data.fechaLocal}
+                            , Asentamiento Cono: {data.asentamientoCono}, Grado
+                            H°: {data.gradoHormigon}, Código H°:{" "}
                             {data.codigoHormigon}, Dosificación N°:{" "}
                             {data.dosificacion}, horaLlegadaObra N°:{" "}
                             {data.horaLlegadaObra}

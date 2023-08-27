@@ -36,7 +36,7 @@ interface DataInforme {
 }
 
 interface DataHormigon {
-    fechaMuestreo: string;
+    fechaLocal: string;
     muestra: number;
     codigo: string;
     asentamientoCono: number;
@@ -51,7 +51,7 @@ export default function Laboratorio() {
 
     useEffect(() => {
         // Cargar los datos del Local Storage al cargar la página
-        const informeDataFromLocalStorage = localStorage.getItem("informeData");
+        const informeDataFromLocalStorage = localStorage.getItem("laboratorioData");
         const hormigonDataFromLocalStorage =
             localStorage.getItem("hormigonData");
 
@@ -77,7 +77,7 @@ export default function Laboratorio() {
         const groupedHormigonData: { [key: string]: DataHormigon[] } = {};
 
         for (const data of hormigonData) {
-            const quincena = getQuincenaFromDate(data.fechaMuestreo);
+            const quincena = getQuincenaFromDate(data.fechaLocal);
 
             if (groupedHormigonData[quincena]) {
                 groupedHormigonData[quincena].push(data);
@@ -94,7 +94,7 @@ export default function Laboratorio() {
 
             rows.push({
                 quincena,
-                fechaMuestreo: getFechaMuestreo(quincena),
+                fechaLocal: getfechaLocal(quincena),
                 muestras,
             });
         }
@@ -113,7 +113,7 @@ export default function Laboratorio() {
         }
     };
 
-    const getFechaMuestreo = (quincena: string) => {
+    const getfechaLocal = (quincena: string) => {
         const currentDate = new Date();
         const month = currentDate.toLocaleString("default", { month: "long" });
         const year = currentDate.getFullYear();
@@ -182,7 +182,7 @@ export default function Laboratorio() {
 function Row(props: {
     row: {
         quincena: string;
-        fechaMuestreo: string;
+        fechaLocal: string;
         muestras: DataHormigon[];
     };
     numeroInforme: number;
@@ -206,7 +206,7 @@ function Row(props: {
                         )}
                     </IconButton>
                 </TableCell>
-                <TableCell>{row.fechaMuestreo}</TableCell>
+                <TableCell>{row.fechaLocal}</TableCell>
                 <TableCell>{row.quincena}</TableCell>
                 <TableCell>{numeroInforme}</TableCell>
                 <TableCell>
@@ -253,7 +253,7 @@ function Row(props: {
                                                 {muestra.asentamientoCono}
                                             </TableCell>
                                             <TableCell>
-                                                {muestra.fechaMuestreo}
+                                                {muestra.fechaLocal}
                                             </TableCell>
                                             {/* Agrega las demás celdas de la muestra de hormigón */}
                                         </TableRow>

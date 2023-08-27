@@ -56,6 +56,13 @@ const theme = createTheme(
                     },
                 },
             },
+            MuiCard: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: "1rem",
+                    },
+                },
+            },
         },
         palette: {
             mode: "light",

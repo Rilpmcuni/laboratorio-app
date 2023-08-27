@@ -448,6 +448,9 @@ export default function ConfigLab() {
                                             position: "absolute",
                                             top: "10px",
                                             right: "10px",
+                                            ":hover": {
+                                                color: "red",
+                                            },
                                         }}
                                     >
                                         <DeleteForeverOutlinedIcon />
