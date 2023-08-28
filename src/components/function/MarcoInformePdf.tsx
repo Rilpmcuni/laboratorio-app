@@ -1,9 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import {
+    BlobProvider,
+    PDFDownloadLink,
+    PDFViewer,
+    usePDF,
+} from "@react-pdf/renderer";
 import InformePdf from "@/components/function/InformePdf";
 import ReactPDF from "@react-pdf/renderer";
+import { Link as LinkMui, Stack } from "@mui/material";
+import Link from "next/link";
+
+
 
 interface DataInforme {
     numeroCarta: number;
@@ -60,15 +69,42 @@ const MarcoInformePdf: React.FC<Props> = ({ row, numeroInforme }) => {
         const year = dateParts[0];
         return `${day}/${month}/${year}`;
     };
+
+    const [instance, updateInstance] = usePDF({
+        document: (
+            <InformePdf
+                Ncarta={numeroCarta}
+                residente={nombreResidente}
+                inspector={nombreInspector}
+                empresa={nombreEmpresa}
+                selectedDate={selectedDate}
+                image={logoEmpresa}
+                nombreContrato={nombreContrato}
+                numeroInforme={numeroInforme}
+                fecha={row.fechaMuestreo}
+            />
+        ),
+    });
+
+    if (instance.loading) return <div>Loading ...</div>;
+
+    // if (instance.error) return <div>Something went wrong: {error}</div>;
+
     return (
         <div>
             <div>
-                <span>Selecciona una fecha</span>
-                <input
+                <span>Fecha entrega de Informe</span>
+
+                <TextField
+                    fullWidth
+                    sx={{ flexGrow: 1 }}
+                    id="hora-inicio-descarga"
+                    label="Fecha entrega de Informe"
                     type="date"
                     value={selectedDate}
                     onChange={handleDateChange}
                 />
+
                 <p>Fecha seleccionada: {selectedDate}</p>
             </div>
             <TextField
@@ -120,6 +156,55 @@ const MarcoInformePdf: React.FC<Props> = ({ row, numeroInforme }) => {
                         loading ? "Loading document..." : "Download now!"
                     }
                 </PDFDownloadLink>
+            </div>
+            <div>
+                <BlobProvider
+                    document={
+                        <InformePdf
+                            Ncarta={numeroCarta}
+                            residente={nombreResidente}
+                            inspector={nombreInspector}
+                            empresa={nombreEmpresa}
+                            selectedDate={selectedDate}
+                            image={logoEmpresa}
+                            nombreContrato={nombreContrato}
+                            numeroInforme={numeroInforme}
+                            fecha={row.fechaMuestreo}
+                        />
+                    }
+                >
+                    {({ blob, url, loading, error }) => {
+                        // Do whatever you need with blob here
+                        return <div>There's something going on on the fly</div>;
+                    }}
+                </BlobProvider>
+                <a href={instance.url ?? '/Laboratorio'} download="test.pdf" target="_blank">
+                    Download
+                </a>
+                <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    LinkComponent={Link}
+                    disabled={!instance && true}
+                    href={instance.url ?? '/Laboratorio'}
+                    target="_blank"
+                >
+                    Vista previa
+                </Button><Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    LinkComponent={Link}
+                    disabled={!instance && true}
+                    href={instance.url ?? '/Laboratorio'}
+                    target="_blank"
+                    download="test.pdf"
+                >
+                    Download
+                </Button>
             </div>
         </div>
     );

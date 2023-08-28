@@ -29,6 +29,7 @@ const InformePdf: React.FC<Props> = ({
         <Document>
             <Page size="A4" wrap>
                 <View
+                wrap={false}
                     style={{
                         display: "flex",
                         flexDirection: "column",

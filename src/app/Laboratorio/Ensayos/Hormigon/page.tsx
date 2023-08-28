@@ -29,7 +29,6 @@ interface DataHormigon {
     nombreContrato: string;
     proveedor: string | null;
     gradoHormigon: string | null;
-    codigoHormigon: number | null;
     dosificacion: number | null;
     visacion: number | null;
     visadoPor: string;
@@ -59,7 +58,6 @@ export default function HormigonFicha() {
     const [nombreContrato, setNombreContrato] = useState("");
     const [proveedor, setProveedor] = useState<string | null>(null);
     const [gradoHormigon, setGradoHormigon] = useState("");
-    const [codigoHormigon, setCodigoHormigon] = useState<number | null>(null);
     const [dosificacion, setDosificacion] = useState<number | null>(null);
     const [visacion, setVisacion] = useState<number | null>(null);
     const [visadoPor, setVisadoPor] = useState("");
@@ -100,8 +98,12 @@ export default function HormigonFicha() {
     const { fecha, hora } = useFechaYHoraActual();
 
     useEffect(() => {
-        {fecha && setFechaLocal(fecha)}
-        {hora && setHoraLocal(hora)}
+        {
+            fecha && setFechaLocal(fecha);
+        }
+        {
+            hora && setHoraLocal(hora);
+        }
     }, [fecha, hora]);
 
     useEffect(() => {
@@ -121,20 +123,22 @@ export default function HormigonFicha() {
             setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
             setRegion(parsedLaboratorioData.region); // Actualiza el rangoCono
         }
-
-       
     }, []);
 
+    const codigoTest = Codigo({
+        length: hormigonData.length === 0 ? 1 : hormigonData.length + 1,
+        opcion: gradoHormigon && `-${gradoHormigon}`,
+    });
 
-
+    useEffect(() => {
+        setCodigo(codigoTest);
+    }, [codigoTest]);
 
     const handleSaveData = () => {
-
         const newHormigonData: DataHormigon = {
             nombreContrato,
             proveedor,
             gradoHormigon,
-            codigoHormigon,
             dosificacion,
             visacion,
             visadoPor,
@@ -160,20 +164,24 @@ export default function HormigonFicha() {
             region,
             // Remove muestra property since it does not exist in DataHormigon type
         };
+        // localStorage.setItem("hormigonData", JSON.stringify(hormigonData));
+        // setCodigo(codigoTest);
+        // setHormigonData((prevData) => [...prevData, newHormigonData]);
+
+        // setShowSnackbar(true);
         localStorage.setItem(
             "hormigonData",
-            JSON.stringify(hormigonData)
+            JSON.stringify([...hormigonData, newHormigonData])
         );
         setHormigonData((prevData) => [...prevData, newHormigonData]);
-        setCodigo(codigoTest);
+
         setShowSnackbar(true);
     };
-
-    const codigoTest = Codigo({
-        length: hormigonData.length === 0 ? 1 : hormigonData.length + 1,
-        opcion: gradoHormigon && `-${gradoHormigon}`,
-    });
-    
+    //
+    //
+    //
+    //
+    //
     return (
         <main
             style={{
@@ -334,18 +342,6 @@ export default function HormigonFicha() {
                                     <MenuItem value="G40">G40</MenuItem>
                                 </Select>
                             </FormControl>
-                            <TextField
-                                sx={{ flexGrow: 1 }}
-                                id="codigo-hormigon"
-                                label="Codigo H°"
-                                type="number"
-                                value={codigoHormigon}
-                                onChange={(event) => {
-                                    setCodigoHormigon(
-                                        Number(event.target.value)
-                                    );
-                                }}
-                            />
                             <TextField
                                 sx={{ flexGrow: 1 }}
                                 id="dosificacion"
@@ -687,14 +683,12 @@ export default function HormigonFicha() {
                     Muestras de Hormigón Fresco:
                 </Typography>
                 <ul>
-                    {hormigonData.map((data, index) => (
+                    {[...hormigonData].reverse().map((data, index) => (
                         <li key={index}>
-                            Muestra N° {index + 1}: Fecha Muestreo: {data.fechaLocal}
-                            , Asentamiento Cono: {data.asentamientoCono}, Grado
-                            H°: {data.gradoHormigon}, Código H°:{" "}
-                            {data.codigoHormigon}, Dosificación N°:{" "}
-                            {data.dosificacion}, horaLlegadaObra N°:{" "}
-                            {data.horaLlegadaObra}
+                            Muestra N° {hormigonData.length - index}: Fecha
+                            Muestreo: {data.fechaLocal}, Asentamiento Cono:{" "}
+                            {data.asentamientoCono}, Grado H°:{" "}
+                            {data.gradoHormigon}, Código H°: {data.codigo},
                         </li>
                     ))}
                 </ul>

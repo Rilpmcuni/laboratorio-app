@@ -11,6 +11,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
 import MarcoInformePdf from "./MarcoInformePdf";
+import BasicTabs from "../ui/BasicTabs";
 
 interface Props {
     row: any;
@@ -49,6 +50,7 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
                 <VisibilityRoundedIcon fontSize="small" />
             </IconButton>
             <Dialog
+                fullWidth
                 maxWidth={"lg"}
                 TransitionComponent={Zoom}
                 open={open}
@@ -58,8 +60,7 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
                 aria-describedby="scroll-dialog-description"
             >
                 <DialogTitle id="scroll-dialog-title">
-                    Informe N°{numeroInforme} {row.quincena} del{" "}
-                    {row.fechaMuestreo}
+                    Informe N°{numeroInforme} {row.quincena} {row.fechaLocal}
                 </DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
                     <DialogContentText
@@ -67,13 +68,19 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
                         ref={descriptionElementRef}
                         tabIndex={-1}
                     >
-                        hola
-                        <MarcoInformePdf
-                            row={row}
-                            numeroInforme={numeroInforme}
-                        />
-                        hola
+                        Exporta o descarga el informe
                     </DialogContentText>
+                    <BasicTabs
+                        labels={["Carta", "Informe", "Test"]}
+                        contents={[
+                            <MarcoInformePdf
+                                row={row}
+                                numeroInforme={numeroInforme}
+                            />,
+                            <span>Hola</span>,
+                            <span>Veremos</span>,
+                        ]}
+                    />
                 </DialogContent>
             </Dialog>
         </Box>
