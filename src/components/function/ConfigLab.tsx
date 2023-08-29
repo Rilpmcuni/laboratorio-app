@@ -184,7 +184,7 @@ export default function ConfigLab() {
                                 <MenuItem value={3}>Clase A</MenuItem>
                             </Select>
                         </FormControl>
-                        {/* <TextField
+                        <TextField
                             sx={{ flexGrow: 1 }}
                             id="outlined-controlled"
                             label="Número de Informe"
@@ -200,7 +200,7 @@ export default function ConfigLab() {
                                 const value = parseInt(event.target.value);
                                 setNumeroInforme(value);
                             }}
-                        /> */}
+                        />
 
                         <FormControl sx={{ flexGrow: 1 }}>
                             <InputLabel id="demo-simple-select-label">

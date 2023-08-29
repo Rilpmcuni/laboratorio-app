@@ -2,8 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
 export const metadata: Metadata = {
-    title: "Hormigon",
-    description: "Soy el Hormigon",
+    title: "Hormigón - Laboratorio | Tamíz.LA",
+    description: "Soy el Hormigón",
 };
 /*  */
 export default function RootHormigon({

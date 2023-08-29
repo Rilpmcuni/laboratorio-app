@@ -1,11 +1,11 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, IconButton, Zoom } from "@mui/material";
+import { Box, IconButton, TextField, Zoom } from "@mui/material";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import HelpIcon from "@mui/icons-material/Help";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -16,10 +16,19 @@ import BasicTabs from "../ui/BasicTabs";
 interface Props {
     row: any;
     numeroInforme: number;
+    storedSelectedDate: any;
+    storedNumeroCarta: any;
 }
-const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
-    const [open, setOpen] = React.useState(false);
-    const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
+const VerDescargarInforme: React.FC<Props> = ({
+    row,
+    numeroInforme,
+    storedSelectedDate,
+    storedNumeroCarta,
+}) => {
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
+    const [selectedDate, setSelectedDate] = useState(storedSelectedDate || "");
+    const [numeroCarta, setNumeroCarta] = useState(storedNumeroCarta || 0);
 
     const handleClickOpen = (scrollType: DialogProps["scroll"]) => () => {
         setOpen(true);
@@ -31,7 +40,7 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
     };
 
     const descriptionElementRef = React.useRef<HTMLElement>(null);
-    React.useEffect(() => {
+    useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
             if (descriptionElement !== null) {
@@ -39,6 +48,29 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
             }
         }
     }, [open]);
+
+    const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputDate = event.target.value;
+        const formattedDate = formatInputDate(inputDate);
+        setSelectedDate(formattedDate);
+        localStorage.setItem(`selectedDate_${numeroInforme}`, formattedDate);
+    };
+
+    const handleNumeroCartaChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const value = parseInt(event.target.value);
+        setNumeroCarta(value);
+        localStorage.setItem(`numeroCarta_${numeroInforme}`, value.toString());
+    };
+
+    const formatInputDate = (inputDate: string) => {
+        const dateParts = inputDate.split("-");
+        const day = dateParts[2];
+        const month = dateParts[1];
+        const year = dateParts[0];
+        return `${day}/${month}/${year}`;
+    };
 
     return (
         <Box>
@@ -70,21 +102,55 @@ const VerDescargarInforme: React.FC<Props> = ({ row, numeroInforme }) => {
                     >
                         Exporta o descarga el informe
                     </DialogContentText>
+                    <div>
+                        <TextField
+                            sx={{ flexGrow: 1 }}
+                            id="outlined-controlled"
+                            label="Número Carta"
+                            value={numeroCarta}
+                            type="number"
+                            inputProps={{
+                                min: 0,
+                                step: 1,
+                            }}
+                            onChange={handleNumeroCartaChange}
+                        />
+                        <span>Fecha entrega de Informe</span>
+                        <TextField
+                            fullWidth
+                            sx={{ flexGrow: 1 }}
+                            id="hora-inicio-descarga"
+                            label="Fecha entrega de Informe"
+                            type="date"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                        />
+                        <p>Fecha seleccionada: {selectedDate}</p>
+                    </div>
                     <BasicTabs
                         labels={["Carta", "Informe", "Test"]}
                         contents={[
                             <MarcoInformePdf
                                 row={row}
                                 numeroInforme={numeroInforme}
+                                selectedDate={selectedDate}
+                                numeroCarta={numeroCarta} // Use the local state value here
                             />,
                             <span>Hola</span>,
                             <span>Veremos</span>,
                         ]}
                     />
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpen(false)}>Cerrar</Button>
+                </DialogActions>
             </Dialog>
         </Box>
     );
 };
 
 export default VerDescargarInforme;
+//
+//
+//
+//

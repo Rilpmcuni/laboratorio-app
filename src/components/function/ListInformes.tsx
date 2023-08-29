@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import { Button, Grid } from "@mui/material";
 import VerDescargarInforme from "@/components/function/VerDescargarInforme";
 import TabsComponent from "@/components/test/Test";
@@ -44,36 +43,48 @@ interface DataHormigon {
 }
 
 export default function ListInformes() {
-    const [informeData, setInformeData] = useState<DataInforme | null>(null);
-    const [hormigonData, setHormigonData] = useState<DataHormigon[]>([]);
-    const [muestraCounter, setMuestraCounter] = useState(0);
-    const [numeroInforme, setNumeroInforme] = useState(0);
+    const [data, setData] = useState<{
+        informeData: DataInforme | null;
+        hormigonData: DataHormigon[];
+        muestraCounter: number;
+        numeroInforme: number;
+    }>({
+        informeData: null,
+        hormigonData: [],
+        muestraCounter: 0,
+        numeroInforme: 0,
+    });
 
     useEffect(() => {
-        // Cargar los datos del Local Storage al cargar la página
         const informeDataFromLocalStorage = localStorage.getItem("laboratorioData");
-        const hormigonDataFromLocalStorage =
-            localStorage.getItem("hormigonData");
+        const hormigonDataFromLocalStorage = localStorage.getItem("hormigonData");
 
         if (informeDataFromLocalStorage) {
             const parsedInformeData: DataInforme = JSON.parse(
                 informeDataFromLocalStorage
             );
-            setInformeData(parsedInformeData);
-            setNumeroInforme(parsedInformeData.numeroInforme + 1); // Incrementar el número de informe correlativo en 1
+            setData((prevData) => ({
+                ...prevData,
+                informeData: parsedInformeData,
+                numeroInforme: parsedInformeData.numeroInforme + 1,
+            }));
         }
 
         if (hormigonDataFromLocalStorage) {
             const parsedHormigonData: DataHormigon[] = JSON.parse(
                 hormigonDataFromLocalStorage
             );
-            setHormigonData(parsedHormigonData);
-            setMuestraCounter(parsedHormigonData.length);
+            setData((prevData) => ({
+                ...prevData,
+                hormigonData: parsedHormigonData,
+                muestraCounter: parsedHormigonData.length,
+            }));
         }
     }, []);
 
     const generateRows = () => {
-        // Agrupar las muestras de hormigón por quincena
+        const { hormigonData, numeroInforme } = data;
+
         const groupedHormigonData: { [key: string]: DataHormigon[] } = {};
 
         for (const data of hormigonData) {
@@ -86,21 +97,35 @@ export default function ListInformes() {
             }
         }
 
-        // Generar las filas de la tabla
         const rows = [];
+        let informeCounter = numeroInforme;
 
         for (const quincena in groupedHormigonData) {
             const muestras = groupedHormigonData[quincena];
+
+            const storedSelectedDate = localStorage.getItem(
+                `selectedDate_${informeCounter}`
+            );
+            const storedNumeroCarta = localStorage.getItem(
+                `numeroCarta_${informeCounter}`
+            );
 
             rows.push({
                 quincena,
                 fechaLocal: getfechaLocal(quincena),
                 muestras,
+                numeroInforme: informeCounter,
+                storedSelectedDate: storedSelectedDate || "",
+                storedNumeroCarta: storedNumeroCarta
+                    ? parseInt(storedNumeroCarta)
+                    : 0,
             });
+
+            informeCounter++;
         }
 
         return rows;
-    };
+    }
 
     const getQuincenaFromDate = (date: string) => {
         const currentDate = new Date(date);
@@ -131,11 +156,12 @@ export default function ListInformes() {
 
         return "";
     };
+
     const router = useRouter();
 
     return (
         <>
-            <TableContainer component={Paper}>
+            <TableContainer variant="outlined" component={Paper}>
                 <Table size="small" aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
@@ -151,7 +177,6 @@ export default function ListInformes() {
                             <Row
                                 key={index}
                                 row={row}
-                                numeroInforme={numeroInforme}
                             />
                         ))}
                     </TableBody>
@@ -166,10 +191,13 @@ function Row(props: {
         quincena: string;
         fechaLocal: string;
         muestras: DataHormigon[];
+        numeroInforme: number;
+        storedSelectedDate: string;
+        storedNumeroCarta: number;
     };
-    numeroInforme: number;
 }) {
-    const { row, numeroInforme } = props;
+    const { row } = props;
+    const { quincena, fechaLocal, muestras, numeroInforme } = row;
     const [open, setOpen] = useState(false);
 
     return (
@@ -188,22 +216,22 @@ function Row(props: {
                         )}
                     </IconButton>
                 </TableCell>
-                <TableCell>{row.fechaLocal}</TableCell>
-                <TableCell>{row.quincena}</TableCell>
+                <TableCell>{fechaLocal}</TableCell>
+                <TableCell>{quincena}</TableCell>
                 <TableCell>{numeroInforme}</TableCell>
                 <TableCell>
-                    <VerDescargarInforme
-                        numeroInforme={numeroInforme}
-                        row={row}
-                    />
+                <VerDescargarInforme
+                    numeroInforme={row.numeroInforme}
+                    row={row}
+                    storedSelectedDate={row.storedSelectedDate}
+                    storedNumeroCarta={row.storedNumeroCarta}
+                />
                 </TableCell>
             </TableRow>
-            {/*  */}
-            {/*  */}
             <TableRow>
                 <TableCell
                     style={{ paddingBottom: 0, paddingTop: 0 }}
-                    colSpan={4}
+                    colSpan={5} // Adjust the colspan to match the number of columns
                 >
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
@@ -226,10 +254,10 @@ function Row(props: {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.muestras.map((muestra, index) => (
+                                    {muestras.map((muestra, index) => (
                                         <TableRow key={index}>
                                             <TableCell>
-                                                {muestra.muestra}
+                                                {index + 1}
                                             </TableCell>
                                             <TableCell>
                                                 {muestra.asentamientoCono}
@@ -249,7 +277,7 @@ function Row(props: {
         </React.Fragment>
     );
 }
-
-/*  */
-/*  */
-/*  */
+// 
+// 
+// 
+// 

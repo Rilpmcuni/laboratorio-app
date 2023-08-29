@@ -1,6 +1,5 @@
-"use client";
 import React, { useState, useEffect } from "react";
-import { Typography, TextField, Button } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import {
     BlobProvider,
     PDFDownloadLink,
@@ -8,11 +7,9 @@ import {
     usePDF,
 } from "@react-pdf/renderer";
 import InformePdf from "@/components/function/InformePdf";
-import ReactPDF from "@react-pdf/renderer";
 import { Link as LinkMui, Stack } from "@mui/material";
 import Link from "next/link";
-
-
+import InformePdfTest from "./InformePdfTest";
 
 interface DataInforme {
     numeroCarta: number;
@@ -20,7 +17,6 @@ interface DataInforme {
     nombreInspector: string;
     nombreEmpresa: string;
     renderInforme: string | null;
-    selectedDate: string;
     logoEmpresa: string | null;
     nombreContrato: string;
 }
@@ -28,9 +24,16 @@ interface DataInforme {
 interface Props {
     row: any;
     numeroInforme: number;
+    selectedDate: any;
+    numeroCarta: number;
 }
-const MarcoInformePdf: React.FC<Props> = ({ row, numeroInforme }) => {
-    const [numeroCarta, setNumeroCarta] = useState(0);
+
+const MarcoInformePdf: React.FC<Props> = ({
+    row,
+    numeroInforme,
+    selectedDate,
+    numeroCarta,
+}) => {
     const [nombreResidente, setNombreResidente] = useState("");
     const [nombreInspector, setNombreInspector] = useState("");
     const [nombreEmpresa, setNombreEmpresa] = useState("");
@@ -38,175 +41,105 @@ const MarcoInformePdf: React.FC<Props> = ({ row, numeroInforme }) => {
     const [logoEmpresa, setLogoEmpresa] = useState<string | null>(null);
     const [nombreContrato, setNombreContrato] = useState("");
     const [generate, setGenerate] = useState(false);
+    const [pdfViewerVisible, setPdfViewerVisible] = useState(false);
 
     useEffect(() => {
-        // Cargar los datos del Local Storage al cargar la página
-        const dataFromLocalStorage = localStorage.getItem("informeData");
+        const dataFromLocalStorage = localStorage.getItem("laboratorioData");
         if (dataFromLocalStorage) {
             const parsedData: DataInforme = JSON.parse(dataFromLocalStorage);
             setNombreResidente(parsedData.nombreResidente);
             setNombreInspector(parsedData.nombreInspector);
             setNombreEmpresa(parsedData.nombreEmpresa);
-            setSelectedDate(parsedData.selectedDate);
-            setSelectedImage(null); // Borra la imagen seleccionada en cada carga para evitar problemas de visualización
+            setSelectedImage(null);
             setLogoEmpresa(parsedData.logoEmpresa);
             setNombreContrato(parsedData.nombreContrato);
         }
     }, []);
-    /*  */
-    const [selectedDate, setSelectedDate] = useState("");
 
-    const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputDate = event.target.value;
-        const formattedDate = formatInputDate(inputDate);
-        setSelectedDate(formattedDate);
+    const handleOpenPdfViewer = () => {
+        setPdfViewerVisible(true);
     };
 
-    const formatInputDate = (inputDate: string) => {
-        const dateParts = inputDate.split("-");
-        const day = dateParts[2];
-        const month = dateParts[1];
-        const year = dateParts[0];
-        return `${day}/${month}/${year}`;
+    const handleClosePdfViewer = () => {
+        setPdfViewerVisible(false);
     };
+
+    const MyDoc = (
+        <InformePdf
+            Ncarta={numeroCarta}
+            residente={nombreResidente}
+            inspector={nombreInspector}
+            empresa={nombreEmpresa}
+            selectedDate={selectedDate}
+            image={logoEmpresa}
+            nombreContrato={nombreContrato}
+            numeroInforme={numeroInforme}
+            fecha={row.fechaLocal}
+        />
+    );
 
     const [instance, updateInstance] = usePDF({
-        document: (
-            <InformePdf
-                Ncarta={numeroCarta}
-                residente={nombreResidente}
-                inspector={nombreInspector}
-                empresa={nombreEmpresa}
-                selectedDate={selectedDate}
-                image={logoEmpresa}
-                nombreContrato={nombreContrato}
-                numeroInforme={numeroInforme}
-                fecha={row.fechaMuestreo}
-            />
-        ),
+        document: MyDoc,
     });
 
     if (instance.loading) return <div>Loading ...</div>;
 
-    // if (instance.error) return <div>Something went wrong: {error}</div>;
-
     return (
         <div>
             <div>
-                <span>Fecha entrega de Informe</span>
-
-                <TextField
-                    fullWidth
-                    sx={{ flexGrow: 1 }}
-                    id="hora-inicio-descarga"
-                    label="Fecha entrega de Informe"
-                    type="date"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                />
-
-                <p>Fecha seleccionada: {selectedDate}</p>
-            </div>
-            <TextField
-                sx={{ flexGrow: 1 }}
-                id="outlined-controlled"
-                label="Número Carta"
-                value={numeroCarta}
-                type="number"
-                inputProps={{
-                    min: 0,
-                    step: 1,
-                }}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const value = parseInt(event.target.value);
-                    setNumeroCarta(value);
-                }}
-            />
-            <PDFViewer style={{ width: "100%", height: "90vh" }}>
-                <InformePdf
-                    Ncarta={numeroCarta}
-                    residente={nombreResidente}
-                    inspector={nombreInspector}
-                    empresa={nombreEmpresa}
-                    selectedDate={selectedDate}
-                    image={logoEmpresa}
-                    nombreContrato={nombreContrato}
-                    numeroInforme={numeroInforme}
-                    fecha={row.fechaMuestreo}
-                />
-            </PDFViewer>
-            <div>
+                <Button variant="contained" onClick={handleOpenPdfViewer}>
+                    Vista previa
+                </Button>
                 <PDFDownloadLink
-                    document={
-                        <InformePdf
-                            Ncarta={numeroCarta}
-                            residente={nombreResidente}
-                            inspector={nombreInspector}
-                            empresa={nombreEmpresa}
-                            selectedDate={selectedDate}
-                            image={logoEmpresa}
-                            nombreContrato={nombreContrato}
-                            numeroInforme={numeroInforme}
-                            fecha={row.fechaMuestreo}
-                        />
-                    }
-                    fileName="somename.pdf"
+                    document={MyDoc}
+                    fileName={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
                 >
                     {({ blob, url, loading, error }) =>
-                        loading ? "Loading document..." : "Download now!"
+                        url && (
+                            <Button
+                                LinkComponent={Link}
+                                href={url}
+                                target="_blank"
+                                variant="contained"
+                                disabled={loading}
+                            >
+                                Vista previa mobil
+                            </Button>
+                        )
+                    }
+                </PDFDownloadLink>
+                <PDFDownloadLink
+                    document={MyDoc}
+                    fileName={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
+                >
+                    {({ blob, url, loading, error }) =>
+                        url && (
+                            <Button
+                                LinkComponent={Link}
+                                href={url}
+                                download={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
+                                target="_blank"
+                                variant="contained"
+                                disabled={loading}
+                            >
+                                Descargar
+                            </Button>
+                        )
                     }
                 </PDFDownloadLink>
             </div>
-            <div>
-                <BlobProvider
-                    document={
-                        <InformePdf
-                            Ncarta={numeroCarta}
-                            residente={nombreResidente}
-                            inspector={nombreInspector}
-                            empresa={nombreEmpresa}
-                            selectedDate={selectedDate}
-                            image={logoEmpresa}
-                            nombreContrato={nombreContrato}
-                            numeroInforme={numeroInforme}
-                            fecha={row.fechaMuestreo}
-                        />
-                    }
-                >
-                    {({ blob, url, loading, error }) => {
-                        // Do whatever you need with blob here
-                        return <div>There's something going on on the fly</div>;
-                    }}
-                </BlobProvider>
-                <a href={instance.url ?? '/Laboratorio'} download="test.pdf" target="_blank">
-                    Download
-                </a>
-                <Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    LinkComponent={Link}
-                    disabled={!instance && true}
-                    href={instance.url ?? '/Laboratorio'}
-                    target="_blank"
-                >
-                    Vista previa
-                </Button><Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    LinkComponent={Link}
-                    disabled={!instance && true}
-                    href={instance.url ?? '/Laboratorio'}
-                    target="_blank"
-                    download="test.pdf"
-                >
-                    Download
-                </Button>
-            </div>
+            {pdfViewerVisible && (
+                <div>
+                    <PDFViewer style={{ width: "100%", height: "70vh" }}>
+                        {MyDoc}
+                    </PDFViewer>
+                    <Button variant="contained" onClick={handleClosePdfViewer}>
+                        Cerrar vista previa
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };
+
 export default MarcoInformePdf;

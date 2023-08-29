@@ -164,11 +164,7 @@ export default function HormigonFicha() {
             region,
             // Remove muestra property since it does not exist in DataHormigon type
         };
-        // localStorage.setItem("hormigonData", JSON.stringify(hormigonData));
-        // setCodigo(codigoTest);
-        // setHormigonData((prevData) => [...prevData, newHormigonData]);
 
-        // setShowSnackbar(true);
         localStorage.setItem(
             "hormigonData",
             JSON.stringify([...hormigonData, newHormigonData])
@@ -603,68 +599,64 @@ export default function HormigonFicha() {
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </CardContent>
-                        <CardActions>
-                            {incorporacionAditivo && (
-                                <Collapse in={incorporacionAditivo}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            flexWrap: "wrap",
-                                            p: 1.5,
-                                            gap: 1,
+                        {/*  {incorporacionAditivo && ( */}
+                        <Collapse in={incorporacionAditivo}>
+                            <CardActions>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        p: 1.5,
+                                        gap: 1,
+                                    }}
+                                >
+                                    <TextField
+                                        sx={{ flexGrow: 1 }}
+                                        id="marca-aditivo"
+                                        label="Marca"
+                                        value={marcaAditivo}
+                                        onChange={(event) => {
+                                            setMarcaAditivo(event.target.value);
                                         }}
-                                    >
-                                        <TextField
-                                            sx={{ flexGrow: 1 }}
-                                            id="marca-aditivo"
-                                            label="Marca"
-                                            value={marcaAditivo}
-                                            onChange={(event) => {
-                                                setMarcaAditivo(
-                                                    event.target.value
-                                                );
-                                            }}
-                                        />
-                                        <TextField
-                                            sx={{ flexGrow: 1 }}
-                                            id="tipo-aditivo"
-                                            label="Tipo"
-                                            value={tipoAditivo}
-                                            onChange={(event) => {
-                                                setTipoAditivo(
-                                                    event.target.value
-                                                );
-                                            }}
-                                        />
-                                        <TextField
-                                            sx={{ flexGrow: 1 }}
-                                            id="cantidad-aditivo"
-                                            label="Cantidad (L)"
-                                            type="number"
-                                            value={cantidadAditivo}
-                                            onChange={(event) => {
-                                                setCantidadAditivo(
-                                                    Number(event.target.value)
-                                                );
-                                            }}
-                                        />
-                                        <TextField
-                                            sx={{ flexGrow: 1 }}
-                                            id="edad-ensaye"
-                                            label="Edad de Ensaye (días)"
-                                            type="number"
-                                            value={edadEnsaye}
-                                            onChange={(event) => {
-                                                setEdadEnsaye(
-                                                    Number(event.target.value)
-                                                );
-                                            }}
-                                        />
-                                    </Box>
-                                </Collapse>
-                            )}
-                        </CardActions>
+                                    />
+                                    <TextField
+                                        sx={{ flexGrow: 1 }}
+                                        id="tipo-aditivo"
+                                        label="Tipo"
+                                        value={tipoAditivo}
+                                        onChange={(event) => {
+                                            setTipoAditivo(event.target.value);
+                                        }}
+                                    />
+                                    <TextField
+                                        sx={{ flexGrow: 1 }}
+                                        id="cantidad-aditivo"
+                                        label="Cantidad (L)"
+                                        type="number"
+                                        value={cantidadAditivo}
+                                        onChange={(event) => {
+                                            setCantidadAditivo(
+                                                Number(event.target.value)
+                                            );
+                                        }}
+                                    />
+                                    <TextField
+                                        sx={{ flexGrow: 1 }}
+                                        id="edad-ensaye"
+                                        label="Edad de Ensaye (días)"
+                                        type="number"
+                                        value={edadEnsaye}
+                                        onChange={(event) => {
+                                            setEdadEnsaye(
+                                                Number(event.target.value)
+                                            );
+                                        }}
+                                    />
+                                </Box>
+                            </CardActions>
+                        </Collapse>
+                        {/*      )} */}
                     </Card>
                 </Grid>
             </Grid>

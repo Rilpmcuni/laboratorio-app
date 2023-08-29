@@ -1,6 +1,14 @@
 "use client";
 import React from "react";
-import { Document, Page, Text, View, Image, Font } from "@react-pdf/renderer";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    Image,
+    Font,
+    StyleSheet,
+} from "@react-pdf/renderer";
 
 interface Props {
     Ncarta: any;
@@ -25,11 +33,38 @@ const InformePdf: React.FC<Props> = ({
     numeroInforme,
 }) => {
     // const InformePdf = () => {
+    const styles = StyleSheet.create({
+        body: {
+            fontFamily: "Helvetica",
+            fontSize: 11,
+            // lineHeight: 1.5,
+        },
+        title: { marginTop: "90%" },
+        emphasis: { fontFamily: "Helvetica-Bold" },
+        emphasisItalic: { fontFamily: "Helvetica-BoldOblique"},
+        breakable: { width: "100%", height: 400, backgroundColor: "tomato" },
+        header: {
+            fontSize: 12,
+            marginBottom: 20,
+            textAlign: "center",
+            color: "grey",
+            fontFamily: "Helvetica-Bold",
+        },
+        page: {
+            fontFamily: "Helvetica",
+            fontSize: 11,
+            paddingTop: 30,
+            paddingLeft: 60,
+            paddingRight: 60,
+            lineHeight: 1.5,
+            flexDirection: "column",
+        },
+    });
     return (
         <Document>
-            <Page size="A4" wrap>
+            <Page style={styles.body} size="A4" wrap={false}>
                 <View
-                wrap={false}
+                    wrap={false}
                     style={{
                         display: "flex",
                         flexDirection: "column",
@@ -67,29 +102,40 @@ const InformePdf: React.FC<Props> = ({
                             [Insertar Logo]
                         </Text>
                     )}
-                    <Text
-                        style={{
-                            position: "absolute",
-                            top: 10,
-                            color: "#808080",
-                        }}
-                    >
-                        Versión Beta
+                    <Text style={styles.header} fixed>
+                        ~ Versión Beta ~
                     </Text>
                     <View
                         style={{ width: "45%", alignSelf: "flex-end", gap: 10 }}
                     >
-                        <Text>
+                        <Text style={styles.emphasis}>
                             Ord.: C-{Ncarta ? Ncarta : "[Insertar Carta]"}/2023
                         </Text>
-                        <Text style={{ textAlign: "left" }}>
-                            <Text style={{ fontWeight: 600 }}>REF.:</Text>{" "}
+                        <Text
+                            style={{
+                                // textAlign: "left",
+                                width: "100%", // Ajusta el ancho para evitar la división
+
+                                // overflow: "hidden", // Evita que el contenido desborde
+                                // position: "absolute", // Posición absoluta para controlar el ajuste
+                                // left: 0, // Alinea a la izquierda
+                                // top: 0, // Alinea en la parte superior
+                            }}
+                        >
+                            <Text style={styles.emphasis}>REF.:</Text>{" "}
                             {nombreContrato}
                         </Text>
-                        <Text>Mat.: Informe Quincenal Laboratorio</Text>
-                        <Text style={{ fontWeight: 1000 }}>
+                        <Text>
+                            <Text style={styles.emphasis}>Mat.:</Text> Informe
+                            Quincenal Laboratorio
+                        </Text>
+                        <Text>
                             Vallenar,{" "}
-                            {selectedDate ? selectedDate : "[Insertar Fecha]"}
+                            <Text style={styles.emphasisItalic}>
+                                {selectedDate
+                                    ? selectedDate
+                                    : "[Insertar Fecha]"}
+                            </Text>
                         </Text>
                     </View>
                     <View
@@ -102,19 +148,18 @@ const InformePdf: React.FC<Props> = ({
                         wrap={false}
                     >
                         <Text break={false} wrap={false}>
-                            A: Inspectora Fiscal Srta.{" "}
+                            <Text style={styles.emphasis}>A:</Text> Inspectora
+                            Fiscal Srta.{" "}
                             {inspector ? inspector : "[Insertar nombre]"}{" "}
                             Dirección Regional de Vialidad,
                         </Text>
-                        <Text
-                            break={false}
-                            wrap={false}
-                            style={{ flexWrap: "nowrap", overflow: "hidden" }}
-                        >
+                        <Text break={false} wrap={false}>
                             Leonel Ortiz Laboratorio Regional Vialidad Región
                             Atacama
                         </Text>
-                        <Text>De: {empresa}</Text>
+                        <Text>
+                            <Text style={styles.emphasis}>De:</Text> {empresa}
+                        </Text>
                     </View>
                     <View
                         style={{
@@ -125,9 +170,15 @@ const InformePdf: React.FC<Props> = ({
                             style={{ textAlign: "right", textIndent: "100px" }}
                         >
                             De nuestra consideración y junto con saludar,
-                            laboratorio Autocontrol hace entrega de informe N°
-                            {numeroInforme} del{" "}
-                            {fecha ? fecha : "[Insertar fecha]"}.
+                            laboratorio Autocontrol hace entrega de informe{" "}
+                            <Text style={styles.emphasis}>
+                                N°
+                                {numeroInforme}
+                            </Text>{" "}
+                            del{" "}
+                            <Text style={styles.emphasis}>
+                                {fecha ? fecha : "[Insertar fecha]"}.
+                            </Text>
                         </Text>
                     </View>
                     <View
@@ -156,6 +207,7 @@ const InformePdf: React.FC<Props> = ({
                                 textAlign: "center",
                                 textTransform: "uppercase",
                                 padding: "8px",
+                                fontFamily: "Helvetica-Bold",
                             }}
                         >
                             PROFESIONAL RESIDENTE{" "}
@@ -167,7 +219,8 @@ const InformePdf: React.FC<Props> = ({
                                 textTransform: "uppercase",
                                 paddingHorizontal: "8px",
                                 paddingBottom: "8px",
-                                paddingTop: "0px",
+                                paddingTop: "-8px",
+                                fontFamily: "Helvetica-Bold",
                             }}
                         >
                             EMPRESA {empresa ? empresa : "[Insertar empresa]"}
@@ -183,7 +236,7 @@ const InformePdf: React.FC<Props> = ({
                             bottom: 20,
                         }}
                     >
-                        <Text>Distribución</Text>
+                        <Text style={styles.emphasis}>Distribución</Text>
                         <Text wrap={false} break={false}>
                             Inspector Fiscal L.R.V. Arch. Obra
                         </Text>
