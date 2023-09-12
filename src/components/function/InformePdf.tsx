@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Fragment } from "react";
 import {
     Document,
     Page,
@@ -11,7 +11,6 @@ import {
 } from "@react-pdf/renderer";
 
 interface Props {
-    Ncarta: any;
     residente: any;
     inspector: any;
     empresa: any;
@@ -20,9 +19,9 @@ interface Props {
     image: any;
     nombreContrato: string;
     numeroInforme: number;
+    ensayos: any;
 }
 const InformePdf: React.FC<Props> = ({
-    Ncarta,
     residente,
     inspector,
     empresa,
@@ -31,25 +30,12 @@ const InformePdf: React.FC<Props> = ({
     image,
     nombreContrato,
     numeroInforme,
+    ensayos,
 }) => {
     // const InformePdf = () => {
+    const borderColor = "#90e5fc";
+    const tableRowsCount = 12;
     const styles = StyleSheet.create({
-        body: {
-            fontFamily: "Helvetica",
-            fontSize: 11,
-            // lineHeight: 1.5,
-        },
-        title: { marginTop: "90%" },
-        emphasis: { fontFamily: "Helvetica-Bold" },
-        emphasisItalic: { fontFamily: "Helvetica-BoldOblique"},
-        breakable: { width: "100%", height: 400, backgroundColor: "tomato" },
-        header: {
-            fontSize: 12,
-            marginBottom: 20,
-            textAlign: "center",
-            color: "grey",
-            fontFamily: "Helvetica-Bold",
-        },
         page: {
             fontFamily: "Helvetica",
             fontSize: 11,
@@ -59,188 +45,232 @@ const InformePdf: React.FC<Props> = ({
             lineHeight: 1.5,
             flexDirection: "column",
         },
+        logo: {
+            width: 74,
+            height: 66,
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+        tableContainer: {
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginTop: 24,
+            borderWidth: 1,
+            borderColor: "#bff0fd",
+            fontSize: 9,
+        },
+        container: {
+            flexDirection: "row",
+            borderBottomColor: "#bff0fd",
+            backgroundColor: "#bff0fd",
+            borderBottomWidth: 1,
+            alignItems: "center",
+            height: 24,
+            textAlign: "center",
+            fontStyle: "bold",
+            flexGrow: 1,
+            fontFamily: "Helvetica-Bold",
+            /*  */
+            // paddingTop: 4,
+        },
+        titleHeader: {
+            width: "30%",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            backgroundColor: "#bff0fd",
+            height: "100%",
+            fontFamily: "Helvetica-Bold",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingLeft: 4,
+        },
+
+        descripcionHeader: {
+            width: "70%",
+            paddingLeft: 4,
+        },
+        /*  */
+        /*  */
+        /*  */
+        headerContent1: {
+            width: "20%",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            // backgroundColor: "#bff0fd",
+            height: "100%",
+            textAlign: "center",
+            padding: 4,
+        },
+        headerContent2: {
+            width: "40%",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            textAlign: "center",
+            paddingRight: 8,
+        },
+        headerContent3: {
+            width: "20%",
+            borderRightColor: borderColor,
+            borderRightWidth: 1,
+            textAlign: "center",
+            paddingRight: 8,
+        },
+        headerContent4: {
+            width: "40%",
+            textAlign: "center",
+            padding: 4,
+        },
+
+        row: {
+            flexDirection: "row",
+            borderBottomColor: "#bff0fd",
+            borderBottomWidth: 1,
+            alignItems: "center",
+            height: 24,
+            fontStyle: "bold",
+        },
     });
+    /*  */
+    /*  */
+    /*  */
+    const InvoiceTableBlankSpace = ({ rowsCount }: { rowsCount: any }) => {
+        const blankRows = Array(rowsCount).fill(0);
+        const rows = blankRows.map((x, i) => (
+            <View
+                style={
+                    (styles.row,
+                    {
+                        flexDirection: "row",
+                        borderBottomColor: "#bff0fd",
+                        borderBottomWidth: 1,
+                        alignItems: "center",
+                        height: 24,
+                        fontStyle: "bold",
+                        color: "white",
+                    })
+                }
+            >
+                <Text style={styles.headerContent1}>-</Text>
+                <Text style={styles.headerContent2}>-</Text>
+                <Text style={styles.headerContent3}>-</Text>
+                <Text style={styles.headerContent4}>-</Text>
+            </View>
+        ));
+        return <Fragment>{rows}</Fragment>;
+    };
+
     return (
         <Document>
-            <Page style={styles.body} size="A4" wrap={false}>
-                <View
-                    wrap={false}
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        //
-                        margin: 30,
-                        padding: 30,
-                        flexGrow: 1,
-                        fontSize: "13px",
-                        gap: 16,
-                    }}
-                >
-                    {image ? (
-                        <Image
-                            fixed
-                            style={{
-                                width: "100px",
-                                position: "absolute",
-                                left: 20,
-                                top: 20,
-                            }}
-                            src={image}
-                        />
-                    ) : (
-                        <Text
-                            fixed
-                            style={{
-                                width: "100px",
-                                position: "absolute",
-                                left: 20,
-                                top: 20,
-                            }}
-                        >
-                            [Insertar Logo]
-                        </Text>
-                    )}
-                    <Text style={styles.header} fixed>
-                        ~ Versión Beta ~
-                    </Text>
-                    <View
-                        style={{ width: "45%", alignSelf: "flex-end", gap: 10 }}
-                    >
-                        <Text style={styles.emphasis}>
-                            Ord.: C-{Ncarta ? Ncarta : "[Insertar Carta]"}/2023
-                        </Text>
-                        <Text
-                            style={{
-                                // textAlign: "left",
-                                width: "100%", // Ajusta el ancho para evitar la división
-
-                                // overflow: "hidden", // Evita que el contenido desborde
-                                // position: "absolute", // Posición absoluta para controlar el ajuste
-                                // left: 0, // Alinea a la izquierda
-                                // top: 0, // Alinea en la parte superior
-                            }}
-                        >
-                            <Text style={styles.emphasis}>REF.:</Text>{" "}
-                            {nombreContrato}
-                        </Text>
-                        <Text>
-                            <Text style={styles.emphasis}>Mat.:</Text> Informe
-                            Quincenal Laboratorio
-                        </Text>
-                        <Text>
-                            Vallenar,{" "}
-                            <Text style={styles.emphasisItalic}>
-                                {selectedDate
-                                    ? selectedDate
-                                    : "[Insertar Fecha]"}
-                            </Text>
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            width: "45%",
-                            alignSelf: "flex-start",
-                            gap: 10,
-                        }}
-                        break={false}
-                        wrap={false}
-                    >
-                        <Text break={false} wrap={false}>
-                            <Text style={styles.emphasis}>A:</Text> Inspectora
-                            Fiscal Srta.{" "}
-                            {inspector ? inspector : "[Insertar nombre]"}{" "}
-                            Dirección Regional de Vialidad,
-                        </Text>
-                        <Text break={false} wrap={false}>
-                            Leonel Ortiz Laboratorio Regional Vialidad Región
-                            Atacama
-                        </Text>
-                        <Text>
-                            <Text style={styles.emphasis}>De:</Text> {empresa}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            width: "100%",
-                        }}
-                    >
-                        <Text
-                            style={{ textAlign: "right", textIndent: "100px" }}
-                        >
-                            De nuestra consideración y junto con saludar,
-                            laboratorio Autocontrol hace entrega de informe{" "}
-                            <Text style={styles.emphasis}>
-                                N°
-                                {numeroInforme}
-                            </Text>{" "}
-                            del{" "}
-                            <Text style={styles.emphasis}>
-                                {fecha ? fecha : "[Insertar fecha]"}.
-                            </Text>
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            textAlign: "right",
-                            width: "100%",
-                            marginTop: 8,
-                            paddingTop: 8,
-                            marginBottom: 60,
-                            paddingBottom: 60,
-                        }}
-                    >
-                        <Text>Sin otro particular, saluda atentamente.</Text>
-                    </View>
-
-                    <View
-                        style={{
-                            width: "45%",
-                            alignSelf: "flex-end",
-                            marginBottom: 100,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                borderTop: "1px solid black",
-                                textAlign: "center",
-                                textTransform: "uppercase",
-                                padding: "8px",
-                                fontFamily: "Helvetica-Bold",
-                            }}
-                        >
-                            PROFESIONAL RESIDENTE{" "}
-                            {residente ? residente : "[Insertar nombre]"}
-                        </Text>
-                        <Text
-                            style={{
-                                textAlign: "center",
-                                textTransform: "uppercase",
-                                paddingHorizontal: "8px",
-                                paddingBottom: "8px",
-                                paddingTop: "-8px",
-                                fontFamily: "Helvetica-Bold",
-                            }}
-                        >
-                            EMPRESA {empresa ? empresa : "[Insertar empresa]"}
-                        </Text>
-                    </View>
-                    <View
+            <Page size="A4" style={styles.page}>
+                {image ? (
+                    <Image
                         fixed
                         style={{
-                            width: "20%",
-                            alignSelf: "flex-start",
+                            width: "100px",
                             position: "absolute",
                             left: 20,
-                            bottom: 20,
+                            top: 20,
+                        }}
+                        src={image}
+                    />
+                ) : (
+                    <Text
+                        fixed
+                        style={{
+                            width: "100px",
+                            position: "absolute",
+                            left: 20,
+                            top: 20,
                         }}
                     >
-                        <Text style={styles.emphasis}>Distribución</Text>
-                        <Text wrap={false} break={false}>
-                            Inspector Fiscal L.R.V. Arch. Obra
+                        [Insertar Logo]
+                    </Text>
+                )}
+                <Text
+                    fixed
+                    style={{
+                        width: "100px",
+                        position: "absolute",
+                        right: 20,
+                        top: 20,
+                    }}
+                >
+                    ~ Versión Beta ~
+                </Text>
+                <Text
+                    style={{
+                        fontSize: 12,
+                        marginBottom: 6,
+                        textAlign: "center",
+                        fontFamily: "Helvetica-Bold",
+                    }}
+                >
+                    INFORME QUINCENAL N°{numeroInforme}
+                </Text>
+                <View style={styles.tableContainer}>
+                    <View
+                        style={
+                            (styles.row,
+                            {
+                                height: 46,
+                                flexDirection: "row",
+                                borderBottomColor: "#bff0fd",
+                                borderBottomWidth: 1,
+                            })
+                        }
+                    >
+                        <Text style={styles.titleHeader}>OBRA:</Text>
+                        <Text style={styles.descripcionHeader}>
+                            {nombreContrato}
                         </Text>
                     </View>
+                    <View style={styles.row}>
+                        <Text style={styles.titleHeader}>CONTRATISTA:</Text>
+                        <Text style={styles.descripcionHeader}>{empresa}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.titleHeader}>PERIODO DEL:</Text>
+                        <Text style={styles.descripcionHeader}>itettemat</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.titleHeader}>SAFI:</Text>
+                        <Text style={styles.descripcionHeader}>3560</Text>
+                    </View>
+                </View>
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                <View style={styles.tableContainer}>
+                    <View style={styles.container}>
+                        <Text style={styles.headerContent1}>ITEM</Text>
+                        <Text style={styles.headerContent2}>DESIGNACIÓN</Text>
+                        <Text style={styles.headerContent3}>CERT N°</Text>
+                        <Text style={styles.headerContent4}>CONTENIDO</Text>
+                    </View>
+                    {/* <InvoiceTableRow items={invoice.items} /> */}
+                    {ensayos.length === 0 && (
+                        <View style={styles.row}>
+                            <Text style={styles.headerContent1}>-</Text>
+                            <Text style={styles.headerContent2}>
+                                sin movimiento
+                            </Text>
+                            <Text style={styles.headerContent3}>-</Text>
+                            <Text style={styles.headerContent4}>
+                                sin movimiento
+                            </Text>
+                        </View>
+                    )}
+                    {ensayos.map((ensayo:any, index:any) => (
+                        <View key={index} style={styles.row}>
+                            <Text style={styles.headerContent1}>{ensayo.dataArray.item}</Text>
+                            <Text style={styles.headerContent2}>{ensayo.dataArray.designacion}</Text>
+                            <Text style={styles.headerContent3}>trabajando</Text>
+                            <Text style={styles.headerContent4}>{ensayo.dataArray.contenido}</Text>
+                        </View>
+                    ))}
+                    <InvoiceTableBlankSpace
+                        rowsCount={tableRowsCount - ensayos.length}
+                    />
                 </View>
             </Page>
         </Document>
@@ -248,3 +278,8 @@ const InformePdf: React.FC<Props> = ({
 };
 
 export default InformePdf;
+//
+//
+//
+//
+//

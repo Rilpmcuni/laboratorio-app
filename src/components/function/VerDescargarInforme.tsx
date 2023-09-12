@@ -10,20 +10,23 @@ import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import HelpIcon from "@mui/icons-material/Help";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
-import MarcoInformePdf from "./MarcoInformePdf";
+import MarcoCartaInformePdf from "./MarcoCartaInformePdf";
 import BasicTabs from "../ui/BasicTabs";
+import MarcoInformePdf from "./MarcoInformePdf";
 
 interface Props {
     row: any;
     numeroInforme: number;
     storedSelectedDate: any;
     storedNumeroCarta: any;
+    ensayos:any
 }
 const VerDescargarInforme: React.FC<Props> = ({
     row,
     numeroInforme,
     storedSelectedDate,
     storedNumeroCarta,
+    ensayos
 }) => {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
@@ -130,13 +133,17 @@ const VerDescargarInforme: React.FC<Props> = ({
                     <BasicTabs
                         labels={["Carta", "Informe", "Test"]}
                         contents={[
-                            <MarcoInformePdf
+                            <MarcoCartaInformePdf
                                 row={row}
                                 numeroInforme={numeroInforme}
                                 selectedDate={selectedDate}
                                 numeroCarta={numeroCarta} // Use the local state value here
                             />,
-                            <span>Hola</span>,
+                            <MarcoInformePdf
+                                row={row}
+                                numeroInforme={numeroInforme}
+                                selectedDate={selectedDate}  
+                                ensayos={ensayos}                        />,
                             <span>Veremos</span>,
                         ]}
                     />

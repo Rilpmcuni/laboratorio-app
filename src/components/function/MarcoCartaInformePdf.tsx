@@ -6,7 +6,7 @@ import {
     PDFViewer,
     usePDF,
 } from "@react-pdf/renderer";
-import InformePdf from "@/components/function/InformePdf";
+import CartaInformePdf from "@/components/function/CartaInformePdf";
 import { Link as LinkMui, Stack } from "@mui/material";
 import Link from "next/link";
 
@@ -25,14 +25,14 @@ interface Props {
     row: any;
     numeroInforme: number;
     selectedDate: any;
-    ensayos:any
+    numeroCarta: number;
 }
 
-const MarcoInformePdf: React.FC<Props> = ({
+const MarcoCartaInformePdf: React.FC<Props> = ({
     row,
     numeroInforme,
     selectedDate,
-    ensayos
+    numeroCarta,
 }) => {
     const [nombreResidente, setNombreResidente] = useState("");
     const [nombreInspector, setNombreInspector] = useState("");
@@ -65,7 +65,8 @@ const MarcoInformePdf: React.FC<Props> = ({
     };
 
     const MyDoc = (
-        <InformePdf
+        <CartaInformePdf
+            Ncarta={numeroCarta}
             residente={nombreResidente}
             inspector={nombreInspector}
             empresa={nombreEmpresa}
@@ -74,7 +75,6 @@ const MarcoInformePdf: React.FC<Props> = ({
             nombreContrato={nombreContrato}
             numeroInforme={numeroInforme}
             fecha={row.fechaLocal}
-            ensayos={ensayos}
         />
     );
 
@@ -92,7 +92,7 @@ const MarcoInformePdf: React.FC<Props> = ({
                 </Button>
                 <PDFDownloadLink
                     document={MyDoc}
-                    fileName={`Informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
+                    fileName={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
                 >
                     {({ blob, url, loading, error }) =>
                         url && (
@@ -110,14 +110,14 @@ const MarcoInformePdf: React.FC<Props> = ({
                 </PDFDownloadLink>
                 <PDFDownloadLink
                     document={MyDoc}
-                    fileName={`Informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
+                    fileName={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
                 >
                     {({ blob, url, loading, error }) =>
                         url && (
                             <Button
                                 LinkComponent={Link}
                                 href={url}
-                                download={`Informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
+                                download={`Carta N°${numeroCarta} informe N°${numeroInforme} ${row.quincena} ${row.fechaLocal}.pdf`}
                                 target="_blank"
                                 variant="contained"
                                 disabled={loading}
@@ -142,4 +142,4 @@ const MarcoInformePdf: React.FC<Props> = ({
     );
 };
 
-export default MarcoInformePdf;
+export default MarcoCartaInformePdf;

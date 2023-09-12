@@ -40,7 +40,7 @@ interface DataHormigon {
     codigo: string;
     tipoProbetas: string;
     cantidadProbetas: number | null;
-    fechaLocal: string;
+    fechaToma: string;
     horaInicioDescarga: string;
     horaMuestreo: string;
     asentamientoCono: number | null;
@@ -52,6 +52,7 @@ interface DataHormigon {
     cantidadAditivo: number | null;
     edadEnsaye: number | null;
     region: string;
+    dataArray: any;
 }
 
 export default function HormigonFicha() {
@@ -73,7 +74,7 @@ export default function HormigonFicha() {
     const [codigo, setCodigo] = useState("");
     const [tipoProbetas, setTipoProbetas] = useState("");
     const [cantidadProbetas, setCantidadProbetas] = useState(3);
-    const [fechaLocal, setFechaLocal] = useState("");
+    const [fechaToma, setFechaToma] = useState("");
     const [horaInicioDescarga, setHoraInicioDescarga] = useState("");
     const [horaMuestreo, setHoraMuestreo] = useState("");
     const [asentamientoCono, setAsentamientoCono] = useState<number | null>(
@@ -94,12 +95,17 @@ export default function HormigonFicha() {
         useState<boolean>(false);
     const [rangoCono, setRangoCono] = useState<number[]>([0, 24]);
     const [region, setRegion] = useState("");
+    const [dataArray, setDataArray] = useState({
+        item: 3560,
+        designacion: "hormigon",
+        contenido: "toma de muestra",
+    });
 
     const { fecha, hora } = useFechaYHoraActual();
 
     useEffect(() => {
         {
-            fecha && setFechaLocal(fecha);
+            fecha && setFechaToma(fecha);
         }
         {
             hora && setHoraLocal(hora);
@@ -150,7 +156,7 @@ export default function HormigonFicha() {
             codigo,
             tipoProbetas,
             cantidadProbetas,
-            fechaLocal,
+            fechaToma,
             horaInicioDescarga,
             horaMuestreo,
             asentamientoCono,
@@ -162,14 +168,20 @@ export default function HormigonFicha() {
             cantidadAditivo,
             edadEnsaye,
             region,
+            dataArray,
             // Remove muestra property since it does not exist in DataHormigon type
         };
 
+        const storedHormigonData = localStorage.getItem("hormigonData");
+        const updatedHormigonData = storedHormigonData
+            ? [...JSON.parse(storedHormigonData), newHormigonData]
+            : [newHormigonData];
+
         localStorage.setItem(
             "hormigonData",
-            JSON.stringify([...hormigonData, newHormigonData])
+            JSON.stringify(updatedHormigonData)
         );
-        setHormigonData((prevData) => [...prevData, newHormigonData]);
+        setHormigonData(updatedHormigonData);
 
         setShowSnackbar(true);
     };
@@ -256,7 +268,7 @@ export default function HormigonFicha() {
                                 sx={{ flexGrow: 1 }}
                                 id="fecha-muestreo"
                                 label="Fecha Muestreo"
-                                value={fechaLocal}
+                                value={fechaToma}
                             />
                             <TextField
                                 disabled
@@ -674,17 +686,69 @@ export default function HormigonFicha() {
                 <Typography variant="h5" fontWeight={700}>
                     Muestras de Hormigón Fresco:
                 </Typography>
+                <Grid
+                    container
+                    spacing={{ xs: 1, md: 2 }}
+                    columns={{ xs: 12, sm: 12, md: 12 }}
+                >
+                    {[...hormigonData].reverse().map((data, index) => (
+                        <Grid item xs={6} sm={3} md={3} key={index}>
+                            <Card variant="outlined">
+                                <CardContent>
+                                    <Typography
+                                        sx={{ fontSize: 14 }}
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        Muestra N° {hormigonData.length - index}
+                                    </Typography>
+                                    <Typography
+                                        sx={{ fontSize: 14 }}
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        Fecha Muestreo: {data.fechaToma}
+                                    </Typography>
+                                    <Typography variant="h5" component="div">
+                                        Código H°:
+                                        <br />
+                                        {data.codigo}
+                                    </Typography>
+                                    <Typography
+                                        sx={{ mb: 1.5 }}
+                                        color="text.secondary"
+                                    >
+                                        Asentamiento Cono:{" "}
+                                        {data.asentamientoCono}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        Grado H°: {data.gradoHormigon}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Ver</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+
+            {/* <Box mt={4}>
+                <Typography variant="h5" fontWeight={700}>
+                    Muestras de Hormigón Fresco:
+                </Typography>
                 <ul>
                     {[...hormigonData].reverse().map((data, index) => (
                         <li key={index}>
                             Muestra N° {hormigonData.length - index}: Fecha
-                            Muestreo: {data.fechaLocal}, Asentamiento Cono:{" "}
+                            Muestreo: {data.fechaToma}, Asentamiento Cono:{" "}
                             {data.asentamientoCono}, Grado H°:{" "}
                             {data.gradoHormigon}, Código H°: {data.codigo},
                         </li>
                     ))}
                 </ul>
-            </Box>
+            </Box> */}
         </main>
     );
 }

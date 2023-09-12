@@ -32,7 +32,7 @@ export default function ContactoCard() {
             >
                 <CardContent>
                     <Title
-                        title={"hablémos"}
+                        title={"Hablémos"}
                         subTitle={""}
                         parraph={
                             "Comentarios, duda o consulta no dudes en llamarnos."

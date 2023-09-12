@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import InformePdf from "@/components/function/InformePdf";
+import InformePdf from "@/components/function/CartaInformePdf";
 import { SimpleSnackbar } from "../feedback/SnackBar";
 import BasicTabs from "../ui/BasicTabs";
 

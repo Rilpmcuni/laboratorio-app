@@ -328,7 +328,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                     {/* <Avatar sx={{ width: 32, height: 32 }}>
                                         C
                                     </Avatar> */}
-                                     <AvatarUser/>
+                                    <AvatarUser />
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -459,6 +459,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                     <List>
                         {items.map((item, index) => {
                             const { text, icon, subItems } = item;
+                            const normalizedItemText = removeAccents(item.text);
 
                             const isActive =
                                 (index === 0 && pathname === "/Laboratorio") ||
@@ -495,24 +496,30 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                                             (
                                                                 subItem,
                                                                 subIndex
-                                                            ) => (
-                                                                <MenuItem
-                                                                    key={
+                                                            ) => {
+                                                                const subItemNormalizedText =
+                                                                    removeAccents(
                                                                         subItem.text
-                                                                    }
-                                                                    component={
-                                                                        Link
-                                                                    } // Use Link as the LinkComponent
-                                                                    href={handleSubItem(
-                                                                        subItem.text
-                                                                    )}
-                                                                >
-                                                                    {subIndex ===
-                                                                    0
-                                                                        ? text
-                                                                        : subItem.text}
-                                                                </MenuItem>
-                                                            )
+                                                                    );
+                                                                return (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            subItem.text
+                                                                        }
+                                                                        component={
+                                                                            Link
+                                                                        } // Use Link as the LinkComponent
+                                                                        href={handleSubItem(
+                                                                            subItemNormalizedText
+                                                                        )}
+                                                                    >
+                                                                        {subIndex ===
+                                                                        0
+                                                                            ? text
+                                                                            : subItem.text}
+                                                                    </MenuItem>
+                                                                );
+                                                            }
                                                         )}
                                                     </MenuList>
                                                 </Paper>
@@ -868,7 +875,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
                                 {/* <Avatar sx={{ width: 32, height: 32 }}>
                                     C
                                 </Avatar> */}
-                                <AvatarUser/>
+                                <AvatarUser />
                             </IconButton>
                         </Tooltip>
                     </Toolbar>

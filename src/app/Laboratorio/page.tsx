@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
-import { Grid } from "@mui/material";
+import { Card, CardContent, Grid, Stack } from "@mui/material";
 import VerDescargarInforme from "@/components/function/VerDescargarInforme";
 import TabsComponent from "@/components/test/Test";
 import Link from "next/link";
@@ -23,12 +23,9 @@ import HeroAppCard from "@/components/ui/HeroAppCard";
 import ContactoCard from "@/components/ui/ContactoCard";
 import NoAuth from "@/components/feedback/NoAuth";
 import ListInformes from "@/components/function/ListInformes";
-
-
+import Title from "@/components/ui/Title";
 
 export default function Laboratorio() {
-
-
     return (
         <>
             <>
@@ -40,7 +37,32 @@ export default function Laboratorio() {
                         <ContactoCard />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <ListInformes/>
+                        <Box sx={{ borderRadius: "1.5rem" }}>
+                            <Card
+                                variant="outlined"
+                                sx={{
+                                    borderRadius: "1rem",
+                                    // overflowX:"scroll"
+                                    //
+                                }}
+                            >
+                                <CardContent>
+                                    <Title
+                                        title={"Informes"}
+                                        subTitle={""}
+                                        parraph={""}
+                                        color={"black"}
+                                    />
+                                    <Box
+                                        sx={{
+                                            width: { xs: "20rem", md: "auto" },
+                                        }}
+                                    >
+                                        <ListInformes />
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <span>xs=12 md=8</span>
@@ -48,11 +70,9 @@ export default function Laboratorio() {
                 </Grid>
                 <NoAuth />
             </>
-         
         </>
     );
 }
-
 
 /*  */
 /*  */

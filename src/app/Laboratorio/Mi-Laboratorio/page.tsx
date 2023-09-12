@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Typography, TextField, Button } from "@mui/material";
-import InformePdf from "@/components/function/InformePdf";
+import InformePdf from "@/components/function/CartaInformePdf";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
