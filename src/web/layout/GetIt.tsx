@@ -24,6 +24,7 @@ export default function GetIt() {
                 // height: "30rem",
                 paddingY: "2rem",
                 position: "relative",
+                borderRadius:"1.5rem"
             }}
         >
             <Box
@@ -35,7 +36,7 @@ export default function GetIt() {
                 }}
             >
                 <Title
-                    title={"Entra a Tamiz.LA"}
+                    title={"Entra a Tamíz.LA"}
                     subTitle={"¡Ahora!"}
                     color={"#d9d9d9"}
                     parraph={

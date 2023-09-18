@@ -42,15 +42,15 @@ export default function LogoName({href}: {href:string}) {
                 </StyledBadge>
                 <Typography
                     sx={{
-                        backgroundcolor: "primary.main",
-                        backgroundImage: `linear-gradient(45deg, #0ab4d6 0%, #171717 100%)`,
+                       color: "primary.main",
+                        // backgroundImage: `linear-gradient(45deg, #0ab4d6 0%, #171717 100%)`,
                         // backgroundImage: `linear-gradient(45deg, #33c5e5 0%, #606060 100%)`,
 
-                        backgroundSize: "100%",
-                        backgroundRepeat: "repeat",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
+                        // backgroundSize: "100%",
+                        // backgroundRepeat: "repeat",
+                        // backgroundClip: "text",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
                     }}
                     variant="h6"
                     fontWeight={"bold"}

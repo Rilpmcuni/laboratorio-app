@@ -38,7 +38,7 @@ export default function Home() {
             ></div>
             <Header />
             <Hero />
-            <InstallButton/>
+            {/* <InstallButton/> */}
             <Features />
             <FeaturesTwo />
             <GetIt />

@@ -39,7 +39,9 @@ export default function RewiesCard({ Features }: { Features: any }) {
                                 >
                                     {Features.title}
                                 </Typography>
-                                <Typography color={"gray"} variant="body2" component="div">
+                                <Typography 
+                                // color={"gray"}
+                                 variant="body2" component="div">
                                     {Features.description}
                                 </Typography>
                                 <Box

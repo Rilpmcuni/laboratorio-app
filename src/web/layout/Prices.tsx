@@ -91,7 +91,31 @@ export default function Prices() {
                     </span>
                 </Typography>,
                 <Typography>
-                    Soporte en tiempo relative{" "}
+                    Supervisa con eficacia.{" "}
+                    <span
+                        style={{
+                            color: "#0AB4D6",
+                            fontWeight: "bold",
+                            textTransform: "uppercase",
+                        }}
+                    >
+                        Administra equipos,
+                    </span>{" "}
+                    ensayos y más con{" "}
+                    <span
+                        style={{
+                            color: "#0AB4D6",
+                            fontWeight: "bold",
+                            textTransform: "uppercase",
+                        }}
+                    >
+                        trazabilidad
+                    </span>{" "}
+                    y control total.
+                </Typography>,
+
+                <Typography>
+                    Soporte en tiempo real{" "}
                     <span style={{ color: "#0AB4D6", fontWeight: "bold" }}>
                         24/7
                     </span>
@@ -154,7 +178,7 @@ export default function Prices() {
                         top: 0,
 
                         // pointerEvents: "none",
-                        userSelect:"none"
+                        userSelect: "none",
                     }}
                 >
                     <Typography

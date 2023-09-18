@@ -110,14 +110,14 @@ export default function FeatureCarousel() {
                                     paragraph
                                     variant="body2"
                                     sx={{
-                                        backgroundcolor: "primary.main",
-                                        backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
-                                        backgroundSize: "100%",
-                                        backgroundRepeat: "repeat",
-                                        backgroundClip: "text",
-                                        WebkitBackgroundClip: "text",
-                                        WebkitTextFillColor: "transparent",
-                                        fontWeight: "bold",
+                                        color: "#d9d9d9",
+                                        // backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
+                                        // // backgroundSize: "100%",
+                                        // backgroundRepeat: "repeat",
+                                        // backgroundClip: "text",
+                                        // WebkitBackgroundClip: "text",
+                                        // WebkitTextFillColor: "transparent",
+                                        // fontWeight: "bold",
                                         width: "90%",
                                     }}
                                 >

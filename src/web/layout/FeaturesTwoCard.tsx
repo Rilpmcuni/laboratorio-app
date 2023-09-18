@@ -37,7 +37,7 @@ export default function FeaturesTwoCard({ Features }: { Features: any }) {
                                     {Features.title}
                                 </Typography>
                             </Stack>
-                            <Typography variant="body2" component="div" color={"gray"}>
+                            <Typography variant="caption" component="div" >
                                 {Features.description}
                             </Typography>
                         </CardContent>

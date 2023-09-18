@@ -9,6 +9,7 @@ import FeaturesTwoCard from "./FeaturesTwoCard";
 import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 
 export default function FeaturesTwo() {
     const FeaturesCard = [
@@ -31,10 +32,10 @@ export default function FeaturesTwo() {
                 "Accede desde cualquier lugar: la plataforma multiplataforma de Tamíz.LA",
         },
         {
-            ico: <WorkOutlineOutlinedIcon color="primary" />,
-            title: "Empleo",
+            ico: <GroupsOutlinedIcon color="primary" />,
+            title: "Equipos de Laboratorio",
             description:
-                "Encuentra trabajo en el campo de obras viales con Tamíz.LA",
+                "Colabora sin esfuerzo. Gestiona ensayos, toma de muestras y más en equipo con total control y trazabilidad.",
         },
         {
             ico: <MenuBookOutlinedIcon color="primary" />,
@@ -77,7 +78,7 @@ export default function FeaturesTwo() {
                     subTitle={"indispensable."}
                     color={"#171717"}
                     parraph={
-                        "TamizLA ofrece una amplia gama de características que ayudan a los laboratoristas a optimizar su trabajo, mejorar la productividad y obtener resultados de alta calidad. Con sus herramientas de fórmulas, seguimiento de ensayos, informes mensuales y cursos e-learning, todo desde una app multiplataforma y fácil de usar, TamizLA es la solución completa para satisfacer las necesidades de cualquier laboratorista."
+                        "La solución completa para laboratoristas. Optimize su trabajo, mejore la productividad y obtenga resultados de calidad con nuestras herramientas de fórmulas, seguimiento de ensayos, informes y cursos, todo en una app multiplataforma fácil de usar."
                     }
                 />
             </Box>

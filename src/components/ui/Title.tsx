@@ -18,16 +18,16 @@ export default function Title({
             <Box>
                 <Typography
                     sx={{
-                        backgroundcolor: "primary.main",
-                        backgroundImage: `linear-gradient(45deg, #606060 0%, ${color} 100%)`,
-                        backgroundSize: "100%",
-                        backgroundRepeat: "repeat",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
+                        color: { color },
+                        // backgroundImage: `linear-gradient(45deg, #606060 0%, ${color} 100%)`,
+                        // backgroundSize: "100%",
+                        // backgroundRepeat: "repeat",
+                        // backgroundClip: "text",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
                     }}
                     variant="h3"
-                    fontWeight={"bolder"}
+                    fontWeight={"300"}
                     // color={color}
                 >
                     {title}
@@ -37,13 +37,13 @@ export default function Title({
                     variant="h3"
                     fontWeight={"bolder"}
                     sx={{
-                        backgroundcolor: "primary.main",
-                        backgroundImage: `linear-gradient(45deg, #33c5e5 0%, #0ab4d6 100%)`,
-                        backgroundSize: "100%",
-                        backgroundRepeat: "repeat",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
+                        color: "#0ab4d6",
+                        // backgroundImage: `linear-gradient(45deg, #33c5e5 0%, #0ab4d6 100%)`,
+                        // backgroundSize: "100%",
+                        // backgroundRepeat: "repeat",
+                        // backgroundClip: "text",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
                     }}
                 >
                     {subTitle}
@@ -52,14 +52,16 @@ export default function Title({
                     paragraph
                     variant="body2"
                     sx={{
-                        backgroundcolor: "primary.main",
-                        backgroundImage: `linear-gradient(45deg, #606060 0%, ${color} 100%)`,
-                        backgroundSize: "100%",
-                        backgroundRepeat: "repeat",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        fontWeight: "bold",
+                        marginTop: "-1.5rem",
+
+                        color: color,
+                        // backgroundImage: `linear-gradient(45deg, #606060 0%, ${color} 100%)`,
+                        // backgroundSize: "100%",
+                        // backgroundRepeat: "repeat",
+                        // backgroundClip: "text",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // fontWeight: "bold",
                     }}
                 >
                     {parraph}

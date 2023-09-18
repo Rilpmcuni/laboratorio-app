@@ -42,6 +42,7 @@ export default function Features() {
                 // minHeight: "30rem",
                 // height: "30rem",
                 paddingY: "2rem",
+                borderRadius:"1.5rem"
             }}
         >
             <Box

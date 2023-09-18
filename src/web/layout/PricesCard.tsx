@@ -99,13 +99,13 @@ export default function PricesCard({
                                         //     index === 2 ? "secondary.main" : "auto"
                                         // }
                                         sx={{
-                                            backgroundcolor: "primary.main",
-                                            backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
-                                            backgroundSize: "100%",
-                                            backgroundRepeat: "repeat",
-                                            backgroundClip: "text",
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
+                                            color: "#d9d9d9",
+                                            // backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
+                                            // backgroundSize: "100%",
+                                            // backgroundRepeat: "repeat",
+                                            // backgroundClip: "text",
+                                            // WebkitBackgroundClip: "text",
+                                            // WebkitTextFillColor: "transparent",
                                         }}
                                     >
                                         {Prices.title}
@@ -130,20 +130,20 @@ export default function PricesCard({
                             >
                                 {index === 2 ? (
                                     <Typography
-                                        fontWeight={"bolder"}
+                                        fontWeight={100}
                                         variant="h3"
                                         component="div"
                                         // color={
                                         //     index === 2 ? "secondary.main" : "auto"
                                         // }
                                         sx={{
-                                            backgroundcolor: "primary.main",
-                                            backgroundImage: `linear-gradient(45deg, #ffd234 0%, #d9d9d9 100%)`,
-                                            backgroundSize: "100%",
-                                            backgroundRepeat: "repeat",
-                                            backgroundClip: "text",
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
+                                            color: "#ffd234",
+                                            // backgroundImage: `linear-gradient(45deg, #ffd234 0%, #d9d9d9 100%)`,
+                                            // backgroundSize: "100%",
+                                            // backgroundRepeat: "repeat",
+                                            // backgroundClip: "text",
+                                            // WebkitBackgroundClip: "text",
+                                            // WebkitTextFillColor: "transparent",
                                         }}
                                     >
                                         $
@@ -153,7 +153,7 @@ export default function PricesCard({
                                     </Typography>
                                 ) : (
                                     <Typography
-                                        fontWeight={"bolder"}
+                                        fontWeight={100}
                                         variant="h3"
                                         component="div"
                                     >
@@ -165,20 +165,20 @@ export default function PricesCard({
                                 )}
                                 {index === 2 ? (
                                     <Typography
-                                        fontWeight={"bolder"}
+                                        fontWeight={100}
                                         variant="h6"
                                         component="div"
                                         // color={
                                         //     index === 2 ? "secondary.main" : "auto"
                                         // }
                                         sx={{
-                                            backgroundcolor: "primary.main",
-                                            backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
-                                            backgroundSize: "100%",
-                                            backgroundRepeat: "repeat",
-                                            backgroundClip: "text",
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
+                                            color: "#d9d9d9",
+                                            // backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
+                                            // backgroundSize: "100%",
+                                            // backgroundRepeat: "repeat",
+                                            // backgroundClip: "text",
+                                            // WebkitBackgroundClip: "text",
+                                            // WebkitTextFillColor: "transparent",
                                         }}
                                     >
                                         {alignment === "Ano" ? "/año" : "/mes"}
@@ -217,27 +217,28 @@ export default function PricesCard({
                             </Box>
                             {index === 2 ? (
                                 <Typography
-                                    fontWeight={"bolder"}
+                                    fontWeight={300}
                                     variant="body2"
                                     component="div"
                                     // color={
                                     //     index === 2 ? "secondary.main" : "auto"
                                     // }
                                     sx={{
-                                        backgroundcolor: "primary.main",
-                                        backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
-                                        backgroundSize: "100%",
-                                        backgroundRepeat: "repeat",
-                                        backgroundClip: "text",
-                                        WebkitBackgroundClip: "text",
-                                        WebkitTextFillColor: "transparent",
+                                        color: "#d9d9d9",
+                                        // backgroundImage: `linear-gradient(45deg, #606060 0%, #d9d9d9 100%)`,
+                                        // backgroundSize: "100%",
+                                        // backgroundRepeat: "repeat",
+                                        // backgroundClip: "text",
+                                        // WebkitBackgroundClip: "text",
+                                        // WebkitTextFillColor: "transparent",
                                     }}
                                 >
                                     {Prices.description}
                                 </Typography>
                             ) : (
                                 <Typography
-                                    color={"gray"}
+                                fontWeight={300}
+                                    // color={"gray"}
                                     variant="body2"
                                     component="div"
                                 >
@@ -258,12 +259,12 @@ export default function PricesCard({
                             </Button>
                             <List dense>
                                 {Prices.features.map(
-                                    (feature: any, index: number) => (
+                                    (feature: any, indexSub: number) => (
                                         <>
-                                            <Divider variant="middle" />
+                                          <Divider variant="middle" />
                                             <ListItem
                                                 disableGutters
-                                                key={index}
+                                                key={indexSub}
                                             >
                                                 <VerifiedOutlinedIcon
                                                     fontSize="small"
@@ -277,7 +278,7 @@ export default function PricesCard({
                                                 />
                                                 <ListItemText
                                                     sx={{
-                                                        color: "gray",
+                                                        color: index === 2 ? "#d9d9d9" : "auto",
                                                     }}
                                                     primary={feature}
                                                 />
