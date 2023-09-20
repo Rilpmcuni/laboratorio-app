@@ -3,6 +3,7 @@ import * as React from "react";
 import { red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Lato } from "next/font/google";
+import {  PT_Sans_Narrow } from "next/font/google";
 // import Header from "@/layouts/Header";
 // import Top from "@/layouts/Top";
 import { Divider } from "@mui/material";
@@ -11,6 +12,10 @@ import NextNProgressClient from "@/components/feedback/NextNProgressClient";
 // import Footer from "@/layouts/Footer";
 
 const lato = Lato({
+    subsets: ["latin"],
+    weight: "400",
+});
+const pt_sans_narrow = PT_Sans_Narrow({
     subsets: ["latin"],
     weight: "400",
 });
@@ -41,7 +46,7 @@ const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    fontWeight:"bold",
+                    fontWeight: "bold",
                     boxShadow: "none",
                     "&:hover": {
                         boxShadow: "none",
@@ -73,9 +78,18 @@ const theme = createTheme({
     },
     spacing: 10,
     typography: {
-        fontFamily: lato.style.fontFamily,
+        fontFamily: pt_sans_narrow.style.fontFamily,
         fontSize: 15,
         fontWeightLight: 400,
+        h3: {
+            fontFamily: pt_sans_narrow.style.fontFamily,
+        },
+        h2: {
+            fontFamily: pt_sans_narrow.style.fontFamily,
+        },
+        h1: {
+            fontFamily: pt_sans_narrow.style.fontFamily,
+        },
     },
 });
 
@@ -97,7 +111,6 @@ const Provider: React.FC<Props> = ({ children }) => {
             {/* <Header /> */}
             {children}
             {/* <Footer /> */}
-            
         </ThemeProvider>
     );
 };

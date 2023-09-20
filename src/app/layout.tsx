@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
+import {  PT_Sans_Narrow } from "next/font/google";
 import Provider from "./Provider";
 import { Link as LinkMui, Typography } from "@mui/material";
 import Link from "next/link";
@@ -8,7 +9,10 @@ const lato = Lato({
     subsets: ["latin"],
     weight: "400",
 });
-
+const pt_sans_narrow = PT_Sans_Narrow({
+    subsets: ["latin"],
+    weight: "400",
+});
 // import type { Metadata } from "next";
 import ThemeRegistry from "./ThemeRegistry";
 
@@ -99,7 +103,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="es-CL">
-            <body className={lato.className} style={{ margin: 0 }}>
+            <body className={pt_sans_narrow.className} style={{ margin: 0 }}>
                 <ThemeRegistry options={{ key: "mui" }}>
                     {children}
                 </ThemeRegistry>
