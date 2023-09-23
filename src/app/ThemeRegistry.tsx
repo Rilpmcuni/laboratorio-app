@@ -6,7 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 // import theme from "/path/to/your/theme";
-import { Lato, PT_Sans_Narrow } from "next/font/google";
+import { Lato, PT_Sans_Narrow, Open_Sans } from "next/font/google";
 
 import { createTheme } from "@mui/material/styles";
 import { useState } from "react";
@@ -21,6 +21,10 @@ const lato = Lato({
     weight: "400",
 });
 const pt_sans_narrow = PT_Sans_Narrow({
+    subsets: ["latin"],
+    weight: "400",
+});
+const open_sans = Open_Sans({
     subsets: ["latin"],
     weight: "400",
 });
@@ -102,7 +106,7 @@ const theme = createTheme(
         },
         spacing: 10,
         typography: {
-            fontFamily: lato.style.fontFamily,
+            fontFamily: open_sans.style.fontFamily,
             fontSize: 15,
             fontWeightLight: 400,
             h6: {

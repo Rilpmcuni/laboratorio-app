@@ -27,6 +27,7 @@ import { SimpleSnackbar } from "@/components/feedback/SnackBar";
 
 interface DataHormigon {
     nombreContrato: string;
+    tipoProbetas: string;
     proveedor: string | null;
     gradoHormigon: string | null;
     dosificacion: number | null;
@@ -38,7 +39,6 @@ interface DataHormigon {
     horaSalidaPlanta: string;
     horaLlegadaObra: string;
     codigo: string;
-    tipoProbetas: string;
     cantidadProbetas: number | null;
     fechaToma: string;
     horaInicioDescarga: string;
@@ -57,6 +57,7 @@ interface DataHormigon {
 
 export default function HormigonFicha() {
     const [nombreContrato, setNombreContrato] = useState("");
+    const [tipoProbetas, setTipoProbetas] = useState("");
     const [proveedor, setProveedor] = useState<string | null>(null);
     const [gradoHormigon, setGradoHormigon] = useState("");
     const [dosificacion, setDosificacion] = useState<number | null>(null);
@@ -72,7 +73,6 @@ export default function HormigonFicha() {
     const [hormigonData, setHormigonData] = useState<DataHormigon[]>([]);
     const [muestra, setMuestra] = useState(1);
     const [codigo, setCodigo] = useState("");
-    const [tipoProbetas, setTipoProbetas] = useState("");
     const [cantidadProbetas, setCantidadProbetas] = useState(3);
     const [fechaToma, setFechaToma] = useState("");
     const [horaInicioDescarga, setHoraInicioDescarga] = useState("");
@@ -126,6 +126,7 @@ export default function HormigonFicha() {
         if (laboratorioData) {
             const parsedLaboratorioData: any = JSON.parse(laboratorioData);
             setNombreContrato(parsedLaboratorioData.nombreContrato);
+            setTipoProbetas(parsedLaboratorioData.tipoProbetas);
             setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
             setRegion(parsedLaboratorioData.region); // Actualiza el rangoCono
         }
@@ -143,6 +144,7 @@ export default function HormigonFicha() {
     const handleSaveData = () => {
         const newHormigonData: DataHormigon = {
             nombreContrato,
+            tipoProbetas,
             proveedor,
             gradoHormigon,
             dosificacion,
@@ -154,7 +156,6 @@ export default function HormigonFicha() {
             horaSalidaPlanta,
             horaLlegadaObra,
             codigo,
-            tipoProbetas,
             cantidadProbetas,
             fechaToma,
             horaInicioDescarga,
@@ -216,11 +217,11 @@ export default function HormigonFicha() {
             <Grid container spacing={1}>
                 <Grid item xs={12} md={12}>
                     <Card variant="outlined">
-                        <CardContent>
+                        {/* <CardContent>
                             <Typography variant="h5" component="div">
                                 Datos
                             </Typography>
-                        </CardContent>
+                        </CardContent> */}
                         <Box
                             sx={{
                                 display: "flex",
@@ -261,6 +262,13 @@ export default function HormigonFicha() {
                                 inputProps={{
                                     style: { textTransform: "uppercase" },
                                 }}
+                            />
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                id="Tipo-de-Probetas"
+                                label="Tipo de Probetas"
+                                value={tipoProbetas}
                             />
                             <TextField
                                 disabled
@@ -451,32 +459,6 @@ export default function HormigonFicha() {
                                 gap: 1,
                             }}
                         >
-                            <FormControl sx={{ minWidth: 140, flexGrow: 1 }}>
-                                <InputLabel id="demo-simple-select-label">
-                                    Tipo de Probetas
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={tipoProbetas}
-                                    label="Tipo de Probetas"
-                                    onChange={(
-                                        event: SelectChangeEvent<string>
-                                    ) => {
-                                        setTipoProbetas(
-                                            event.target.value as string
-                                        );
-                                    }}
-                                >
-                                    <MenuItem value="Cilindricas">
-                                        Cilindricas
-                                    </MenuItem>
-                                    <MenuItem value="Cúbicas">Cúbicas</MenuItem>
-                                    <MenuItem value="Prismáticas">
-                                        Prismáticas
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
                             <TextField
                                 sx={{ flexGrow: 1 }}
                                 id="cantidad-probetas"
@@ -710,8 +692,6 @@ export default function HormigonFicha() {
                                         Fecha Muestreo: {data.fechaToma}
                                     </Typography>
                                     <Typography variant="h5" component="div">
-                                        Código H°:
-                                        <br />
                                         {data.codigo}
                                     </Typography>
                                     <Typography

@@ -36,6 +36,8 @@ interface DataLaboratorio {
     region: string;
     banda: string;
     rangoCono: number[];
+    tipoProbetas: string;
+
 }
 
 export default function ConfigLab() {
@@ -55,6 +57,8 @@ export default function ConfigLab() {
     const [region, setRegion] = useState("");
     const [banda, setBanda] = useState("");
     const [rangoCono, setRangoCono] = useState<number[]>([1, 22]);
+    const [tipoProbetas, setTipoProbetas] = useState("");
+
 
     const handleRemoveImage = () => {
         setSelectedImage(null);
@@ -87,6 +91,8 @@ export default function ConfigLab() {
         setRegion(formData.region);
         setBanda(formData.banda);
         setRangoCono(formData.rangoCono);
+        setTipoProbetas(formData.tipoProbetas);
+
     };
 
     const handleSave = () => {
@@ -107,6 +113,7 @@ export default function ConfigLab() {
             region,
             banda,
             rangoCono,
+            tipoProbetas
         };
         localStorage.setItem(
             "laboratorioData",
@@ -150,6 +157,13 @@ export default function ConfigLab() {
                         flexWrap="wrap"
                         justifyContent={"center"}
                     >
+                        <Typography
+                            variant="h5"
+                            fontWeight={900}
+                            sx={{ flexGrow: 1, width: "100%" }}
+                        >
+                            Laboratorista
+                        </Typography>
                         <TextField
                             sx={{ flexGrow: 1 }}
                             fullWidth
@@ -201,7 +215,13 @@ export default function ConfigLab() {
                                 setNumeroInforme(value);
                             }}
                         />
-
+                        <Typography
+                            variant="h5"
+                            fontWeight={900}
+                            sx={{ flexGrow: 1, width: "100%" }}
+                        >
+                            Granulometría
+                        </Typography>
                         <FormControl sx={{ flexGrow: 1 }}>
                             <InputLabel id="demo-simple-select-label">
                                 Banda Granulométrica
@@ -226,6 +246,13 @@ export default function ConfigLab() {
                                 <MenuItem value="TM-25">TM-25</MenuItem>
                             </Select>
                         </FormControl>
+                        <Typography
+                            variant="h5"
+                            fontWeight={900}
+                            sx={{ flexGrow: 1, width: "100%" }}
+                        >
+                            Hormigón
+                        </Typography>
                         <Box sx={{ width: "100%", paddingX: 2, paddingY: 1 }}>
                             <Typography
                                 id="slider-asentamiento-de-hormigon"
@@ -254,6 +281,32 @@ export default function ConfigLab() {
                                 ]}
                             />
                         </Box>
+                        <FormControl sx={{ minWidth: 140, flexGrow: 1 }}>
+                                <InputLabel id="demo-simple-select-label">
+                                    Tipo de Probetas
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={tipoProbetas}
+                                    label="Tipo de Probetas"
+                                    onChange={(
+                                        event: SelectChangeEvent<string>
+                                    ) => {
+                                        setTipoProbetas(
+                                            event.target.value as string
+                                        );
+                                    }}
+                                >
+                                    <MenuItem value="Cilíndricas">
+                                        Cilíndricas
+                                    </MenuItem>
+                                    <MenuItem value="Cúbicas">Cúbicas</MenuItem>
+                                    <MenuItem value="Prismáticas">
+                                        Prismáticas
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
                     </Stack>,
                     <Stack
                         spacing={{ xs: 1, sm: 2 }}

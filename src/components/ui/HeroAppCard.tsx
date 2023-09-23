@@ -63,7 +63,7 @@ export default function HeroAppCard() {
                         🚀💡
                     </Typography> */}
                     <Title
-                        title={"¡Hola 👋,"}
+                        title={"¡Hola 👋, Nombre_Usuario"}
                         subTitle={" Super Laboratorista!"}
                         parraph={
                             "¡Bienvenido a la fase beta de Tamíz.LA! Estamos emocionados de tenerte aquí, siendo uno de los primeros en experimentar la magia de nuestra plataforma. Tu pasión y retroalimentación son vitales para hacer de Tamíz.LA algo extraordinario. ¡Vamos a hacer que el laboratorio vial sea más eficiente y emocionante juntos! 🚀💡"

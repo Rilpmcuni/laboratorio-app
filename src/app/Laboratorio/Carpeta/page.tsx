@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { BarChart } from "@mui/x-charts/BarChart";
 import {
     Typography,
     TextField,
@@ -15,6 +16,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import InformePdf from "@/components/function/CartaInformePdf";
 import Title from "@/components/ui/Title";
 import ListInformes from "@/components/function/ListInformes";
+import Calendar from "@/components/function/Calendar";
 
 export default function Carpeta() {
     return (
@@ -38,7 +40,7 @@ export default function Carpeta() {
                         materia: "Granulometrías",
                     },
                     {
-                        cantidad: 15,
+                        cantidad: 4,
                         bgColor: "#d4f6fa",
                         textColor: "#003768",
 
@@ -51,7 +53,7 @@ export default function Carpeta() {
                         materia: "Proctor Mod.",
                     },
                     {
-                        cantidad: 0,
+                        cantidad: 15,
                         bgColor: "#ffede4",
                         textColor: "#7a0916",
                         materia: "Limite líquido",
@@ -71,7 +73,11 @@ export default function Carpeta() {
                                         // alignItems:"center"
                                     }}
                                 >
-                                    <Typography variant="h4" component="div" color={data.textColor}>
+                                    <Typography
+                                        variant="h4"
+                                        component="div"
+                                        color={data.textColor}
+                                    >
                                         {data.cantidad}
                                     </Typography>
                                     <Typography
@@ -90,6 +96,23 @@ export default function Carpeta() {
                     </Grid>
                 ))}
             </Grid>
+            <Calendar/>
+            <BarChart
+                xAxis={[
+                    {
+                        id: "barCategories",
+                        data: ["Granulometrías 25", "Muestras Hormigón 4", "Proctor Mod. 2", "Limite líquido 15"],
+                        scaleType: "band",
+                    },
+                ]}
+                series={[
+                    {
+                        data: [25, 4, 2, 15],
+                    },
+                ]}
+                
+                height={300}
+            />
             <Card
                 variant="outlined"
                 sx={{
