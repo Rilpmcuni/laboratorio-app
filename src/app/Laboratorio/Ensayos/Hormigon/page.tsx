@@ -26,7 +26,6 @@ import { useFechaYHoraActual } from "@/utils/Fecha";
 import { SimpleSnackbar } from "@/components/feedback/SnackBar";
 
 interface DataHormigon {
-    nombreContrato: string;
     tipoProbetas: string;
     proveedor: string | null;
     gradoHormigon: string | null;
@@ -143,7 +142,6 @@ export default function HormigonFicha() {
 
     const handleSaveData = () => {
         const newHormigonData: DataHormigon = {
-            nombreContrato,
             tipoProbetas,
             proveedor,
             gradoHormigon,

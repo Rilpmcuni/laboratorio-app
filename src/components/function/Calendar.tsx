@@ -4,24 +4,29 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import esLocale from "@fullcalendar/core/locales/es";
 
-const Calendar = () => {
-    const events = [
-        { title: "Evento 1", date: "2023-09-24" },
-        { title: "Evento 2", date: "2023-09-25" },
-        { title: "Evento 2", date: "2023-09-25" },
-        { title: "Evento 2", date: "2023-09-25" },
-        { title: "Evento 2", date: "2023-09-25" },
-        { title: "Evento 2", date: "2023-09-25" },
-        { title: "Evento 2", date: "2023-09-25" },
-        // ... más eventos
-    ];
+export default function Calendar({ hormigonData }: { hormigonData: any }) {
+    function convertDateFormat(dateString: string) {
+        const [day, month, year] = dateString.split("/");
+        return `${year}-${month}-${day}`;
+    }
+    const events: any[] = [];
 
-    const handleDateClick = (info: { dateStr: any }) => {
-        console.log(`Fecha seleccionada: ${info.dateStr}`);
-    };
+    [...hormigonData].reverse().forEach((data, index) => {
+        const dateFormatted = convertDateFormat(data.fechaToma);
+        const event = {
+            title: `muestra ${data.dataArray.designacion} Vol. ${data.asentamientoCono}` ,
+            date: dateFormatted,
+        };
+        events.push(event);
+    });
+
+    // const handleDateClick = (info: { dateStr: any }) => {
+    //     console.log(`Fecha seleccionada: ${info.dateStr}`);
+    // };
 
     return (
         <FullCalendar
+            height={500}
             dayMaxEventRows={true}
             views={{
                 dayGrid: {
@@ -35,6 +40,4 @@ const Calendar = () => {
             // dateClick={handleDateClick}
         />
     );
-};
-
-export default Calendar;
+}

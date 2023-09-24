@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import {
     Typography,
@@ -17,13 +17,61 @@ import InformePdf from "@/components/function/CartaInformePdf";
 import Title from "@/components/ui/Title";
 import ListInformes from "@/components/function/ListInformes";
 import Calendar from "@/components/function/Calendar";
+import CardModalEnsayos from "@/components/function/modal/CardModalEnsayos";
+
+interface DataHormigon {
+    tipoProbetas: string;
+    proveedor: string | null;
+    gradoHormigon: string | null;
+    dosificacion: number | null;
+    visacion: number | null;
+    visadoPor: string;
+    guiaDespacho: number | null;
+    patenteCamion: string;
+    volumen: number | null;
+    horaSalidaPlanta: string;
+    horaLlegadaObra: string;
+    codigo: string;
+    cantidadProbetas: number | null;
+    fechaToma: string;
+    horaInicioDescarga: string;
+    horaMuestreo: string;
+    asentamientoCono: number | null;
+    temperaturaHormigon: number | null;
+    temperaturaAmbiente: number | null;
+    incorporacionAditivo: boolean;
+    marcaAditivo: string;
+    tipoAditivo: string;
+    cantidadAditivo: number | null;
+    edadEnsaye: number | null;
+    region: string;
+    dataArray: any;
+}
 
 export default function Carpeta() {
+    const [hormigonData, setHormigonData] = useState<DataHormigon[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Cargar los datos del Local Storage al cargar la página
+        const hormigonData = localStorage.getItem("hormigonData");
+        if (hormigonData) {
+            const parsedHormigonData: DataHormigon[] = JSON.parse(hormigonData);
+            setHormigonData(parsedHormigonData);
+            setIsLoading(false); // Establecer isLoading en false cuando los datos se cargan correctamente
+        }
+    }, []);
+
+    function convertDateFormat(dateString: string) {
+        const [day, month, year] = dateString.split("/");
+        return `${year}-${month}-${day}`;
+    }
+
     return (
         <main>
             <Title
-                title={"Hasta ahora"}
-                subTitle={""}
+                title={"Carpeta"}
+                subTitle={"Hasta ahora"}
                 parraph={""}
                 color={"black"}
             />
@@ -32,6 +80,8 @@ export default function Carpeta() {
                 spacing={{ xs: 1, md: 2 }}
                 columns={{ xs: 12, sm: 12, md: 12 }}
             >
+                <CardModalEnsayos hormigonData={hormigonData} isLoading={isLoading}  />
+
                 {[
                     {
                         cantidad: 25,
@@ -39,13 +89,13 @@ export default function Carpeta() {
                         textColor: "#012972",
                         materia: "Granulometrías",
                     },
-                    {
-                        cantidad: 4,
-                        bgColor: "#d4f6fa",
-                        textColor: "#003768",
+                    // {
+                    //     cantidad: hormigonData.length,
+                    //     bgColor: "#d4f6fa",
+                    //     textColor: "#003768",
 
-                        materia: "Muestras Hormigón",
-                    },
+                    //     materia: "Muestras Hormigón",
+                    // },
                     {
                         cantidad: 2,
                         bgColor: "#fff2d5",
@@ -96,21 +146,33 @@ export default function Carpeta() {
                     </Grid>
                 ))}
             </Grid>
-            <Calendar/>
+            <Box
+                sx={
+                    {
+                        // height: "60vh",
+                    }
+                }
+            >
+                <Calendar hormigonData={hormigonData} />
+            </Box>
             <BarChart
                 xAxis={[
                     {
                         id: "barCategories",
-                        data: ["Granulometrías 25", "Muestras Hormigón 4", "Proctor Mod. 2", "Limite líquido 15"],
+                        data: [
+                            "Granulometrías 25",
+                            `Muestras Hormigón ${hormigonData.length}`,
+                            "Proctor Mod. 2",
+                            "Limite líquido 15",
+                        ],
                         scaleType: "band",
                     },
                 ]}
                 series={[
                     {
-                        data: [25, 4, 2, 15],
+                        data: [25, hormigonData.length, 2, 15],
                     },
                 ]}
-                
                 height={300}
             />
             <Card
