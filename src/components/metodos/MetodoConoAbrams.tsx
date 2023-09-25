@@ -9,6 +9,8 @@ import { Box, IconButton, Zoom } from "@mui/material";
 import HelpIcon from "@mui/icons-material/Help";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const markdown = `
 
@@ -108,6 +110,9 @@ const markdown = `
 `;
 
 export default function MetodoConoAbrams() {
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
@@ -142,6 +147,7 @@ export default function MetodoConoAbrams() {
                 <HelpIcon fontSize="small" />
             </IconButton>
             <Dialog
+                fullScreen={fullScreen}
                 maxWidth={"lg"}
                 TransitionComponent={Zoom}
                 open={open}
@@ -150,7 +156,13 @@ export default function MetodoConoAbrams() {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
             >
-                <DialogTitle id="scroll-dialog-title">
+                <DialogTitle
+                    id="scroll-dialog-title"
+                    // sx={{
+                    //     backgroundColor: "secondary.main",
+                    //     color: "secondary.contrastText",
+                    // }}
+                >
                     8.402.7 HORMIGONES: METODO PARA DETERMINAR LA DOCILIDAD
                     MEDIANTE EL CONO DE ABRAMS*
                 </DialogTitle>
@@ -166,6 +178,14 @@ export default function MetodoConoAbrams() {
                         />
                     </DialogContentText>
                 </DialogContent>
+                <DialogActions>
+                    <Button variant={"outlined"} color="secondary" autoFocus onClick={handleClose}>
+                        Ir al Manual
+                    </Button>
+                    <Button variant={"contained"} autoFocus onClick={handleClose}>
+                        Cerrar
+                    </Button>
+                </DialogActions>
             </Dialog>
         </Box>
     );

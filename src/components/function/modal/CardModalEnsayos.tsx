@@ -24,7 +24,8 @@ import remarkGfm from "remark-gfm";
 import BasicTabs from "@/components/ui/BasicTabs";
 import { LineChart } from "@mui/x-charts/LineChart";
 import Skeleton from '@mui/material/Skeleton';
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function CardModalEnsayos({
     hormigonData,
@@ -33,6 +34,9 @@ export default function CardModalEnsayos({
     hormigonData: any;
     isLoading: any;
 }) {
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
 
@@ -116,7 +120,7 @@ export default function CardModalEnsayos({
                 </Card>
             </Grid>
             <Dialog
-                fullWidth
+                fullScreen={fullScreen}
                 maxWidth={"lg"}
                 TransitionComponent={Zoom}
                 open={open}
@@ -139,7 +143,7 @@ export default function CardModalEnsayos({
                     <LineChart
                         series={[{ data: uData,  }]}
                         xAxis={[{ scaleType: "point", data: xLabels }]}
-                        width={500}
+                        // width={500}
                         height={300}
                     />
                     <Typography variant="h5" fontWeight={700}>

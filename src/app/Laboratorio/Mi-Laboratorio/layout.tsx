@@ -2,8 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
 export const metadata: Metadata = {
-    title: "Mi Laboratorio",
-    description: "Soy el Mi Laboratorio",
+    title: "Mi Laboratorio | Tamíz.LA",
+    description: "Soy el laboratorio",
 };
 /*  */
 export default function RootMiLaboratorio({
@@ -13,9 +13,7 @@ export default function RootMiLaboratorio({
 }) {
     return (
         <>
-            <>
-                {children}
-            </>
+            <>{children}</>
         </>
     );
 }

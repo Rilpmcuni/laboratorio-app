@@ -109,16 +109,22 @@ const theme = createTheme(
             fontFamily: open_sans.style.fontFamily,
             fontSize: 15,
             fontWeightLight: 400,
-            h6: {
-                fontFamily: pt_sans_narrow.style.fontFamily,
-            },
-            h3: {
+            h1: {
                 fontFamily: pt_sans_narrow.style.fontFamily,
             },
             h2: {
                 fontFamily: pt_sans_narrow.style.fontFamily,
             },
-            h1: {
+            h3: {
+                fontFamily: pt_sans_narrow.style.fontFamily,
+            },
+            h4: {
+                fontFamily: pt_sans_narrow.style.fontFamily,
+            },
+            h5: {
+                fontFamily: pt_sans_narrow.style.fontFamily,
+            },
+            h6: {
                 fontFamily: pt_sans_narrow.style.fontFamily,
             },
         },

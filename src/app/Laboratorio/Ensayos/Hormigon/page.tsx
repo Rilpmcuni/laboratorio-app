@@ -52,6 +52,9 @@ interface DataHormigon {
     edadEnsaye: number | null;
     region: string;
     dataArray: any;
+    observaciones: string;
+    nombreLaboratorista: string;
+    claseLicencia: string;
 }
 
 export default function HormigonFicha() {
@@ -64,7 +67,7 @@ export default function HormigonFicha() {
     const [visadoPor, setVisadoPor] = useState("");
     const [guiaDespacho, setGuiaDespacho] = useState<number | null>(null);
     const [patenteCamion, setPatenteCamion] = useState("");
-    const [volumen, setVolumen] = useState<number | null>(null);
+    const [volumen, setVolumen] = useState<number>(0);
     const [horaSalidaPlanta, setHoraSalidaPlanta] = useState("");
     const [horaLlegadaObra, setHoraLlegadaObra] = useState("");
     const [horaLocal, setHoraLocal] = useState("");
@@ -76,9 +79,7 @@ export default function HormigonFicha() {
     const [fechaToma, setFechaToma] = useState("");
     const [horaInicioDescarga, setHoraInicioDescarga] = useState("");
     const [horaMuestreo, setHoraMuestreo] = useState("");
-    const [asentamientoCono, setAsentamientoCono] = useState<number | null>(
-        null
-    );
+    const [asentamientoCono, setAsentamientoCono] = useState<number>(0);
     const [temperaturaHormigon, setTemperaturaHormigon] = useState<
         number | null
     >(null);
@@ -99,6 +100,9 @@ export default function HormigonFicha() {
         designacion: "hormigon",
         contenido: "toma de muestra",
     });
+    const [observaciones, setObservaciones] = useState("");
+    const [nombreLaboratorista, setNombreLaboratorista] = useState("");
+    const [claseLicencia, setClaseLicencia] = useState("");
 
     const { fecha, hora } = useFechaYHoraActual();
 
@@ -128,6 +132,8 @@ export default function HormigonFicha() {
             setTipoProbetas(parsedLaboratorioData.tipoProbetas);
             setRangoCono(parsedLaboratorioData.rangoCono); // Actualiza el rangoCono
             setRegion(parsedLaboratorioData.region); // Actualiza el rangoCono
+            setNombreLaboratorista(parsedLaboratorioData.nombreLaboratorista); // Actualiza el rangoCono
+            setClaseLicencia(parsedLaboratorioData.claseLicencia); // Actualiza el rangoCono
         }
     }, []);
 
@@ -168,6 +174,9 @@ export default function HormigonFicha() {
             edadEnsaye,
             region,
             dataArray,
+            observaciones,
+            nombreLaboratorista,
+            claseLicencia,
             // Remove muestra property since it does not exist in DataHormigon type
         };
 
@@ -283,6 +292,13 @@ export default function HormigonFicha() {
                                 id="hora-actual"
                                 label="Hora actual"
                                 value={horaLocal}
+                            />
+                            <TextField
+                                disabled
+                                sx={{ flexGrow: 1 }}
+                                id="Ensayado-por"
+                                label="Ensayado por"
+                                value={`${nombreLaboratorista}, ${claseLicencia}`}
                             />
                         </Box>
                     </Card>
@@ -459,6 +475,33 @@ export default function HormigonFicha() {
                         >
                             <TextField
                                 sx={{ flexGrow: 1 }}
+                                id="asentamiento-cono"
+                                label="Asentamiento de Cono (cm)"
+                                type="number"
+                                value={asentamientoCono}
+                                onChange={(event) => {
+                                    const inputValue = Number(
+                                        event.target.value
+                                    );
+                                    setAsentamientoCono(inputValue);
+                                    if (
+                                        inputValue >= rangoCono[0] &&
+                                        inputValue <= rangoCono[1]
+                                    ) {
+                                        setAsentamientoConoError(false); // Valor válido, sin error
+                                    } else {
+                                        setAsentamientoConoError(true); // Valor inválido, con error
+                                    }
+                                }}
+                                error={asentamientoConoError} // Indica si hay error en el valor
+                                helperText={
+                                    asentamientoConoError
+                                        ? `Valor fuera de las especificaciones ${rangoCono[0]} y ${rangoCono[1]} cm`
+                                        : ""
+                                }
+                            />
+                            <TextField
+                                sx={{ flexGrow: 1 }}
                                 id="cantidad-probetas"
                                 label="Cantidad de Probetas"
                                 type="number"
@@ -492,33 +535,7 @@ export default function HormigonFicha() {
                                     setHoraMuestreo(event.target.value);
                                 }}
                             />
-                            <TextField
-                                sx={{ flexGrow: 1 }}
-                                id="asentamiento-cono"
-                                label="Asentamiento de Cono (cm)"
-                                type="number"
-                                value={asentamientoCono}
-                                onChange={(event) => {
-                                    const inputValue = Number(
-                                        event.target.value
-                                    );
-                                    setAsentamientoCono(inputValue);
-                                    if (
-                                        inputValue >= rangoCono[0] &&
-                                        inputValue <= rangoCono[1]
-                                    ) {
-                                        setAsentamientoConoError(false); // Valor válido, sin error
-                                    } else {
-                                        setAsentamientoConoError(true); // Valor inválido, con error
-                                    }
-                                }}
-                                error={asentamientoConoError} // Indica si hay error en el valor
-                                helperText={
-                                    asentamientoConoError
-                                        ? `Valor fuera de las especificaciones ${rangoCono[0]} y ${rangoCono[1]} cm`
-                                        : ""
-                                }
-                            />
+
                             <TextField
                                 sx={{ flexGrow: 1 }}
                                 id="temperatura-hormigon"
@@ -566,8 +583,10 @@ export default function HormigonFicha() {
                             <Typography variant="h5" component="div">
                                 Incorporación de Aditivo en la Obra
                             </Typography>
+                            <Typography variant="caption" component="div">
+                                (Opcional)
+                            </Typography>
                         </CardContent>
-
                         <CardContent>
                             <ToggleButtonGroup
                                 value={incorporacionAditivo ? "si" : "no"}
@@ -651,6 +670,38 @@ export default function HormigonFicha() {
                         {/*      )} */}
                     </Card>
                 </Grid>
+                <Grid item xs={12} md={12}>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                Observaciones
+                            </Typography>
+                            <Typography variant="caption" component="div">
+                                (Opcional)
+                            </Typography>
+                        </CardContent>
+
+                        <CardContent>
+                            <TextField
+                                sx={{ flexGrow: 1 }}
+                                fullWidth
+                                multiline
+                                maxRows={0}
+                                id="outlined-controlled"
+                                label="Comentarios"
+                                value={observaciones}
+                                onChange={(
+                                    event: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                    setObservaciones(event.target.value);
+                                }}
+                            />
+                        </CardContent>
+                        {/*  {incorporacionAditivo && ( */}
+
+                        {/*      )} */}
+                    </Card>
+                </Grid>
             </Grid>
 
             {/*  */}
@@ -666,50 +717,66 @@ export default function HormigonFicha() {
                 <Typography variant="h5" fontWeight={700}>
                     Muestras de Hormigón Fresco:
                 </Typography>
-                <Grid
-                    container
-                    spacing={{ xs: 1, md: 2 }}
-                    columns={{ xs: 12, sm: 12, md: 12 }}
-                >
-                    {[...hormigonData].reverse().map((data, index) => (
-                        <Grid item xs={6} sm={3} md={3} key={index}>
-                            <Card variant="outlined">
-                                <CardContent>
-                                    <Typography
-                                        sx={{ fontSize: 14 }}
-                                        color="text.secondary"
-                                        gutterBottom
-                                    >
-                                        Muestra N° {hormigonData.length - index}
-                                    </Typography>
-                                    <Typography
-                                        sx={{ fontSize: 14 }}
-                                        color="text.secondary"
-                                        gutterBottom
-                                    >
-                                        Fecha Muestreo: {data.fechaToma}
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        {data.codigo}
-                                    </Typography>
-                                    <Typography
-                                        sx={{ mb: 1.5 }}
-                                        color="text.secondary"
-                                    >
-                                        Asentamiento Cono:{" "}
-                                        {data.asentamientoCono}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Grado H°: {data.gradoHormigon}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Ver</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    ))}
-                </Grid>
+                <Box mt={4}>
+                    <Grid
+                        container
+                        spacing={{ xs: 1, md: 2 }}
+                        columns={{ xs: 12, sm: 12, md: 12 }}
+                    >
+                        {[...hormigonData].reverse().map((data, index) => (
+                            <Grid item xs={6} sm={3} md={3} key={index}>
+                                <Card variant="outlined">
+                                    <CardContent>
+                                        <Typography
+                                            sx={{
+                                                fontSize: 14,
+                                            }}
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            Muestra N°{" "}
+                                            {hormigonData.length - index}
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                fontSize: 14,
+                                            }}
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            Fecha Muestreo: {data.fechaToma}
+                                        </Typography>
+                                        <Typography
+                                            variant="h5"
+                                            component="div"
+                                        >
+                                            {data.codigo}
+                                        </Typography>
+                                        <Typography
+                                            sx={{ mb: 1.5 }}
+                                            color="text.secondary"
+                                        >
+                                            Asentamiento Cono:{" "}
+                                            {data.asentamientoCono}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Grado H°: {data.gradoHormigon}
+                                        </Typography>
+                                        {data.observaciones && (
+                                            <Typography variant="body2">
+                                                Observaciones:{" "}
+                                                {data.observaciones}
+                                            </Typography>
+                                        )}
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small">Ver</Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
             </Box>
 
             {/* <Box mt={4}>

@@ -168,7 +168,7 @@ export default function ConfigLab() {
                             sx={{ flexGrow: 1 }}
                             fullWidth
                             id="outlined-controlled"
-                            label="Nombre del Laboratorista"
+                            label="Nombre y apellido"
                             value={nombreLaboratorista}
                             onChange={(
                                 event: React.ChangeEvent<HTMLInputElement>
@@ -193,9 +193,11 @@ export default function ConfigLab() {
                                     );
                                 }}
                             >
-                                <MenuItem value={1}>Clase C</MenuItem>
-                                <MenuItem value={2}>Clase B</MenuItem>
-                                <MenuItem value={3}>Clase A</MenuItem>
+                                <MenuItem value={"Ensayista ✌"}>Ensayista ✌</MenuItem>
+                                <MenuItem value={"Clase D"}>Clase D</MenuItem>
+                                <MenuItem value={"Clase C"}>Clase C</MenuItem>
+                                <MenuItem value={"Clase B"}>Clase B</MenuItem>
+                                <MenuItem value={"Clase A"}>Clase A</MenuItem>
                             </Select>
                         </FormControl>
                         <TextField
@@ -237,13 +239,13 @@ export default function ConfigLab() {
                                     setBanda(event.target.value as string);
                                 }}
                             >
-                                <MenuItem value="TM-50a">TM-50a</MenuItem>
-                                <MenuItem value="TM-50b">TM-50b</MenuItem>
-                                <MenuItem value="TM-50c">TM-50c</MenuItem>
+                                <MenuItem value="TM-25">TM-25</MenuItem>
                                 <MenuItem value="TM-40a">TM-40a</MenuItem>
                                 <MenuItem value="TM-40b">TM-40b</MenuItem>
                                 <MenuItem value="TM-40c">TM-40c</MenuItem>
-                                <MenuItem value="TM-25">TM-25</MenuItem>
+                                <MenuItem value="TM-50a">TM-50a</MenuItem>
+                                <MenuItem value="TM-50b">TM-50b</MenuItem>
+                                <MenuItem value="TM-50c">TM-50c</MenuItem>
                             </Select>
                         </FormControl>
                         <Typography
