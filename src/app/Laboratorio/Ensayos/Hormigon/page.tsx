@@ -198,10 +198,14 @@ export default function HormigonFicha() {
     //
     //
     //
+    const saveDataToLocalStorage = (data: DataHormigon[]) => {
+        localStorage.setItem('hormigonData', JSON.stringify(data));
+    };
     const handleDelete = (index: number) => {
         const updatedHormigonData = [...hormigonData];
         updatedHormigonData.splice(index, 1);
         setHormigonData(updatedHormigonData);
+        saveDataToLocalStorage(updatedHormigonData);
     };
     return (
         <main
@@ -718,7 +722,9 @@ export default function HormigonFicha() {
                 Terminar ficha
             </SimpleSnackbar>
             {/* Lista de Hormigones */}
-            <Box mt={4}>
+            <Box mt={4} sx={{
+                width:"100%"
+            }}>
                 <Typography variant="h5" fontWeight={700}>
                     Muestras de Hormigón Fresco:
                 </Typography>
@@ -728,7 +734,7 @@ export default function HormigonFicha() {
                         spacing={{ xs: 1, md: 2 }}
                         columns={{ xs: 12, sm: 12, md: 12 }}
                     >
-                        {[...hormigonData].reverse().map((data, index) => (
+                        {[...hormigonData].map((data, index) => (
                             <Grid item xs={6} sm={3} md={3} key={index}>
                                 <Card variant="outlined">
                                     <CardContent>
