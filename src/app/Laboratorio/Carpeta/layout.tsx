@@ -2,8 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
 export const metadata: Metadata = {
-    title: "Carpeta",
-    description: "Soy el Carpeta",
+    title: "Carpeta | Tamíz.LA",
+    description: "Soy el Muestreo hormigón fresco",
 };
 /*  */
 export default function RootCarpeta({

@@ -198,6 +198,11 @@ export default function HormigonFicha() {
     //
     //
     //
+    const handleDelete = (index: number) => {
+        const updatedHormigonData = [...hormigonData];
+        updatedHormigonData.splice(index, 1);
+        setHormigonData(updatedHormigonData);
+    };
     return (
         <main
             style={{
@@ -770,6 +775,12 @@ export default function HormigonFicha() {
                                         )}
                                     </CardContent>
                                     <CardActions>
+                                        <Button
+                                            size="small"
+                                            onClick={() => handleDelete(index)}
+                                        >
+                                            Eliminar
+                                        </Button>
                                         <Button size="small">Ver</Button>
                                     </CardActions>
                                 </Card>

@@ -2,8 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
 export const metadata: Metadata = {
-    title: "Informes",
-    description: "Soy el Informes",
+    title: "Informes - Laboratorio | Tamíz.LA",
+    description: "Soy el Muestreo hormigón fresco",
 };
 /*  */
 export default function RootMiLaboratorio({

@@ -2,7 +2,7 @@ import { Metadata, ResolvingMetadata } from "next";
 /*  */
 
 export const metadata: Metadata = {
-    title: "Ensayos",
+    title: "Ensayos - Laboratorio | Tamíz.LA",
     description: "Soy el Ensayos",
 };
 /*  */
